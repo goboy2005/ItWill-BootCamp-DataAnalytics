@@ -1,0 +1,93 @@
+Oracle2   폴더를 전부   c 드라이브 밑에 복사하세요
+(설치파일이 있는 경로에 한글이 있으면 설치가 실패할수 있다)
+
+(설치파일이 있는 경로에 한글이 있으면 설치가 실패할수 있다)
+
+오라클?  Database 소프트웨어 :  Data를 장하고 관리하는 저장소 
+(오라클이 세계 1등이다! ) 
+
+SQL?  (Structure Query Language) ,데이터를 검색하고 조작하는 언어 
+         구조적     질의     언어
+
+SQL 을 왜배워야하는가 ? 데이터를 검색하고 다루기 위해서, 
+데이터 분석가, 개발자 등 많은 업무에서 SQL 이 사용되고 있다. 
+
+SQL 은 5가지의 문으로 되어있다!  전체적으로 이 5가지 문을 배우는 수업이다. 
+(핵심은 검색, 내가 찾고 싶은 데이터를 검색하는 기술이 SQL) 
+
+1.Query 문  ---- 데이터를 검색하는 언어 
+                   Select 문의 6가지 절
+2.DML 문 ----Data Manipulation Language (조작)
+                 Insert : 데이터 입력언어
+                 Update : 데이터 수정언어
+                 Delete : 데이터 삭제언어 
+                 Merge : 데이터 입력, 수정 삭제를 한번에
+
+3.DDL 문 : Data Definition Language 
+              Create, alter, drop, trucate, rename  (Total 5) 
+               생성    수정  삭제  삭제    이름변경 
+4.DCL 문 : Data Control Language 
+              Grant : 데이터를 접근(Acess) 할 수 있는 권한 부여 
+              Revoke : 데이터를 엑세스(Acess) 할 수있 권한을 취소 하는것
+
+5.TCL  문 : Transaction Control Language 
+              Commit : 현재의 데이터의 상태를 db에 영구히 저장 
+              Rollback : 지금까지 했던 작업들을 다 취소 하겠다
+              Savepoint : 특정 시점까지 Rollback 할 수 있는것 
+
+Oracle Database 19 c ? 란 무엇인가…  C stands for Cloud
+(인공지능의 한부분인 머신러닝 기능이 내장되어 있다.)
+머신러닝 : 컴퓨터가 스스로 데이터를 학습하여 공부하는 기능 
+
+유방암 데이터 (양성, 악성)  ----  오라클 19c 안에는 머신러닝 기술이 자체적으로 있다, 파이썬 필요 X 
+
+설치시 주의사항 ! 컨테이너 데이터 베이스 생성을 체크해제 해야한다.!  
+비밀번호 : oracle_4U
+
+C drive 에 oracle 3폴더 만들어라 
+ 마우스, 키보드, 거치대, 충전기,이어폰 가져오기 
+
+시작 - Cmd - 도스창 나온다. 도스창의 글씨 크기와 배경색깔을 변경하는법 : 화면 움직이는거 누르고 우측클릭해서 입맛에 맞게 
+
+@ cmd  에서 SQL 여는법  : sqlplus "/ as sysdba"
+@ show user (설명 : sys 는  오라클의 최고 권한자 이다)
+@ cmd 에서 오른쪽 마우스 탁 누르면  Script 가 바로 붙는다 -- 그리고 Enter 누르기
+
+select ename, sal from emp; 
+@select : 검색해라, 조회해라 -- 무엇을? ename, sal 을 / emp table 로부터 
+@From : 어디에서
+@ ; : sql 문장 실행해라 
+
+-Emp (사원) 테이블 컬럼 소개-
+Empno : 사원번호
+Ename : 사원이름
+Sal : 월급
+Job : 직업
+Comm : 커미션 번호
+Mgr : 관리자 번호
+Hiredate : 입사일 
+Deptno : 부서번호 
+
+문제 1. 이름과 월급과 직업을 출력하시오 
+select ename, sal, job from emp;
+문제 2. 이름과 입사일과 부서번호를 출력하시오 
+
+Day 1 복습정리
+
+1.오라클 설치 
+주의사항 : 1.컨테이너 Database 생성체크박스를 반드시 해제해야한다.
+              2. 시작할때 폴더를 2개생성하고 설치를 시작해야함
+                    -oracle 2 : 오라클 설치파일을 둔다
+                    -oracle 3 : 오라클이 설치될 디렉토리
+2.Database 의 종류? 
+      오라클, mssql, mysql, postgreSQL, Maria db 
+        
+
+3.SQl  왜 배워야 하는지? : 원하는 정보를 얻기위해서 , 고객의 Needs를 파악할 수 있다,
+                                  물류회사면 재고현황 파악, 게임회사면 게임의 흥행 여부에 대한 원인파악 
+ 
+단순검색  VS 의미있는 정보를 얻어 내는 검색    
+
+4.SQL 의 종류 ? : 1.Query 2.DML 문,  3.DDL 문, 4.DCL 문, 5.TCL 문 
+
+5.기본 Select 문장 
