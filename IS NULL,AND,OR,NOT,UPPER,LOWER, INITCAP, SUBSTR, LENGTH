@@ -278,3 +278,4 @@ from emp;
     ( select initcap(ename)   from emp;  ) 
 select upper(substr(ename,1,1))||lower(substr(ename,2,10))as "INITCAP(ENAME)"
 from emp;
+
