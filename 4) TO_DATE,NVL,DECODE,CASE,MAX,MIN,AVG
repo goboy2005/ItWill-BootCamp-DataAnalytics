@@ -95,7 +95,6 @@ where group by deptno;
 group by 절이 여러 개 나오려하는 deptno 를 grouping 해준다. 
 group by deptno; 
 
-Day 5 문제
 
 90.직업이 SALESMAN 인 사원들의 이름과 월급과 직업을 출력하는데 월급이 높은 사원부터 출력하시오!
 select ename,job,sal
