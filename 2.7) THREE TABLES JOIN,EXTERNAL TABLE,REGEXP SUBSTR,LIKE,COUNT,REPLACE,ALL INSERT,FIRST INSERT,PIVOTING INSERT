@@ -1,0 +1,615 @@
+	• 기타 SQL 기능들과 수업떄 안다뤘던 주요 SQL 기능들
+
+복습  1. 기본 SQL 문장 : 
+        2. 함수
+        3.조인문   1.오라클 조인문법
+                                      a) EQ join
+                                      b) non equi join
+                                      c) outer join
+                                      d) self join
+                       2. 1999ANSI 문법 
+                                     a) on 절을 사용한 조인
+                                     b) using 절을 사용한 조인
+                                     c) natural 조인       
+                                     d) left/right/full outer  조인
+                                     e ) cross 조인 
+
+하둡만 오라클 지원 안하고 /  1999 ANSI 문법만 사용된다! 
+                      
+        4.서브쿼리
+        5.집합연산자 
+        6.DML 문
+        7.DDL 
+        8.TCL문
+        9.계층형
+       10.With 절 
+       11.제약 
+
+• 3개 이상의 테이블 조인
+
+*2개의 테이블 조인 
+  
+                         연결고리 1 
+              emp  ------------------------dept 
+
+*3개의 테이블 조인 
+                    
+                     연결고리                       연결고리 
+            dept--------------- emp------------salgrade 
+ 
+             기창                   재일                장원석 
+
+
+where 절에다가 and 로
+
+e.deptno = d.deptno   and    e.sal between s.losal and s.hisal
+
+
+426.이름과 부서위치와 월급과 부서번호를 출력하시오!  
+     emp dept 를조인하세요
+
+select e.ename,e.sal,e.deptno,d.loc
+from emp e, dept d
+where e.deptno=d.deptno;
+
+427.emp와 dept 와 salgrade 테이블을 조인해서 이름과 월급과 부서위치와 급여등급(grade)를 출력하시오!
+
+select e.ename,e.sal,d.loc,s.grade
+from emp e , dept d, salgrade s
+where e.deptno=d.deptno and e.sal between s.losal and s.hisal;
+
+emp 가 중앙에서 세개를 이어준다.
+
+428.아래와 같이 bonus 라는 테이블을 생성하시오! 
+
+create table bonus
+as
+select empno,sal*1.5 as bounus 
+from emp
+
+(as 문 써서 emp 에 있는거 뽑아옴) 
+
+
+429.사원이름,월금,부서위치,comm2 를 출력하시오 
+
+select e.ename,e.sal,d.loc,b.comm2
+from emp e, dept d, bonus b
+where e.deptno=d.deptno and e.empno=b.empno and e.sal>2000;
+
+
+430.위의 결과에서 월급이 2000이상인 사원들만 출력하시오! 
+
+select e.ename,e.sal,d.loc,b.comm2
+from emp e, dept d, bonus b
+where e.deptno=d.deptno and e.empno=b.empno and e.sal>2000;
+
+	• 외부 테이블 (external table)
+
+*오라클 테이블의 종류 1. 일반 테이블(heap table)
+                              2. 임시 테이블(temp table)
+                              3. 외부테이블 (external table)             
+                              4.파티션테이블(partition table) 
+
+
+
+외부 테이블(external table) ? Database 외부에 있는 엑셀 파일이나,csv 파일,text 파일을 insert 문으로 만들어서 데이터 베이스에 입력하지 않고도 그냥 링크만 걸어서 해당파일의 데이터를 select 할 수 있는 테이블 ! 
+엑셀을 테이블로 만들고 싶은거 .!! insert 테이블을 만들어서 엑셀을 sql로 넣으려는거지!! 
+
+근데 존나 빡샘 데이터 베이스 테이블 잘해야 한다 절반성공하고 절반은 성공 못한다.
+다 성공하자
+
+예제 1. emp.txt 를 c드라이브 밑에 data라는 폴더를 만들고 그안에 emp.txt 를 넣으시오
+
+
+       2.   c드라이브에 data 폴더를 오라클 디렉토리로 생성하시오! 
+
+
+       3.       create directory emp_dir as 'c:\data';
+
+
+3.외부 테이블을 생성하시오. (외부 테이블 스크립트 사용해서 복붙함…) 
+
+  create table ext_emp11
+         ( EMPNO   NUMBER(10),
+           ENAME   VARCHAR2(20),                                          - 기존과 같음 
+           JOB     VARCHAR2(20),
+……………………………………………………………………………………………………………………………………………………….
+
+  organization external                                                   →   external table 생성하겠다
+          (type oracle_loader                               →   data를 로드하는 엔진을 sql*loader 를 사용해라 (이것이                        
+                                                           자동으로 insert로 만들어준다. 그래서 편안하게 정보 가져옴)
+        
+        
+default directory emp_dir                                                →   emp _dir 를 기본 디렉토리로 하겠다.
+          
+          access parameters                              →   text 파일의 내용을 테이블에 입력하기 문법을 시작하겠다
+           
+
+    (records delimited by newline                  →   행과 행 사이는 엔터로 구분하겠다                           
+            fields terminated by ","                             →   데이터와 데이터는 콤마(,)로 구분하겠다
+           
+     
+      (empno char,                            
+            ename char,                                    
+            job char,
+            mgr char,
+            hiredate date "yyyy/mm/dd",           →   외부 테이블의 컬럼들의 실제 데이터는 문자인데/ 오라클에는
+            sal char,                                        오라클에는 숫자로 입력하겠다는것..Date 제외하고 
+            comm char ,
+            deptno  char  ) )
+            location ('emp.txt') );                          → 링크 걸 텍스트 파일의 위치 
+
+이렇게 하면 insert 안해도 데이터를 슉 가져온다. 현업에서 매우 좋아한다. DB에 자리 안차지 하고 엑셀 파일을 SQL에 바로바로 업로드 가능하다. 
+대용량 엑셀파일이나 text 파일을 db에 넣으려면 시간이 많이 걸립니다. 
+insert로 하면 오래걸린다. db에넣을 떄 공간 부족하다등..시간이 많이 걸린다. 
+
+*외부 테이블의 장점? 
+
+1.database에 저장공간이 필요없다.
+
+2.대용량 데이터인 경우 테이블에 입력하는 시간을 줄일 수 있다. 
+
+4.외부에 있는거 가져오는 문장 
+
+select*from ext_emp11;
+
+432. ext_emp11 테이블을 조회하여 직업이 SALESMAN인 사원들의 이름과 직업과 월급을 출력하시오! 
+
+select ename,job,sal
+from ext_emp11
+where job='SALESMAN';
+
+433.ext_emp11과 dept 를 조인해서 이름과 부서위치를 출력하시오
+
+select e.ename,e.job,e.sal,d.loc
+from ext_emp11 e,dept d
+where e.deptno=d.deptno and e.job='SALESMAN';
+
+조인도 가능하다… 
+
+*external table의 단점? 
+
+1.DML 작업이 안되고 오직 select 만 된다.
+2.익덱스를 생성할 수 없습니다.
+
+434.ext_emp11의 scott 의 월급을 6000으로 갱신하시오! 
+
+확인해보면 안된다….
+
+
+435.dept.txt 를 외부테이블로 생성해서 아래와 같이 select 할 수 있도록 하시오!
+
+select * from ext_dept; 
+
+1.dept.txt를 카페에서 내려받고 c드라이브에 밑에 데이터 폴더 밑에 둔다.
+
+2.ext_emp11 테이블 스크립크를 가져와서 exp_dept 테이블을 만들수 있도록 수정하시오! 
+
+  create directory emp_dir as 'c:\data';
+
+  create table ext_dept
+         ( Deptno   NUMBER(10),
+           Dname   VARCHAR2(20),
+           Loc    VARCHAR2(20)
+default directory dept_dir                                                          
+          access parameters                                    
+    (records delimited by newline                                         
+            fields terminated by ","                            
+      (deptno  char                       
+            Dname char,                                    
+               loc  char  ) )
+            location ('dept.txt') );                          
+
+
+	외부 테이블에 뭐가 있는지 확인하고 삭제하는 방법 
+
+select table_name,external
+from user_tables                                   -----   확인 
+where external = 'YES';
+
+drop table ext_emp11;                           ---     삭제
+
+
+	• 정규식 함수 5가지
+
+"데이터 검색을 좀더 상세하게 하려 할때 기존에 함수로는 표현할 수 없는 검색을 할 수 있게 해주는 함수 "
+
+regular expresssion(정규 표현식) 
+정규 표현식 코드는 오라클 뿐만 아니라 다른 언어에서도 공통적으로 사용하는 표현식 코드입니다.
+오라클 10.1 버젼부터 정규표현식을 지원합니다. 
+오라클 데이터베이스는 정규표현식의 posix 연산자를 지원합니다. 
+Poxis는 포터블 operation system interace의 약자로 시스템간 호환성을 위해 미리 정의된 인터페이스를 의미한다. 
+
+1.regexp_substr
+2.regexp_like
+3.regexp_count
+4.regexp_instr
+5.regexp_replace
+
+Posix 연산자에는 기본연산자,앵커,수량사,서브표현식,역참조 문자 리스트,Posix 문자 클래스등이 있습니다.
+
+	1.Regexp_substr
+
+1.기본 연산자
+      
+        연산자                           영문                           설명 
+           .                                  dot                         모든 문자와 일치
+           |                                  or                           대체 문자를 구분
+          
+          \                                 backslash                다음 문자를 일반 문자로 처리
+
+예제
+select regexp_substr('aab','a.b') as c1,
+        regexp_substr('abb','a.b') as c2
+        regexp_substr('acb','a.b') as c3
+        regexp_substr('adc','a.b') as c4   ---애는 아무것도 안나옴...설정이 안되니까.
+from dual;
+
+
+
+
+dot 이 뭐냐면...이자리에 뭐가 와도 관계가 없다는 뜻이다. 
+
+
+그이건 이해되
+'abc',1,3) 처음부터 3개 짤라버려라…
+
+a.b 부분을 짤라내라는 뜻인데 "." 어디에도 와도 상관이없다요~~ 
+
+대신 셋철자이면 되는 가운데는 뭐가 와도 상관이없다는 뜻이다...
+그래서 마지막은 안짤려버림…
+
+436.이름에 EN또는 IN을 포함하고있는 사원들의 이름과 월급을 출력하시오! 
+
+select ename,sal
+from emp
+where ename like '%EN%' or ename like '%IN%' ;
+
+437.위의 SQL을 정규 표현식 함수인 regexp_like 를 이용해서
+출력하시오!
+
+select ename,sal
+from emp
+where regexp_like(ename,'EN | IN');
+
+정규 표현식 함수
+
+
+438.우리반 테이블에서 전공이 통계,수학,컴퓨터,전자 가 포함된 학생들의 이름과 전공을 출력하시오! 
+
+1.like 사용시
+select ename,major
+from emp12
+where major like '%통계%' or
+             major like '%수학%' or
+             major like '%컴퓨터%' or
+             major like '%전자%'
+
+
+	2.regexp_like 사용시
+
+select ename
+from emp12
+where regexp_like(major,'통계|수학|컴퓨터|전자 ');
+
+훨씬 간단하게 해결이 가능합니다! 
+
+439.employees.scv 파일을 오라클의 테이블로 생성하시오! 
+
+440.이름의 첫글자가 St로 시작하면서 끝글자가 en으로 끝나는 사원들의 first name을 출력하시오! 
+
+select first_name
+from employees
+where substr(first_name,1,2) ='St' and first_name like
+
+select first_name
+from employees
+where regexp_like(first_name,'^St(.)+en%)' );
+
+설명 : ^시작을 나타낸다.   ^시작을 나태내고,
+                                   $ 는 끝을 나타낸다. 
+시작이 St로 시작하면서 끝이 En으로 끝나는 first_name 찾는다. 
+
+근데 가운데 (.) 이것은 무엇이냐.   " (.) + " 은 점(.)을 한자리를 나타내는데 + 가 여러개를 나타내는것이므로 한자리가 여러개인것을 나타낸다.  + 를 스면 St 와 En사이에 여러개의 철자가 와도 된다는 뜻입니다. 
+
+
+441.우리반 테이블에서 성씨가 김씨 또는 허씨이고 끝의 글자가 '민'인  학생들의 이름을 출력하시오
+select ename
+from emp12
+where regexp_like(ename,'^(김|허)(.)+민$');
+
+
+서브표현식
+서브포현식은 표현식을 소괄호로 묶은 표현식입니다.
+서브표현은 하나의 단위로 처리됩니다.
+
+연산자                                     설명
+(표현식)                                괄호 안의 표현식을 하나의 단위로 취급
+   +                                      1회 또는 그이상의 횟수로 일치 
+
+
+
+
+	3.regexp_count 함수
+
+특정 단어나 철자가 문장에서 몇번 반복되어서 출력되는지 확인하는 함수
+
+count ------------------------regexp_count
+           업그레이드! 
+
+우리가 알고 있는  Count는 단수히 테이블의 건수를 세는 함수이다. 
+
+regexp_count → 겨울왕국에서 elsa 가 몇번나오는지 
+
+SELECT REGEXP_COUNT(
+'ccacctttccctccactcctcacgttctcacctgtaaagcgtccctccctcatccccatgcccccttaccctgcag
+ggtagagtaggctagaaaccagagagctccaagctccatctgtggagaggtgccatccttgggctgcagagagaggag
+aatttgccccaaagctgcctgcagagcttcaccacccttagtctcacaaagccttgagttcatagcatttcttgagtt
+ttcaccctgcccagcaggacactgcagcacccaaagggcttcccaggagtagggttgccctcaagaggctcttgggtc
+tgatggccacatcctggaattgttttcaagttgatggtcacagccctgaggcatgtaggggcgtggggatgcgctctg
+ctctgctctcctctcctgaacccctgaaccctctggctaccccagagcacttagagccag',
+'gtc') AS Count
+FROM dual;
+
+위의 긴문장에서 gtc 라는 단어가 몇번나오는가… 이것을 세는것이다. 
+만약에 찾아본다면 찾기 어렵다...ㅠㅠ 
+
+442.겨울왕국(winter kingdom) 에는 elsa 가 몇번 나오나? 
+
+select sum(count(건수)
+from (select win_text,regexp_count(lower(win_text),'elsa') as 건수
+from winter_kingdom);
+
+select sum(regexp_count(숫자,'8',1))
+ from ( select level as 숫자
+     from dual 
+     connect by level<=10000) ;
+                                           -----숫자 에서 8을 찾는데 1번째 자리부터 센다. 
+	5.regexp_replace
+
+replace-----------------------------------regexp_replace
+예제: 이름과  월급을 출력하는데 replace함수를 이용해서 
+숫자 0을 *로 출력하시오! 
+
+select ename,replace(sal,0,'*')
+from emp;
+
+
+
+
+
+예제: 이름과 월급을 출력하는데 월급 숫자 0~3 까지는 * 로 출력하시오!
+
+select ename,regexp_replace(sal,'[0-3]','*')
+from emp;
+
+
+
+0에서 3까지를 별표로 나오게 해라 라고 할수 있다요 있다요!~
+
+443.우리반 테이블에서  이름과 나이를 출력하는데 나이를 출력할때
+아래와 같이 앞의 숫자를  * 로 출력되게 하시오!
+
+select ename, regexp_replace(substr(age,1,1), '[0-9]', '*')||substr(age,2,1) as 나이
+from emp12;
+
+	• 다중 insert 문 
+
+insert into emp(empno,ename,sal)
+            values(1234,'SCOTT',3000);
+
+그동안 배웠던 insert 문장은 한번에 한건만 입력할수 있었습니다. 그중 insert 문을 이용하면 여러개의 테이블에 동시에 같은 데이터를 여러 개 입력할 수 있습니다.
+
+다중 insert 문의 종류4가지
+1.무조건 all insert 문
+2.조건부 all insert 문
+3.조건부 first insert문
+4.pivoting insert 문
+
+1.무조건 alll insert 문
+
+'여러개의 테이블에 조건 없이 한번에 데이터를 입력하는것 ' 
+
+그림으로 표현하자면,   
+
+
+
+예제 : create table target_a
+as
+select *
+from emp
+where 1=2;
+
+create table target_b 
+as
+select * 
+from emp
+where 1=2; 
+
+create table target_c
+as
+select *
+from emp
+where 1=2;     --------- where 절에 1=2 가 거짓이므로 emp테이블에서 가져와서 
+                                target_C 테이블을 생성할때 데이터는 못가져오고 구조만 가져와서 
+                                만든다.
+
+select * from target_c; 
+
+
+
+이렇게 구조만 가지고온다.
+
+select * from target_a;
+select* from target_b;
+select* from target_c;
+
+왜 구조만 가지고왔느냐...데이터를 동시에 insert 하려고 밑바탕 구조를 설정한것이다… 
+
+세개다 데이터 비어있지..넣어보자.. 
+
+insert all into target_a
+            into target_b
+            into target_c
+select *
+from emp; 
+
+
+
+444.우리반 테이블(emp12)를 3개를 emp12_a,emp_b,emp12_c 로 구조만 가져와서 만들고 무조건 all insert 문으로 emp12테이블의 전체 데이터를 3개의 테이블에 동시에 입력하시오! 
+
+ create table emp12_a
+as
+select *
+from emp12
+where 1=2;
+
+create table emp12_b
+as
+select * 
+from emp12
+where 1=2; 
+
+create table emp12_c
+as
+select *
+from emp12
+where 1=2;
+
+insert all into emp12_a
+            into emp12_b
+            into emp12_c
+select *
+from emp12;
+
+자이제 입력된던 정보에 data 를 지워버리고 구조만 남겨두자
+
+truncate table target_a;
+truncate table target_b;
+truncate table tartet_c;
+
+truncate table emp12_a;
+truncate table emp12_b;
+truncate table emp12_c;
+
+-Truncate 는 구조만 남겨두고 데이터를 다 지워버린다.
+
+2.조건부 all insert 문
+
+조건에 맞는 데이터만 입력되게 조건을 주는 입력문
+예제: target_a 테이블에는 comm을 받는 사원들만 입력하고
+       target_b 테이블에는 comm을 받지 않는 사원들만 입력하시오! 
+
+insert all
+      when comm is not null then
+      into target_a(empno,ename,sal,comm)        ----  해설 커미션 null이면 a에 있으면 b에
+   when comm is null then
+into target_b(empno,ename,sal,comm)              
+ 
+select empno,ename,sal,comm)
+select empno,ename,sal,comm
+from emp;
+
+select count(*) from target_a;
+select count(*) from target_b;
+
+insert all
+      when comm is not null then
+      into target_a(empno,ename,sal,comm)        
+   when comm is null then
+into target_b(empno,ename,sal,comm ;           
+ 
+select empno,ename,sal,comm);
+select empno,ename,sal,comm
+from emp;
+
+
+445.emp12 테이블의 데이터를 아래의 3개의 테이블에 입력하는데 
+통신사가 sk면 emp11_sk에 입력하고 lg 면 emp11 에 입력하고 kt 면 emp12_kt 에 입력하시오!
+
+create table emp12_sk as select * from emp12 where 1=2;
+create table emp12_lg as select * from emp12 where 1=2;
+create table emp12_kt as select * from emp12 where 1=2;
+
+이번에도 구조만 따옴…
+
+insert all
+when telecom = 'sk' then into emp12_sk
+when telecom = 'lg' then into emp12_lg
+when telecom = 'kt' then into emp12_kt
+select *
+from emp12; 
+
+그리고 선택적으로 넣은겨 
+
+select * from emp12_sk;
+
+
+
+
+3.조건부 fisrt insert 문 
+
+조건에 맞는 데이터가 첫번째 테이블에 입력되고 남은 나머지 데이터를 가지고 새로운 조건에 맞춰서 두번째 또는 세번째에 입력하는 insert문
+
+예제: 부서번호가 20번인 사원들은 target_a 에 입력하고 
+남은 나머지 부서번호인 사원들의 월급중에서 월급이 1200이상은 target_b 에 입력하고 1200보다 작은 사원은 target_c 에 입력하시오! 
+
+truncate table target_a;
+truncate table target_b;
+turncate table target_c;
+
+insert first
+
+when deptno = 20 then into target_a
+when sal >= 1200 then into target_b
+when sal < 1200 then into target_c
+
+select * form emp;
+
+먼저 처리해주고 FIRST 인것들은 넣어주고 그다음에 순서대로 차례차레 넣어준다잉…
+
+insert first
+ 
+when deptno = 20 then into target_a
+when sal >= 1200 then into target_b
+when sal < 1200 then into target_c
+ 
+select * form emp;
+
+• 4.Pivoting Inset문 
+
+"어렵게 Pivot 문으로 작성하지 않고 Pivoting  insert 문으로 데이터를 입력한 후에 Pivot 문을 사용하지 않은 간단한 SQL로 결과를 보게할때 필요한 insert 문" 
+
+예제 : Create table week_sum_sal
+      (empno number(10),
+      ename varchar2(10),
+      mon number(10),
+      tues number(10),
+       wed (number(10),
+      thur (number(10),
+      fri (number(10));
+
+insert into week_sum_sal
+select empno,ename,sal*0.1,sal*0.2,sal*0.3,sal*0.4,sal*0.5
+from emp;
+
+446.week_sum_sal 에서 이름,일당을 다 합친 주급을 출력하시오!
+
+select ename,mon+tue+wed+thur+fri
+from emp week_sum_sal;
+
+설명 : 위와 같이 sum 그룹함수를 이용하지 못하고 컬림을 만드는데 복잡하다.
+그래서 이것을 Pivoting insert 문으로 구현합시다
+
+create table sales_info
+(ename varchar2(10),
+sal number(10) ) ;
+
+insert all into sales_info values (ename,mon)
+            into sales_info values (ename,tues)
+            into sales_info values (ename,wed)
+            into sales_info values (ename,thur)
+            into sales_info values (ename,fri)
+
+select ename,mon,tues,wed,thur,fri
+from week_sum_sal;
