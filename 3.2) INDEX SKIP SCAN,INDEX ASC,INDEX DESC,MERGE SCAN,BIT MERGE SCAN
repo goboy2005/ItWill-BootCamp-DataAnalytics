@@ -1,0 +1,556 @@
+
+■ SQL 튜닝 목차
+
+ 1. 인덱스 SQL 튜닝
+ 2. 조인 문장 튜닝
+ 3. 서브쿼리 문장 튜닝
+ 4. 데이터 분석함수를 이용한 튜닝
+ 5. 자동 SQL 튜닝
+
+■  1. 인덱스 SQL 튜닝
+
+■ 인덱스 엑세스 방법 8가지 방법
+
+ 인덱스 엑세스 방법                               힌트 
+1. index  range  scan                             index
+2. index  unique scan                             index
+3. index  skip  scan                               index_ss
+4. index  full  scan                                index_fs
+5. index  fast  full  scan                         index_ffs
+6. index  merge  scan                           and_equal
+7. index  bitmap  merge scan                 index_combine
+8. index join                                                index_join
+
+■ index  skip  scan      
+
+  1. 단일 컬럼 인덱스 :  컬럼을 하나로 해서 만든 인덱스 
+
+    예제:  create  index  emp_deptno
+              on  emp(deptno);
+
+  2. 결합 컬럼 인덱스 :  컬럼을 여러개로 해서 만든 인덱스 
+
+   예제:  create  index  emp_deptno_sal
+              on  emp(deptno, sal);
+
+* emp_deptno_sal 결합 컬럼 인덱스의 구조 (  컬럼값 + rowid )
+
+ select  deptno, sal,  rowid
+    from  emp
+    where  deptno >= 0;
+
+설명:  deptno 를 먼저 ascending 하게 정렬하고 그것을  기준으로
+         sal 을 ascending 하게 정렬되겠금 인덱스를 구성하고 있습니다. 
+
+* 결합 컬럼 인덱스가 필요한 이유 ?
+
+  인덱스에서 데이터를 읽어오면서 테이블 엑세스를 줄일수 있기 때문입니다.
+  ( 목차 )                                 (책)
+
+ 내가 검색하고자 하는 데이터가 목차에 있어서 책 안뒤지고 목차에서만
+ 읽고 끝났다면 빠르게 데이터를 검색한 것입니다. 
+ 책 보다는 목차가 훨씬 두께가 얇으므로 목차에서 원하는 데이터를 찾는게
+ 책에서 찾는것보다 훨씬 속도가 빠릅니다.
+
+ * 인덱스 목록을 조회합니다.
+
+  select  index_name
+    from   user_indexes
+    where  table_name='EMP'; 
+
+* 단일 컬럼 인덱스를 통해서 테이블 엑세스 
+
+ select  /*+ gather_plan_statistics  index(emp  emp_deptno) */ 
+          deptno, sal
+   from  emp
+   where  deptno = 10;         
+       
+SELECT * FROM TABLE(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+* 위의 쿼리를 결합 컬럼 인덱스를 통해서 조회해봅니다.
+
+ select  /*+ gather_plan_statistics  index(emp  emp_deptno_sal) */ 
+          deptno, sal
+   from  emp
+   where  deptno = 10;         
+       
+SELECT * FROM TABLE(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+설명:  버퍼의 갯수 4개에서 2개로 줄어들면서 성능이 2배 빨라졌습니다. 
+        현업에서는 주로 단일 컬럼 인덱스보다는 결합 컬럼 인덱스가 많습니다.
+      
+select  index_name
+ from  user_indexes
+  where table_name='EMP';
+
+23.  아래의 쿼리가 인덱스를 통해서만 데이터를 가져오고 테이블 엑세스
+ 를 하지 않도록 결합컬럼 인덱스를 생성하시오 !
+
+select  /*+ gather_plan_statistics */  empno, ename, sal, deptno
+   from  emp
+   where  empno = 7788;
+                        
+답:     create   index   emp_index1
+          on   emp(empno, ename, sal, deptno);
+
+24.  @demo 스크립트를 다시 돌리고  아래의 SQL을 튜닝하시오 !
+ index  fast  full scan 이 되도록 튜닝하시오 ! 
+ (1. 인덱스 생성,  2. not null 제약 건다.  3. 힌트주고 쿼리 작성 )
+
+select  /*+  gather_plan_statistics */ job, count(job)
+  from  emp
+  group  by  job; 
+
+1. 인덱스 생성 
+
+ create  index  emp_job   on  emp(job);
+
+2. not null 제약 생성 
+
+alter  table  emp
+  modify   job    constraint  emp_job_nn   not  null ;
+
+3. 힌트를 사용한 쿼리문 작성
+
+select  /*+  gather_plan_statistics  index_ffs(emp emp_job) */ job, count(job)
+  from  emp
+  group  by  job; 
+
+* 인덱스 엑세스 방법                             힌트 
+  
+ 1. index  range  scan                           index
+ 2. index  unique  scan                          index
+ 3. index  full  scan                               index_fs
+ 4. index  fast  full  scan                        index_ffs
+
+
+25. 다시 @demo 스크립트를 돌리고 아래의 SQL이 index fast full scan
+이 되도록 튜닝하시오 ! ( 1. 인덱스 생성, 2. not null 제약 생성,
+3. 힌트를 사용한 쿼리문 작성)
+
+튜닝전:  select  /*+  gather_plan_statistics */  deptno, count(empno)
+               from  emp
+               group  by deptno ;
+
+1. 인덱스 생성
+   create   index  emp_deptno_empno   on  emp(deptno, empno);
+
+2. not  null 제약 생성
+    alter  table  emp  
+      modify   deptno  constraint  emp_deptno_nn  not  null; 
+
+설명: not null 제약을 걸어주는 이유는 인덱스를 목차로 보면
+       목차 페이지에 빈페이지가 없다는것을 보장하기 위해서 입니다.
+
+3. 힌트를 사용한 쿼리문 작성 
+
+ select  /*+  gather_plan_statistics index_ffs(emp emp_deptno_empno) */ 
+               deptno, count(empno)
+               from  emp
+               group  by deptno ;
+  
+
+26.  @demo 를 돌리고  아래의 인덱스를 생성하고 아래의 SQL을 
+ 튜닝하시오 ! ( min 과 group by 를 사용하지 말고 똑같은 결과가
+ 출력되게하시오)  
+
+힌트: 결합 컬럼 인덱스의 구조를 이해하면 풀수 있는 문제입니다.
+
+create   index  emp_deptno_sal  on  emp(deptno, sal) ;
+
+튜닝전:  select  /*+ gather_plan_statistics */  deptno,  min(sal)
+              from  emp
+              where  deptno = 20
+              group  by deptno; 
+                         
+                   ↓
+ 
+튜닝후:  select  /*+ gather_plan_statistics index_asc(emp emp_deptno_sal) */
+                deptno, sal 
+              from  emp
+              where  deptno = 20  and  rownum = 1; 
+
+설명: 실행계획에 sort 라는 말이 나오면서 데이터를 정렬했다고 나오는
+       실행계획은 좋은 실행계획은 아닙니다. 정렬하는데 시간이 걸리기 
+       때문입니다. 
+
+27. 아래의 SQL을 튜닝하시오 !
+
+튜닝전 :  select /*+ gather_plan_statistics */  deptno, max(sal)
+              from  emp
+              where deptno = 20
+              group  by deptno ; 
+
+                        ↓
+ 
+튜닝후:  select  /*+ gather_plan_statistics index_desc(emp emp_deptno_sal) */
+                deptno, sal 
+              from  emp
+              where  deptno = 20  and  rownum = 1; 
+
+
+28.  아래의 SQL을 튜닝하시오 ! ( 인덱스도 직접 생성하세요) 
+
+튜닝전:    select   job,  max(hiredate)
+                 from   emp
+                 where  job='SALESMAN'
+                 group  by   job; 
+
+                    ↓
+ 
+튜닝후:  
+ create  index  emp_job_hiredate  on  emp(job, hiredate); 
+
+ select  /*+  gather_plan_statistics  index_desc(emp emp_job_hiredate) */
+             job,  hiredate
+        from  emp
+        where  job='SALESMAN'  and rownum = 1;
+
+
+	•  index  skip  scan 
+
+ " 인덱스를 full scan 또는 fast  full scan 으로 전체 스캔하는게 아니라
+   중간중간 skip 해서 원하는 데이터를 검색하는 스캔 방법 "
+  
+   검색할 필요가 없는 부분을 skip 하는 scan 방법 
+
+*  emp_deptno_sal  인덱스의 구조 
+
+ @demo
+ create  index  emp_deptno_sal  on  emp(deptno, sal);
+ select  deptno, sal, rowid
+   from  emp
+   where deptno >= 0; 
+
+※ 중요설명 :  쿼리문에서 결합 컬럼 인덱스를 사용하려면 쿼리문의 where 절
+                 에 결합 컬럼 인덱스의 첫번째 컬럼이 where 절에 반드시 
+                 있어야 합니다.
+
+ emp_deptno_sal
+  
+1. emp_deptno_sal 결합 컬럼 인덱스의 첫번째 컬럼인 deptno 가 
+   where 절에 있을 경우 index range scan 으로 실행됩니다.
+
+ select /*+ gather_plan_statistics index(emp  emp_deptno_sal) */ 
+              ename, deptno, sal
+   from  emp
+   where  deptno = 20;
+
+2. emp_deptno_sal 결합 컬럼 인덱스의 두번째 컬럼이 where 절에 
+   있으면  실행계획이  index full scan 또는 table full scan  으로   스캔합니다. 
+
+ select /*+ gather_plan_statistics index(emp  emp_deptno_sal) */ 
+              ename, deptno, sal
+   from  emp
+   where  sal = 2975 ;
+
+설명:   위와 같이 index  range  scan 으로 출력되지 않고 index full scan 으로
+          출력되고 있습니다. 그러면 성능이 좋지 않으므로 이를 해결하기 위한
+          방법이 index skip scan 입니다.
+
+
+* index  skip  scan 의 원리 
+
+select  deptno, sal, rowid
+  from   emp
+  where  deptno >= 0;
+
+ select /*+ gather_plan_statistics index(emp  emp_deptno_sal) */ 
+              ename, deptno, sal
+   from  emp
+   where  sal = 2975;
+
+설명:  deptno 와는 다르게 sal 은  emp_deptno_sal  인덱스에서 
+         deptno 처럼 정렬되어 있지 않기 때문에 월급이 2975 를 조회하기
+        위해  인덱스를 처음부터 끝까지 다 full 로 scan 해야 합니다.
+        그러면서 불필요한 데이터까지 다 스캔을 해야하는 일이 벌어집니다.
+
+그러면 결합 컬럼 인덱스를 index range scan 할 수 있는 방법은 무엇인가?
+
+ 답:  deptno 를 선두 컬럼으로 두는게 아니라 sal 을 선두 컬럼을 두고
+       인덱스를 다시 생성하면 됩니다.
+
+drop   index   emp_deptno_sal;
+  
+@demo
+
+create  index  emp_deptno_sal
+     on  emp(deptno, sal);
+
+ select /*+ gather_plan_statistics index(emp  emp_deptno_sal) */ 
+              ename, deptno, sal
+   from  emp
+   where  sal = 2975;              
+                         
+ select  deptno, sal, rowid
+ from  emp
+ where  deptno >=0 ;
+
+설명:   index  skip scan 은 emp_deptno_sal 인덱스를  처음부터 끝까지 
+         읽는것은 index  full  scan 과 같지만 중간중간 검색을 skip 할 수 
+         있습니다.  10번 부터 조회해서 월급이 2975가 있는지 찾아보고
+          20번도 조회해서 월급이 2975가 있는지 찾아보고 있으면 거기까지만
+          검색하고 나머지는 skip 합니다. 그리고 30번도 2975가 있는지
+          조회합니다.   
+
+ select /*+ gather_plan_statistics index_ss(emp  emp_deptno_sal) */ 
+              ename, deptno, sal
+   from  emp
+   where  sal = 2975;         
+
+29. 다시 @demo 스크립트를 수행하고 아래의 SQL 이 index skip scan 
+이 되도록 튜닝하시오 !
+
+@demo  <----  기존 테이블이 drop 되고 다시 생성되면서 
+                     기존 인덱스들이 다 사라집니다. 
+
+create   index  emp_job_sal   
+on   emp(job, sal);
+
+select  /*+ gather_plan_statistics index_ss(emp emp_job_sal) */  
+           empno, ename, job, sal
+   from  emp
+   where sal = 1250;
+
+* index skip scan 이 효과를 보려면 결합 컬럼 인덱스의 첫번째 컬럼의 
+   데이터의 종류가 몇가지 안되어야 효과를 봅니다. 
+
+ 부서번호가 10, 20, 30 만 있을때와
+ 부서번호가 10, 20, 30, 40, 50, ........................  1000 있을때 
+ 전자가 skip 할 수 있는 확률이 더 높으므로 선두 컬럼의 데이터의 종류가
+ 적어야 유리합니다.
+
+30.   직업의 종류가 몇가지 입니까 ?     
+
+  결과 :  5  
+
+  select   count( distinct  job )
+    from  emp; 
+
+* 인덱스 엑세스 방법                             힌트 
+  
+ 1. index  range  scan                           index
+                                                               index_asc :  index  ascending 하게 스캔
+                                                               index_desc : index descending 하게 스캔
+ 2. index  unique  scan                          index
+ 3. index  full  scan                               index_fs
+ 4. index  fast  full  scan                        index_ffs
+ 5. index  skip  scan                             index_ss 
+ 
+	• index_asc 와 index_desc 힌트를 사용해서 튜닝하는 방법 
+
+  " order  by 절을  너무 자주 사용하면 성능이 떨어집니다. "
+    대용량 데이터 베이스 환경에서는 더욱 그렇다. 
+
+31.  @demo 를 돌리고 아래의 인덱스를 생성한후 아래의 SQL을 튜닝
+ 하시오 !
+
+@demo
+create  index  emp_sal  on  emp(sal);
+
+튜닝전:   select  /*+ gather_plan_statistics */  ename, sal
+             from  emp
+             order  by  sal  desc; 
+                             
+                        ↓
+튜닝후:  select  /*+ gather_plan_statistics 
+                         index_desc(emp emp_sal)  */  ename, sal
+             from   emp
+             where  sal >= 0;
+
+설명: index_desc 힌트가 작동하려면 인덱스 컬럼이 where  절에 
+        검색조건으로 있어줘야 합니다.
+
+32. 아래의 SQL을 튜닝하시오 !( 실행계획에 SORT 가 있지 않게 하시오)
+ max 함수 사용하지 말고 인덱스에서 데이터를 읽어오게 튜닝하시오
+
+튜닝전 :  select  /*+ gather_plan_statistics */  max(sal)
+               from  emp; 
+   
+                          ↓
+튜닝후:   select  /*+ gather_plan_statistics index_desc(emp emp_sal) */ sal
+              from  emp
+              where sal >= 0  and rownum = 1;
+
+33. 아래의 SQL을 튜닝하시오 ! ( emp 테이블을 한번만 엑세스해서 결과가
+나오게 하시오)
+
+튜닝전: 
+select  /*+ gather_plan_statistics */ ename, sal
+  from  emp
+  where  sal =  ( select   max(sal)
+                        from  emp ); 
+
+ 버퍼의 갯수 3개 
+                         ↓
+튜닝후:   
+ select  /*+ gather_plan_statistics  index_desc(emp emp_sal) */ ename, sal
+  from  emp
+  where  sal >= 0  and  rownum = 1; 
+    
+34.  @demo 를 돌리고 아래의 SQL 을 튜닝하시오 ! (order by 절 안쓰고
+ 출력되게하시오 !)
+
+@demo
+create  index  emp_deptno_sal  on  emp(deptno, sal) ;
+
+튜닝전:   select /*+ gather_plan_statistics */  empno, deptno, sal
+                  from  emp
+                  where  deptno = 20
+                  order  by  sal  desc; 
+                      ↓
+튜닝후: 
+ select /*+ gather_plan_statistics  index_desc(emp  emp_deptno_sal) */ 
+                 empno, deptno, sal
+   from  emp
+  where  deptno = 20;
+
+35. @demo 를 돌리고 아래의 SQL 을 튜닝하시오 !
+ ( 인덱스도 직접 생성하세요)
+
+@demo
+튜닝전 :  select /*+ gather_plan_statistics */ ename, hiredate
+              from  emp
+              where  to_char(hiredate, 'RRRR') ='1981'
+              order by  hiredate  desc; 
+                         
+                           ↓
+튜닝후:   create  index  emp_hiredate  
+             on  emp(hiredate); 
+
+        select /*+ gather_plan_statistics  index_desc(emp emp_hiredate) */ 
+              ename, hiredate
+              from  emp
+              where  hiredate  between   to_date('1981/01/01', 'RRRR/MM/DD')
+                                    and         to_date('1981/12/31', 'RRRR/MM/DD');
+
+36.  @demo를 돌리고 아래의 SQL을 튜닝하시오 !
+(결합 컬럼 인덱스를 직접 생성하세요 !)
+
+@demo
+튜닝전:  select   /*+ gather_plan_statistics */  ename, job, sal
+            from  emp
+            where  substr(job, 1, 5 )='SALES'
+            order by  sal  desc;
+                       ↓
+튜닝후:  create  index emp_job_sal   on  emp(job, sal);
+
+ select   /*+ gather_plan_statistics  index_desc(emp emp_job_sal) */  
+             ename, job, sal
+   from  emp
+   where  job  like  'SALES%' 
+         
+
+	• index  merge  scan 
+
+    "두개의 인덱스를 동시에 사용하여 하나의 인덱스만 사용했을 때보다
+     더 좋은 성능을 보이는 스캔 방법"
+  
+예제:   @demo  <---  테스트 잘되도록 초기화하는것 !!
+          create  index  emp_deptno  on  emp(deptno);
+          create  index  emp_job       on  emp(job); 
+
+          아래의 SQL의 실행계획을 확인하세요!
+select  /*+ gather_plan_statistics */  ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+            ↑                              ↑
+          인덱스                        인덱스 
+37. 위의 SQL이 deptno 걸린 인덱스를 타도록 힌트를 주고 실행하시오 !
+
+select  /*+ gather_plan_statistics index(emp emp_deptno) */  
+           ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+
+38. 이번에는 job 에 걸린 인덱스를 타도록 힌트를 주고 실행하시오 !
+
+select  /*+ gather_plan_statistics index(emp emp_job) */  
+           ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+
+설명:  job 과 deptno 단일 컬럼 인덱스를 각각 걸었고 그리고 위의 SQL의
+        조건절에서는 두개의 컬럼을 다 사용해서 데이터를 검색하고 있습니다
+        그러면 2개중에 어느 하나의 인덱스를 사용해야하는데  어떤 컬럼의
+        인덱스를 사용하는게 더 성능에 좋을까요 ?
+
+        목차를 길게 읽는것보다 목차를 짧게 읽는게 더 좋은 목차(인덱스)     
+        입니다. 
+                  where  job ='SALESMAN'  and deptno=30;
+
+        select  count(*)  from emp  where  job='SALESMAN';  --4개
+        select  count(*)  from emp  where  deptno = 30;  -- 6개 
+
+select  /*+ gather_plan_statistics  index(emp emp_job)   */  
+           ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+
+ 스스로 학습하는 옵티마이져여서 자리마다 실행계획이 다르다. 
+
+ 위와 같인 상황일 때 2개의 인덱스를 모두 사용해서 더 큰 시너지 효과를
+  일으켜보자 라는게 index merge scan 입니다. 
+
+select  /*+ gather_plan_statistics  and_equal(emp  emp_job  emp_deptno)   */  
+           ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+
+ 버퍼의 갯수가 8 개 입니다. 
+
+설명: 위의 스캔 방법은 옛날 방법입니다. 이 스캔 방법보다 더 좋은 스캔방법이
+       나왔는데 그게 바로 index  bitmap  merge  scan 
+
+	•  7. index  bitmap merge scan                
+
+    두개의 인덱스를 같이 스캔해서 시너지 효과를 보는 방법은 
+     index  merge scan 과 동일하지만 차이가 있다면 
+    bitmap 을 이용해서 인덱스의 사이즈를 아주 많이 줄인다는게 
+   차이점 입니다. 그래서 인덱스를 스캔하는 시간이 짧아집니다. 
+ 
+예:  책의 내용을 검색하기 위해서 두개의 목차를 먼저 읽고 요약해서
+      목차를 A4 한페이지로 만들어 버리면 목차를 빠르게 검색할 수 있기
+      때문에 책(테이블)의 데이터를 찾기가 쉬워진다. (빨라집니다.)
+
+ 힌트:  index_combine 
+
+select  /*+ gather_plan_statistics  index_combine(emp)   */  
+           ename, deptno, job
+  from  emp
+  where  job ='SALESMAN'  and deptno=30;
+
+  버퍼의 갯수가 3개로 index merge 보다 좋아졌습니다.
+
+xe 버전은 안되고  일반 enterprise edition 버젼에서만 수행됩니다. 
+
+
+* 인덱스 엑세스 방법                             힌트 
+  
+ 1. index  range  scan                           index
+                                                               index_asc :  index  ascending 하게 스캔
+                                                               index_desc : index descending 하게 스캔
+ 2. index  unique  scan                          index
+ 3. index  full  scan                               index_fs
+ 4. index  fast  full  scan                       index_ffs
+ 5. index  skip  scan                             index_ss 
+ 6. index  merge  scan                          and_equal
+ 7. index  bitmap merge scan             index_combine
+ 8. index  join                                         index_join
+
+	• index  join   스캔 방법
+
+ 인덱스끼리 조인을 해서 바로 결과를 보고 테이블 엑세스는 따로 하지
+  않는 스캔 방식 
+
+ 힌트:  /*+  index_join(emp  emp_deptno  emp_job) */ 
+
+@demo
+
+create  index  emp_deptno  on  emp(deptno);
+create  index  emp_job  on  emp(job);
+
+select  /*+ gather_plan_statistics  index_join(emp  emp_deptno  emp_job) */ 
+         deptno, job
+   from  emp
+   where  job='SALESMAN'  and deptno = 30;
