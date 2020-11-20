@@ -1,0 +1,517 @@
+
+ SQL 튜닝 목차
+1.인덱스 SQL 튜닝
+2.인덱스 
+
+1.Index range scan
+인덱스를 range(부분) 하게 먼저 스캔하고 인덱스에서 얻은 rowid로 테이블의 데이터를 엑세스 스캔하는방법
+
+예: 목차(인덱스)  + 책(테이블) 
+     
+rowid 는 책의 PAGE 라고 이해하면 편하다! 책의 PAGE 번호가 Rowid 이다! 
+
+책의 페이지 번호는인덱스에 있다. 인덱스가 없다면 책을 풀스캔 할 수밖에 없는데. 인덱스의 목차를 통해서 책의 page번호를 바로 찾아갈수있다. INDEX 가없다면 원하는 데이터를 검색하기 위해서 Full table scan 할 수밖에 없지만..인덱스가 있다면 인덱스(목차)를 통해서 먼저 데이터를 검색하고 인덱스의 rowid를 통해서 테이블을 엑세스 할수 있게 됩니다. 
+
+예 
+Select ename,sal
+     from emp
+        where ename = 'BLAKE' ;
+
+create index emp_ename        ----이름을 설정 
+on emp(ename) ;                  ---어디서 가져올지 확인 
+
+그래서 인덱스를 만들어주기만해도 20번걸리는게 0.02초만에 나오기도 하고 그런다! 
+
+select /*+ gather plan_statistics*/ ename,sal             ----- 이걸로보면 버퍼도나온다.
+from emp
+where ename='BLAKE';
+
+select *from table(dmbs_xplan.display_cursor(null,null,'ALLSTATS LAST));
+
+Full table scan emp 테이블을 처음부터 끝까지 다 스캔한 것입니다.
+
+*위의 SQL 인덱스 스캔이 될 수 있도록 실행계획을 보시오
+	
+select /*+ gather plan_statistics*/ ename,sal    
+from emp
+where ename='BLAKE';
+	
+select *from table(dmbs_xplan.display_cursor(null,null,'ALLSTATS LAST)');
+	                        ↓                  ↓
+	                    패키지         프로시져     (인자값1,인자값2, 모든통계를 보여줘)
+	
+설명 : *+ gather plan_statistics*  : 실제 실행계획을 보는힌트
+
+실행계획 2가지 ?   1. 예상 실행계획 : SQL을 실행하기 전에 실행계획을 예상한계획
+                         2. 실제 실행계획 : SQL을 직접 실행하면서 바로 그 나오는 실제 실행계획 
+
+expalin plan for
+select ename,sal
+from emp
+where ename='BLAKE'; 
+
+select * from (table dbms_xplan.display)   → 요것은 1. 예상 실행계획이다... 
+
+index(emp emp_ename) - emp 테이블의 emp_ename 라는 뜻이다.
+
+
+
+순서가 저렇게 간다 먼제 인덱스 RANGE SCAN하고 
+ROWID 로 테이블로 순서로 간다
+
+*Buffer 의 갯수는 그 SQL을 처리하기 위해서 읽어들인 메모리 블럭의 개수 입니다.
+
+create index emp_job 
+on emp(job);
+
+: select ename,sal,job
+               from emp
+                   where substr(job,1,5)='SALES'
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+                   
+                    ↓
+
+select /*+ gather plan_statistics*/ sal,job    
+from emp 
+where substr(job,1,5,)= 'SALES';
+	
+select *from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST)');
+
+튜닝을 했는데도 Full scan을 해버렸다… 
+
+설명 : 좌변을 가공하 인덱스 스캔을 할 수 없습니다.
+                                 ↓
+
+튜닝후!
+select /*+ gather plan_statistics*/ sal,job    
+from emp 
+where job like 'SALES%';
+
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+(좌변을 가공하지 않은 형태로만들어 졌기에 가능하다)
+
+문제3. 아래의 SQL을 튜닝하시오
+
+create index emp_sal 
+on emp(sal);                      ----인덱스를 우선 생성 
+
+
+select /*+ gather plan_statistics*/ ename,sal    
+from emp 
+where sal*12 =36000;
+
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+                     ↓ 
+
+select /*+ gather plan_statistics index(emp emp_sal)*/ ename,sal  
+from emp 
+where sal = 36000/12;
+
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+(이것 역시 좌변가공을 풀어주었다) 
+
+4.아래의 SQL을 튜닝하시오! 
+("좌변을 가공하면 안된다!!!)
+
+create index emp_hiredate
+on emp(hiredate);
+
+select /*+ gather_plan_statistics*/ ename,hiredate
+from emp
+where to_char(hiredate,'RRRR') ='1980'
+
+                         ↓
+
+select /*+ gather_plan_statistics index(emp emp_hiredate)*/ ename,hiredate
+from emp
+where hiredate = between to_date('1980/01/01','RRRR/MM/DD') and
+                                    to_date('1980/12/31','RRRR/MM/DD');
+
+                                    
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+(이것 또한 가공을 between 사용해서 풀어줌)
+
+문제5.아래의 SQL 을 튜닝하시오! 
+
+create index emp_empno 
+on emp(empno);
+
+select /*+ gather_plan_statistics*/ empno,ename,sal
+            from emp
+            where empno||ename = '7788SCOTT'; 
+                      ↓
+                          요놈 기능을 배웠다. (OR 형태이다.)                    
+
+Select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST')); 
+
+                              ↓                 ↓
+             
+select /*+ gather_plan_statistics*/ empno,ename,sal
+            from emp
+            where empno=7788 and ename='SCOTT' ;
+               
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+
+(이것 또한 가공을 풀어준것이다) 
+
+
+6. 아래의 SQL을 튜닝하시오!
+
+select/*+ gather_plan_statistics*/ename,sal
+from emp
+where sal = '3000';
+숫자형 = 문자형  
+
+설명: 오라클이 암시적으로 문자형을 숫자형으로 변경해주었다.
+숫자형이 더 우선순위가 높기 떄문이다.
+
+문자형을 숫자형으로 바꿔줘서 애를 숫자형으로 임으로 바꿔줘버린다 ~~ 
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+7.아래의 SQL을 튜닝하시오! 
+
+select/*+ gather_plan_statistics*/ ename,sal
+            from emp
+           where sal like '30%';
+                     ↓           ↓
+                  숫자형       문자형 
+
+설명: 위의 SQL의 계획 숫자형이 문자형으로 바꿔버림...이렇게 못한이유가 %를 숫자로 못바꾸니까 숫자를 문자로 바꿔준것이다.
+
+튜닝할떄 SQL 튜너들이 가장 찾기 어려운것이 이러한 것들이다...좌변을 가공안했는데 안되는경우가있다. 
+힌트는 훈수같은것이라 훈수를 줘도..프로그램이지만 훈수대로 안해요!! 무시당함 
+
+SQL 에서 조건절에 LIKE 를 자주 사용하는 쿼리의 테이블의 컬럼은 테이블 생성시부터 숫자형이 아니라 문자형으로 만들어줬어야 합니다.
+근데 테이블 생성하는 사람 (데이터 모델러들이) 잘못만들어놓고 하면 개발자들이 엄청고생한다. 왜냐면 성능이 안나오기떄문이다. 
+그럼 SQL 튜너들이 들어가서 고쳐준다. (이것은 where 쪽에 함수가 없는데도 안되는경우라 이해)
+
+                          ↓             ↓
+
+함수기반 인덱스를 생성해서 튜닝합니다.  ????????????????????????????????
+
+create index emp_sal_func
+on emp( to_char(sal) );
+
+select/*+ gather_plan_statistics index (emp_sal_func)*/ ename,sal
+            from emp
+           where sal like '30%';
+
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+
+*암시적 형변환 사용시 주의 사항
+
+select ename,job,sal
+from emp
+order by sal desc; 
+
+select decode(job,'PRESIDENT'),null,sal) 
+from emp; 
+
+---사장만 Null 이되고 모두 sal 이나왔다.
+
+9.위의 결과에서 최대값을 출력하시오!
+
+select max(decode(job,'PRESIDENT',null,sal))
+from emp;
+
+
+
+왜 30000이 안나오고 950이 나왔나...우리가 위에 정렬했을때 king 다음이 3000인데 … 뭘까유 
+
+950이 나온이유는 암시적 형변환 때문입니다. 암시적 형변환이 좋은게 아니다. 오라클한테 너가 알아서 해라 말하는게 항상좋은건 아니다. 
+오라클한테 어찌어찌하라고 말을 해줘야한다. Decode 함수 사용시 우리가  decode(job,'PRESIDENT',null,sal) 
+이렇게 세번째 인자 값이 null 이면 4번째 인자값이 암시적 형변환에의해 문자값으로 바뀌게 된다.
+애가 문자가 되서 나온다. 월급이 문자로 나온거야..  --즉     select to_char(sal) as salary         
+                                                                    from emp
+                                                                        order by salary desc; 
+
+
+이유가 문자형으로 봤을떄 9가 제일 크고 그다음이 8...제일 작은게 1이 된다.숫자형과 문자형의 크기를 순서 방식이 다르다! 
+
+설명: 월급을 문자형으로 변환하게 되면 숫자 9가 앞에 있는 값이 제일 큰값이 됩니다.  그래서 사고가 난겨 
+ 
+10.그러면 아래의 SQL을 수정해서 원래 예상했던 값이 출력되게 
+암시적 형변환이 일어나지 않도록 SQL을 수정하시오! (9연결)
+
+select max(decode(job,'PRESIDENT',0,sal))
+from emp;
+
+null 이 아니라 0으로 바꿔주면 됩니다! 
+
+인덱스 엑세스 방법 8가지
+
+1.index range scan,
+'non unique' 한 인덱스를 엑세스하는 스캔방법'
+
+*인덱스의 종류
+ 1. unique 인덱스 : 값이 중복되지 않고 unique해야 생성되는 index 
+ 2. non unique 인덱스 : 값이 중복되어도 상관없이 그냥 생성되는 index 
+
+예제: 
+1@demo.sql
+create unique index emp_empno on emp(empno);    ----생성됨
+create unique index emp_deptno on emp(empno);    ----생성안됨 
+
+이유는 deptno 는 Data가 중복되어있다.  그래서 index가 안 만들어진다. 
+
+
+11.사원이름에 non unique 인덱스를 걸고 이름이 SCOTT 인 사원의 이름과 월급을 조회하는 쿼리문의 실제 실행계획을 확인하시오! 
+
+create index emp_ename 
+on emp(ename)
+
+select /* +gather_plan_statistics index(emp emp_ename)*/empno,ename,sal
+from emp
+where ename!='SCOTT' ;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+인덱스를 2 이상 읽으면 RANGE SCAN 이다 이것은 non uniqe scan으로 걸어서 하나 더 읽은것이다.
+
+설명: 인덱스를 읽을때 인덱스를 2개 이상 읽으면 index range scan이 됩니다. 하나만 읽으면 index unique scan 인데 2개 이상읽었기 떄문에 range scan이된것이다.
+
+그런데 왜 Scott 은 데이터가 하나인데 왜 SCOTT 하나만 읽지 못하고 SMITH 까지 읽었나요? 왜 그랬냐면 emp_ename 인덱스가 non -unique 인덱스로 생성되었기 때문입니다. 
+
+12.사원테이블에 직업에 non-unique 인덱스를 걸고 아래의 SQL을 수행해서 index range scan으로 실행계획이 나오는지 확인하시오! 
+ 
+select ename,job
+from emp
+where job='SALESMAN'
+
+create index emp_job
+on emp(job);
+
+select/*+ gather_plan_statistcis index(emp emp_job)*/empno,ename,sal
+from emp
+where job='SALESMAN';
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+
+인덱스 엑세스 방법 8가지 
+
+1.index range scan
+2.index unique scan
+
+index unique scan
+
+"unique 인덱스를 통해서 테이블을 엑세스하는 스캔방법"
+
+unique 인덱스는 중복된 데이터가 없어야지만 인덱스가걸린다.! 
+
+예제
+create uniqe emp_empno
+on emp(empno); 
+
+13.사원번호가 7788번인 사원의 사원번호와 사원이름을 출력하는 쿼리문의 실행계획을 확인하시오! 
+
+create unique emp_empno
+on emp(empno);
+
+select /*+ gather_plan_statistics index(emp emp_empno)*/ empno,ename
+from emp
+where empno=7788;
+
+*unique 인덱스에서 딱 한개의 데이터만 읽고 끝낸다. 그러므로 non unique 인덱스보다 훨씬 좋은 인덱스입니다.
+
+걸수 있으면 이왕 Unique index 로 거는게좋다. 중복되지 않은 데이터가 있다면 Unique 데이터로 건다. 
+
+SQLD 시험 : Primary key 제약이나 unique 제약을 컬럼에걸면 
+                  unique 인덱스가 자동으로 생성됩니다. 
+
+*이제것 생성한 index 를확인하고 UNIQUE 인지 NON_UNIQUE 인지 확인할수있는 쿼리문!
+
+select index_name,uniqueness
+from user_indexes
+where table_name='EMP';
+
+(특히나 EMP 가 포함된 index들만 뽑아온다)  ----아래에 결과가 나온다! 
+
+14.dept 테이블에 deptno 에 primary 제약을 걸고,dept 테이블에 deptno에 unique 인덱스가 자동으로 생성되었는지 확인하시오!
+
+alter table dept
+add constraint dept_deptno_pk primary key(deptno)
+
+select index_name,uniqueness
+from user_indexes
+where table_name='DEPT';
+
+dept_deptno_pk unique
+
+설명: 인덱스 이름이 제약 이름으로 생성되었습니다. 
+
+15.dept 테이블에 loc 에 non unique 인덱스를 생성하시오! 
+
+create index dept_loc 
+on dept(loc) ; 
+
+16.아래의 SQL을 튜닝하시오!  (15연결)
+(인덱스를 엑세스하고 테이블 엑세스 하게 하시오!) 
+
+SELECT /*+ gather_plan_statistics*/ *
+                                from dept where deptno =20 
+                                           and loc='DALLAS' ; 
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS')); 
+
+--힌트를 안준상태지만, 옵티마이져에 따라서 index 스캔할수도 있다.
+추가로 unique acess 를 주려면 아래의 힌트를 주면 된다.
+
+17.아래의 SQL이 loc 에걸린 non unique 인덱스를 엑세스 하도록  힌트를 주시오! 
+
+create unique dept_loc
+on dept(loc);
+
+select /*+ gather_plan_statistics index(dept dept_loc)*/ *
+from dept
+where deptno=20 and loc='DALLAS'; 
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+인덱스 엑세스 방법 8가지
+
+1.index range scan --         non unique scan 과 동일.
+2.index unique scan
+3.index full scan
+
+	index full scan
+
+"인덱스 전체를 full 로 읽어서 원하는 데이터를 엑세스 하는방법 "   full tabel scan 과 다르다 NOT TABLE 
+
+예제: 사원 테이블의 인원수가 전부 몇명인가? 
+
+select count(*)
+from emp; 
+
+select /*+ gather_plan_statistics*/count(*)
+from emp;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+인덱스 풀스캔하면...잘하고 있는 옵티마이져이다…emp에서 empno영역만 FULL SCAN 하는것이고 다른것은 건드리지 않는다 한마디로 매우빠르다. 버퍼의 갯수가 1개이다…
+
+설명: 사원수가 몇명인지 확인하는 쿼리의 성능을 높이기 위해서 
+emp_empno 인덱스를 full scan 하여 사원수를 카운트 했습니다.
+그리고 버퍼의 갯수는 1개입니다. 
+
+힌트 주는법: index
+
+18.위의 SQL이 full table scan이 되도록 힌트를 주시오!! 
+
+select/*+ gather_plan_statistics full(emp)*/count(*)
+from emp;
+
+--- 이렇게 하면 full table 스캔을 해버린다.! 
+
+설명: Full table scan은 buffer 갯수가 3이고 index full scan은 버퍼의 갯수가 1로 3배의 성능이 좋아지는 효과를 볼 수 있습니다. 
+
+19.우리반 테이블에 ename 에 index를 걸고 우리반 학생들의 인원수를 출력하는 쿼리문의 성능을 높이시오!
+
+create uniqe index emp12_ename
+on emp12(ename);
+
+(우리반은 중복된 이름이 없으니까 UNIQE인덱스를 걸어준다.)
+
+alter table emp12
+drop constraint emp12_ename_un;
+
+select /*+ gather plan_statistics index_fs(emp12 emp12_ename)*/count(ename) 
+from emp12;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+설명
+index_fs(emp emp_empno) 힌트가 index full scan이고 
+full(emp) 힌트가 full table scan입니다.
+
+
+	* 4.index fast full scan   
+
+인덱스 엑세스 방법 8가지
+
+인덱스 엑세스 방법                                          관련힌트
+
+1.index range scan                                                              index                                                                             
+
+2.index unique scan
+
+3.idex full scan                                                                  index_fs(emp em_job)*/
+ 
+4.index fast full scan                                                 index_ffs(emp emp_job)*/
+
+"인덱스를 처음부터 끝까지 스캔하는 방법은 index full scan과 똑같으나 index fast full scan이 index full scan과 다른점은 index fast full scan이 index full scan 과 다른점은 인덱스를 full 로 읽을 떄 multi i/o를 합니다. 
+
+multi block i/o 란?  : 책 앞에 목차가 1페이지~100페이지라고 한다면 index full scan은 한페이지 한페이지 하나씩 넘기는게 index full scan이고 index fast full scan은 한번 넘길
+때 10장씩 넘기는 것입니다. 
+
+예제 
+
+create index emp_job 
+on emp(job);
+
+직업,직업별 인원수를 출력하시오! 
+
+select /*+ gather_plan_statistics*/job,count(*)                 -----실행계획 보기위한 것임..잊지말자
+from emp
+group by job;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS')); 
+테이블 스캔을 해버림… 우리가 원하는건 index fast full scan
+
+튜닝을해보자
+                            ↓
+
+select /*+ gather_plan_statistics  index_ffs(emp emp_job)*/job,count(*)        ffs 스캔해보라고 힌트를줌
+from emp
+group by job;
+
+중요설명 :위와 같이 index_ffs 힌트를 줬어도 테이블 full scan을 하는 이유는 job컬럼에 not null 제약이 없어서 입니다. index fast full scan을 하려면 not null 제약이 있어야 합니다. 
+
+*job 에 not null 제약 생성하기 
+
+alter table emp
+modify job constraint emp_job_nn not null  ----------------  앞서배운것으로 not null제약을 걸어주었다.
+
+
+20.부서번호,부서번호별 인원수를 출력하는데  index fast full scan이 될 수 있도록 인덱스도 걸고 
+not null 제약도 걸고 힌트도 줘서 실행되게 하시오
+
+create index emp_deptno
+on emp(deptno);
+
+alter table emp
+modify deptno constraint emp_deptno_nn not null ;
+
+select /*+ gather_plan_statistics index_ffs(emp emp_deptno)*/deptno,count(deptno)
+from emp
+group by deptno;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+*index full scan 과 index fast full scan 의차이점
+1.index full scan 보다는 index fast full scan 이 더 빠릅니다.
+2.index full scan은 이터 정렬이 보장이 되지만
+  index fast full scan은 결과로 출력되는 데이터의 정렬이 보장되지 않습니다.
+
+무조건 빠르기만 하면된다 하면 index fast full scan으로 하고 데이터를 정렬해서 보고싶다면 index full scan을쓴다.
+
+*index fast full scan은 무조건 not null 절 제약을 걸어줘야한다… 
+
+21.우리반 테이블에서 통신사,통신사별 인원수를 출력하는데
+   index fast full scan이 될 수 있도록 하시오!
+
+create index emp12_telecom
+on emp12(telecom)
+
+alter table emp12
+modify telecom constraint emp12_telecom_nn not null
+
+select/*+ gather_plan_statistics index_ffs(emp12 emp12_telecom)*/telecom,count(telecom)
+from emp12
+group by telecom; 
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
