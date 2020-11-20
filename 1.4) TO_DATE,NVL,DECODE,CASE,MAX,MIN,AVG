@@ -255,6 +255,10 @@ select ename,case when length(ename)=4 then replace(substr(ename,-2,1),'*')
 
 111.emp(사원)테이블에서 이름을 출력하고 입사한 요일을 출력하는데
              입사한 요일이 월화수목금토일 순으로 출력하시오
+             
+select ename,to_char(hiredate,'day')
+    from emp
+       order by replace(to_char(hiredate,'d'),1,8) asc;
 
 112.직업이 SALESMAN인 사원들의 최대 월급을 출력하시오 
 
