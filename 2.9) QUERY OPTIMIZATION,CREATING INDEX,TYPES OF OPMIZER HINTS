@@ -1,0 +1,108 @@
+
+데이터가 대부분 대용량 데이터이기 때문에 데이터를 검색하는 검색 속도가 
+많이 느리므로 빠른 데이터 분석을 위해서는 SQL 튜닝기술도 잘 알고 있어야합니다. 
+
+SQL 튜닝이란 ? 데이터 검색속도를 향상시키는 기술 
+
+Index 튜닝을 하도록 할게요 
+
+인덱스 엑세스 방법 
+                                                                  힌트
+1.index range scan                                     index
+2.index unique scan                                     index
+3.index skip scan                                        index_ss
+4.Index full scan                                         index_fs
+5.index fast full scan                                    index_ffs
+6.index merge scan                                    and_equal
+7.index bitmap merge scan                          index_combine
+8.index join                                                index_join
+
+
+자그런데 요기서 힌트가뭔지 따로 정리해줄게요!!
+
+오라클 힌트(hint) ? 오라클 옵티마이져가 SQL을 수행할 때 
+실행계획을 만든느데 실행계획을 SQL 사용자가 조정하는 명령어!
+
+실행계획은 누가 만드는가 ? 옵티마이저라는 프로세서가 만듭니다.
+옵티마이저에게 적잘한 문법  맞는 적절한힌트를 주면 옵티마이져는 사용자가 요청한대로 실행계획을 만든다.
+
+오라클이 완전히 최적의 실행계획을 만들어가지고 우리가 어떻게 SQL을 만들어서 실행되면 좋겠지만..우리가 SQL을 만들때 같이 이야기해주면 좀더 효과가 좋습니다. 검색속도를 빠르게해주어서 좋습니다. 먼저 실행계획보는걸 처음부터 다시 알려줄테니까…
+
+
+ *실행계획 보는 방법 
+1.emp와 dept 테이블 재생성 스크립트를 돌린다. 
+
+2.아래의 SQL의 실행계획을 확인합니다.
+
+3.
+explain plan for
+select ename,sal
+from emp
+ where sal =1400;
+
+select * from table(dbms_xplan.display); 
+ 
+테이블 풀스캔했다는 것은 실행계획에 full table scan으로 나오면 emp
+테이블을 처음부터 끝까지 다 스캔했다는 뜻입니다. 
+위의 실행계획을 보는 방법은 SQL의 결과는 못보고 그냥 단지 실행계획만 확인하는 방법입니다. 
+
+데이터도 잘나오면서 / 실행계획도 빠른 Fulltable 스캔이 아닌 Index 스캔이 되도록 확인하는 것이 더중요하기 때문에 다른 방법으로 실행계획을 바꾼다.
+
+*SQL 의 결과도 확인하면서 실행계획 확인하는 방법 
+
+Select /*+ gather_plan_statistics*/ename,sal
+         from emp
+         where sal=1300;
+
+Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST));
+
+select /* + gather_plan_statistcis*/ename,sal
+     from emp
+    where sal=1300; 
+
+또다른 실행 
+
+중요한것 A-TIME : 
+Buffers : 3
+
+이 두가지가 기존실행계획과 다른점이다! 
+
+설명: 데이터 분석하고 고객에게 결과 보고 할 저기 Buffers 의 숫자가 적을수록 튜닝이 잘된것이다. 
+그래서 개발자들이 산속에서 SQL되게 잘짜요..그.. 되게 잘짜요 1000개인가 10,000개인가 그렇다. 
+지금은 우리가 SQL이 작아서 별 차이없지만. 대용량에서는 쭉쭉올라간다. 튜닝을 해볼게요…
+
+예제1. 위의 SQL을 튜닝하시오! 
+
+1.emp 테이블에 sal 에 인덱스를 생성하시오!
+
+Create index emp_sal
+On emp(sal);
+
+그래서 여기가 1번 2번 3번 이순서대로 읽어줘야 한다. 안에서 바깥쪽으로 읽어줘야한다. !! 
+
+2.Index rage scan
+1.table acess by index rowid batched
+0.select statement 
+			
+버퍼의 갯수가 줄으들면 잘된것이다. 저같은 경우는 데이터가 조금더 대용량이여야 극적으로 변경하는 효과를 볼수 있고 7개에서 3개로 줄어든 것을 볼수 있다. 자 이제 보세요. 버퍼의 갯수가 튜닝전 7개에서 3개로 줄어든 것을 확인할수 있습니다. 
+
+1.아래의 SQL을 튜닝하시오!
+
+select /* + gather_plan_statistcis*/empno,ename,sal,job
+     from emp
+    where empno=7788;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+                         ↓ 
+
+create index emp_empno                                          ----    index 만드는 쿼리…  
+on emp(sal) 
+
+select /*+ gather_plan_statistics*/empno,ename,sal,job    ----- 힌트 주고 (이렇게 실행해보겠니)힌트는?
+     from emp
+    where empno=7788;
+
+select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
+
+44.(조인순서 연습) emp 와 Salgrade 테이블을 조인해서 이름과 월급과 급여등급(grade) 를 출력하시오 조인순서 성능이 좋도록 하시오!!
