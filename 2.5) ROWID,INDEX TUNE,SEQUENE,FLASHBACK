@@ -1,0 +1,542 @@
+
+1.View 생성하는 방법과 view를 사용해야 하는 이유?
+2.인덱스 무엇인지? 인덱스를 생성하는 방법 ? 인덱스의 구조?
+
+
+데이터 베이스를 배울때 인덱스(index)를 알아야 하는 이유?
+인덱스 (index)를 알아야 빠르게 데이터를 검색할 수 있습니다.
+인덱스는 기본으로 우리가 알고 있어야한다.
+인덱스는 책의 목차와 같고, 책의 내용이 바로 테이블 입니다. 
+책의 목차가 있을때랑 책의 목차가 없을때 굉장히 큰 차이이다. 
+
+20분 → 0.01초 : 쉬운 SQL 튜닝
+0.1 → 0.01.초 : 어려운 SQL 튜닝 → 1.인덱스의 구조를 이해하고 활용을 잘 할 수 있어햐함.
+                                              2.중급 SQL 튜너, 고급 SQL 튜너를 판가름 짓는 그게 무엇이냐… 
+                                                바로 알고리즘 문제 SQL 문제처럼 생각을 많이하고 시간이 많이 걸리는         
+                                                SQL을 스스로 풀었냐… 
+
+인덱스의 구조 : 컬럼명+rowid (row의 물리적 주소) 
+                     컬럼명이 오름차순으로 정렬이 되어있다.
+                      
+예: emp 테이블의 ename에 인덱스를 걸겠다
+    create index emp_ename
+     on emp(ename);
+  
+select ename,sal
+from emp
+where ename='SCOTT'; 
+
+설명: 이제 ename에 인덱스가 걸려있으니 index인 emp_ename 을 통해서 데이터를 찾아낸다! 
+목차로 데이터를 검색한다. 만약 index가 없으면 full table scan을 해야합니다.! 
+만약에 우리가 대용량 데이터가 있는 환경에 가서 SQL을 수행했는데
+너무 느리다며 반드시 실행계획을 확인해서 full table scan을 했는지 index scan을 했는지 확인을 해야합니다.
+반드시!
+
+full table scan은 나쁜것…
+     
+	• 어떤방식으로 (Index VS FULLSCAN) 풀었는지 알고싶을떄 사용하는 문구
+
+select ename,sal
+from emp
+where ename='SCOTT';
+
+select ename,sal
+explain plan for                             ------실행계획을 해석 해라 명령! 
+from emp
+where ename='SCOTT';
+
+select * from table (dbms_xplan.display); --------위에 해석한 실행계획을 확인하는 명령어! 
+
+실행계획을 만드는 옵티마이져 라는 프로세서가 있는데 이 프로세서가 점점 인공지능화 되어가고 있다.
+근데 이프로세서는 뭐하는 애냐면 바로 이 실행 계획이 나오고 있다. Table access full
+
+
+
+설명:위와 같이 실행계획이 full table scan으로 나오면 SCOTT을 검색하기 위서 EMP 테이블을 처음부터 끝까지 다 스캔했다는 뜻 
+
+*EMP 테이블에 ename 에 인덱스를 생성하기
+
+create index emp_ename
+on emp(ename);
+
+
+*이제만들었으니까 index 스캔으로 보여진다… (explain plan for / dmbs_xpaln.display;) 사용
+
+select ename,sal
+from emp
+where ename='SCOTT'; 
+
+힌투주기
+explain plan for
+select /*+ index(emp emp_ename) */ ename,sal     → 실행계획을 제어하기 위해 힌트를 주는것이다. 
+from emp
+where ename='SCOTT';
+
+/*+ index(emp emp_ename) */  힌트를 암시한다
+
+설명:emp 테이블 emp_ename 에 인덱스를 통해서 데이터 검색을 해라~~ 라고 힌트를 줘서 옵티마이져에게 명령을 내린다. 
+
+select* from table(dbms_xplan.display); 
+
+
+389.사원 테이블에 월급 인덱스를 생성하고 사원 테이블을 검색하는데 월급이 3000인 사원들의 이름과 월급을 검색하시오
+create index emp_sal
+on emp(sal);
+
+select rowid,sal,ename
+from emp
+where sal=3000;
+
+390.위의 SQL의 실행 계획을 확인하시오! ----SQL은 실행하기 위해서 계획을 세우고 SQL을 실행한다. 
+
+explain plan for
+select ename,sal
+from emp
+where sal>3000;
+
+select* from table (dbms_xplan.display);
+
+(이것도 가능하지만 F10눌러서 확인도 가능하다) 
+
+391.위의 SQL이 emp_sal의 인덱스를 통해서 데이터를 검색할수 있도록 힌트를줘라.
+
+explain plan for
+select/*+ index(emp emp_sal)*/ ename sal
+from emp
+where sal=3000;
+
+select* from table(dbms_xplan.display);
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+이름이 BLAKE 인 사원의 이름과 월급을 출력하시오!
+
+select ename,sal                                       이 SQL 어떻게 인덱스를 통해서                 
+from emp                                                테이블을 조회하는가?
+where ename='BLAKE";
+
+
+데이터 조회하는 두가지 
+
+인덱스                                                                                              테이블 
+ 
+*인덱스 구조확인 하는 법                                                                select rowid,ename,sal
+select ename,rowid                                                                                                                                from emp;
+from emp 
+where ename>' ' ;
+
+select ename,rowid
+from emp
+where sal>0;
+
+
+
+BLAKE 찾고 멈춰버린다 !                                   VS      Full scan은  'BLAKE' 찾고 추가로 14까지 쭉 검색한다
+
+Rowid 가 책의 페이지번호이고 
+페이지번호 보고 바로 Blake로 Direct 가는것이다.
+
+대신에 모든 칼럼에 INDEX 를 만들어버리면 데이터가 정보를 저장해서 용량 많이 차지하니까 자주쓰는것만 Index 만들자
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+392.입사일에 index 를 생성하고 81년 11월17일에 입사한 사원의 이름과 입사일을 조회하시오
+create index emp_hiredate
+on emp(hiredate);
+
+select ename,hiredate
+from emp
+where hiredate='81/11/17';
+
+392.입사일에 index 를 생성하고 81년 11월17일에 입사한 사원의 이름과 입사일을 조회하시오
+explain plan for
+select hiredate
+from emp
+where hiredate='81/11/17';
+
+393.위의 SQL의 실행 계획 확인하고 힌트 줘라
+explain plan for
+select /*+ index(emp emp_hiredate)*/ hiredate
+from emp
+where hiredate='81/11/17';
+
+select*from table(dbms_xplan.display);
+
+
+인덱스의 구조를 전부 읽어오는 방법
+1.문자 >, '  ' 
+2.숫자 >=0
+3.날짜 <= to_date('9999/12/31,'RR/MMDD')
+
+위의 조건이  WHERE 절이 있어줘야 인덱스 전체를 다 읽어 올수 있다.
+
+인덱스의 구조를 알면 SQL 튜닝을 할 수 가 있는데 그방법중에 하나가  order by 절을 사용하지 않고 정렬된 결과를
+볼 수 있다는 것입니다.
+order by 절을 남발하면 검색 성능이 느렵집니다.
+
+*order by 절을 사용하지 않고 인덱스를 통해서 정렬하는 방법
+
+예제: 
+1.order by 절을 사용했을 때 
+select ename,sal
+      from emp 
+      order by sal asc;
+
+2.인덱스를 이용하는 방법 
+select ename,sal
+from emp
+where sal>0;
+
+3.힌트를 줘봅시다
+select/*+ index_asc(emp emp_sal)*/ ename,sal
+from emp
+where sal >=0;
+
+설명: 인덱스를 통해서 정렬된 데이터를 볼려면 where 절에 반드시 해당 칼럼을 검색하는 조건이 있어야 하고 그ㅣ고 힌트도 주면 확실하게 정렬된 결과를 볼수 있습니다.
+
+힌트종류 /*+ index_asc(테이블명 인덱스이름)*/
+            /*+ index_asc(테이블명 인덱스이름)*/
+
+394.이름과 월급을 출력하는데 월급이 높은 사원부터 출력하시오
+
+select /*+ index_desc(emp emp_sal)*/ename,sal
+from emp
+where sal >= 0;
+        ↑
+INDEX 에 Where 절은 필수 이다! 
+
+395.아래의 SQL을 튜닝하시오! 
+튜닝전 : select ename,hiredate
+            from emp
+            order by hiredate desc;
+
+튜닝후 :
+create index emp_hiredate
+on emp(hiredate);
+
+select /* index_desc(emp_hiredate)*/ ename,hiredate
+from emp
+where hiredate >= to_date('9999/12/31,'RR/MM/DD');
+
+	• 인덱스를 사용한 SQL 을 튜닝하는 방법 
+
+튜닝전:
+explain plan for
+select /*+ index(emp emp_sal)*/ ename,sal
+from emp
+where sal*12=36000;
+
+select*from table(dbms_xplan.display);
+
+설명:emp 테이블에 emp_sal 인덱스를 엑세스해라 라고 힌트를 줬는데도
+      불구하고 실행게획이 full table scan 을 했습니다. 가공하면 Full scan 때려버림.
+   왜 그랬냐면? where 절에 인덱스 컬럼이 (sal*12) 로 가공되었기 때문입니다.
+
+select*from table(dbms_xplan.display);
+     
+                            ↓
+ 
+튜닝후 : 
+select /*+ index(emp emp_sal)*/ ename,sal
+from emp
+where sal =36000/12
+왼쪽 꺼를 오른쪽에다가 넣어줘야 돌아간다
+
+결과보기
+
+explain plan for
+select /*+ index(emp emp_sal)*/ ename,sal
+from emp
+where sal =36000/12
+
+396.사원 테이블에 직업에 인덱스를 생성하시오!
+create index emp_job
+on emo(job);
+
+397.아래의 SQL을 튜닝하시오 
+튜닝전
+select ename,job   
+ FROM emp  
+WHERE substr(job,1,5) ='SALES' 
+           ↓
+튜닝후
+select /* index(emp emp_job)*/ename,job
+from emp
+where job like 'SALES%'; 
+설명: 왼쪽에(좌변) 에 있는 인덱스 컬럼을 가공하면 full table scan 하게 되므로 좌변을 가공하면 안된다. 
+
+
+398.아래의 SQL을 튜닝하시오! 
+튜닝전 
+select ename,hiredate
+from emp
+where to_char(hiredate,'RRRR') = 1981;
+                  ↓
+튜닝후
+select ename,hiredate 
+from emp
+where hiredate between to_date('1981/01/01','RRRR/MM/DD')
+                  and  to_date('1981/12/31','RRRR/MM/DD');
+        
+index 썻는지 확인하기 -인덱스 작성이 전제이다-
+
+399.직업이 SALESMAN인 사원들의 이름과 월급과 직업을 출력하는데 월급이 높은 사원부터 출력하시오! 
+
+튜닝전:
+select ename,job,sal
+from emp
+where job in ('SALESMAN');
+
+              ↓
+튜닝후:
+select /*+ index_desc(emp emp_sal)*/ ename,job,sal
+from emp
+where job='SALESMAN' and sal>=0;     ----
+
+*내가 생성한 인덱스 목록을 확인하는 방법 ! 
+
+select index_name
+from user_indexes
+where index_name like 'EMP%';
+
+*인덱스 삭제하는 방법 
+
+drop index emp_ename;
+
+400.나머지 인덱스들도 전부 drop 하시오
+	
+	drop index emp_job;
+	
+	drop index emp_sal;
+	
+
+	• 98.절대로 중복되지 않는 번호 만들기(SEQUENE)
+
+"번호를 중복되지 않게 순서데로 생성하는 번호 생성기"
+
+예제 1 create sequence seq1
+      start with 1                            ----숫자를 순서대로 생성하는 1부터
+      maxvalue 100;                        ----최고 숫자 여기까지만 생성됨 
+
+숫자를 뽑는 쿼리문…1부터 순차적으로 올라감 
+
+select seq1.nextval
+from dual;
+
+설명: 시퀀스를 이용하면 좋은점이 무엇인가?
+번호를 중복되지 않게 일관되게 테이블에 입력할 수 있다.
+번호가 중복되면 안되는 컬럼은?    주식 테이블 매매번호                   
+                                             사원 테이블의 사원번호 등 
+
+예제 2. 아래의 컬럼을 담는 테이블을 emp534라는 이름으로 생성해라 
+
+create table emp534
+(empno number(10),
+ename varchar2(20),
+sal number(10));
+
+select * from emp534;
+
+테이블의 구조를 담는것을 만든것 컬럼안에 DATA는없다. 
+
+예제 3. 예제 1번에서 만든 seq2를 이용해서 emp534이 empno에 일관된 번호가 입력되게 하시오
+
+insert into emp534
+values(seq2.nextval, 'scott',3000);
+
+select * from emp534;
+
+
+
+엔터칠수록 올라간다!! 숫자가
+
+
+*시퀀스의 현재값 확인하는 방법 ! 
+
+select seq2.currval
+from dual;
+
+*내가 가지고 있는 Sequence 확인하는 방법볼게요! 
+
+Select sequence_name
+from user_sequences;
+
+*시퀀스 삭제하는 방법
+
+drop sequence seq2;
+
+
+	• 99.실수로 지운 데이터 복구하기 1 (FLASHBACK QUERY)
+
+오라클은 10g버젼 부터 타임머신 기능이 생겼습니다.
+그래서 타임머신 기능을 이용해서 과거의 데이터를 확인할 수 있고 
+테이블을 과거로 되돌릴 수 있습니다. 
+
+flashback query 는 과거의 데이터를 확인하는 기능입니다. 
+
+delect from emp;
+commit;
+
+select * 
+from emp as of timestamp (systimestamp-interval - '2' minute);  
+
+create table emp_backup_20201111
+as
+select *
+from emp as of timestamp ( systimestamp -interval '10' minute);
+
+
+
+401. 백업받은 emp_backup_2020111의 데이터를 emp테이블에 입력하시오! 
+
+백업파일을 만들고 다시 넣고 ...
+
+create table emp_backup_20201111
+as
+select * from emp;
+
+
+insert into emp
+select * 
+from emp_backup_20201111;
+
+402.아래와 같이 salgrade 테이블을 전부 delete 하고 commit 한후에 복구하시오!
+
+create table salgrade_backup_20201111
+as
+select * from salgrade;                                                                        백업파일 만들고
+
+delete from salgrade;
+commit;                                                               삭제하고
+
+insert into salgrade
+select *                                                               백업파일로 값입력해주기 
+from salgrade_backup_20201111;
+
+
+	• 100실수로 지운 데이터 복구하기 2 (FLASHBACK TABLE)
+
+'특정 테이블을 완전히 과거로 되돌려 버리는 기능'
+
+예제 : delete from dept;
+       commit;
+
+1.dept 테이블이 flashback 될 수 있도록 설정한다.
+
+alter table dept enable row movement;
+
+2.dept 테이블을 과거로 되돌린다.                
+flashback table dept to timestamp
+(systimestamp - interval '5' minute);
+
+설명: 과거로 되돌리지 못하는 경우
+	1. sys 유저에서 작업했을 때
+	2. delete 하고 Commit 한 이후에 DDL 명령어를 수행했으면안된다!!  ex ) delete  →  create
+
+*과거로 되돌릴수 있는 골든 타임 확인하는 방법
+
+show parameter undo_retention 
+
+*flashback table 명령어를 수행해서 과거로 되돌렸으면 반드시 commit 을 하여야 합니다 
+
+Flash back query 는 한번 확인할수 있어서 권장합니다.
+
+	• 101.실수로 지운 데이터 복구하기3(FLASHBACK DROP) 
+
+테이블을 drop했을경우에도 복구할 수있는데 10g 버전 이후부터는 자동으로 drop한 테이블이 휴지통에 입력됩니다.그래서 휴지통에서 끄집어 내기만 하면 복구할수 있습니다.!! 
+
+예제: 
+drop table dept;              --지우고
+
+show recyclebin;                  --휴지통 확인하고
+
+
+flashback table dept to before drop;    -- 휴지통에 있는것으로 복구해주기 
+
+설명: 휴지통만 비우지 않으면 계속해서 휴지통에 테이블이 있기때문에 
+       휴지통만 비우지 않으면 복구 할 수 있습니다. 
+
+drop table dept;
+drop table salgrade;                      ---테이블 뭉탱이로 drop 해버림 
+drop table emp; 
+
+select * 
+from user_recyclebin;  ----     현재 휴지통의 내용 확인하는 명령어! 
+
+*휴지통 비우기 명령어
+
+Purge recyclebin;                        ----- 휴지통 비워버림
+
+select * 
+from user_recyclebin;                     ----- 휴지통 비워진것 확인함 
+
+*테이블 삭제할 떄 휴지통에 넣지 않고 삭제하는 방법
+
+Drop table emp800 purge;  --- 이렇게 지워버리면 휴지통 거치치 않고 바로 삭제@@ 
+
+	• 102 실수로 지운 데이터 복구하기 4 (FLASHBACK VERSION QUERY)
+
+특정 테이블이 과거로부터 현재까지 어떻게 변경이 되어왔는지 그 이력 정보를 확인하고 할 떄 사용하는 쿼리문
+
+예제:
+1.현재 시간을 확인합니다.
+
+select systimestamp from dual;
+
+
+2.KING 의 이름과 월급과 부서번호를 조회합니다.
+select ename,sal,deptno
+from emp
+where ename='KING'
+
+3.KING의 월급을 8000으로 변경하고 Commit 합니다. 
+update emp
+set sal=8000
+where ename='KING'
+
+4.KING 의 부서번호를 20번으로 변경하고 Commit 합니다.
+update emp
+set deptno=20
+where ename = 'KING';
+
+5.그동안 KING 의 데이터가 어떻게 변경됫는지 이력정보를 확인하시오! 
+
+select  ename, sal, deptno, versions_starttime, versions_endtime,
+         versions_operation
+ from   emp 
+ versions  between  timestamp 
+              to_timestamp('20/11/11 15:50:10','RR/MM/DD HH24/MI/SS')
+             and  maxvalue
+ where  ename='KING'
+ order  by  versions_starttime;
+
+
+
+시간별로 몇시에 월급이 얼마였고 언제 바뀌었는지 정보가 다 나온다요!! U 의 의미는 UPDATE 되었단는 증거다! 
+
+아까는 5분전 10분전 이렇게 복구했지만 이번에는 이렇게 시간을 가직 특정한 시간으로 되돌아갈수 있다. 
+
+6.위의 시간중에 하나를 확인해서 그 시간대에 emp테이블의 상태를 확인하시오! 
+
+select*
+from emp as of timestamp
+to_timestamp('20/11/11' 15:54:34' 'RR/MM/DD HH24:MI:SS');
+
+그래서 이시간대에 정보를 보고싶다. 
+
+7. 20/11/11' 15:54:34 시간으로 emp 테이블을 복구하시오! 
+
+alter table emp enable row movement ;
+flashback table emp to timestamp
+to_timestamp('20/11/11' 15:54:34' 'RR/MM/DD HH24:MI:SS');
+
+select from emp;
+
+설명 : 일단 과거로 가면 현재로 돌아올수 없다ㅏ. 그래서 시간을 정확하게 확인해서 신중하게 되돌려야합니다 .
+
+	• 103 실수로 지운 데이터 복구하기 5 (FLASHBACK TRANSACTION QUERY)
+
+실습이 잘 안되고 dba 영역에 가까워서 따로 실습하지는 않겠습니다.
+
+그동안 작업했던 DML문장을 확인해 볼수 있습니다.
+어떤 UPDATE 문장을 수행했고 어떤 DELETE 문장을 수행했고 어떤 INSERT 문장을 수행했는지 그 문장을 반대로 수행하는 DML 문장이 출력됩니다. 
+
+정의만 하고 따로 하지는 않습니다.
