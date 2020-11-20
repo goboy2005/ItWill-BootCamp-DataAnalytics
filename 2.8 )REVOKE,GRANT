@@ -1,0 +1,149 @@
+
+	■  DCL 문장 
+
+1.쿼리문 : select 문의 6가지절
+2.DML 문 : insert,update,delete,merge
+3.DDL 문 : create,alter,drop,truncate,rename
+4.DCL문 : grant,revoke
+5.TCL 문: Commit,rollback,savepoint
+
+유져 생성하는 방법
+
+create user king                    ------유저이름
+identified by tiger;                 ----- 패스워드
+
+*접속할 수 있는 권한을 부여하는 방법
+grant connect to king;     ------- connect 권한을 King 에게 주겠다.
+
+465.Allen 이라는 유져를 패스워드 tiger1234로 생성하고 
+allen 으로 접속할 수 있도록 접속 권한을 부여하고 allen으로 접속해보시오! 
+
+create user allen
+identified by tiger;
+
+grant connect allen;
+
+우리반 SCRIPT 에 
+
+create user scott / identified by tiger;
+grant dba to scott; 
+         ↓
+     최고권한 
+connect scott/tiger 
+
+sqlplus allen/connect allen/tiger1234
+
+show user 
+
+show user 
+sys 가맞는지확인하고 
+sql grant create table to allen;
+create table
+권한을 
+
+
+* 유져생성하는 방법 
+
+ create  user   king          
+  identified  by  tiger;
+                                         
+* 접속할 수 있는 권한을 부여하는 방법 
+
+ grant  connect  to  king; 
+
+* 도스창 열고 king 으로 접속을 해본다. 
+
+sqlplus king/tiger
+
+show  user
+
+465.   allen 이라는 유져를 패스워드 tiger1234 로 생성하고 
+allen 으로 접속할 수 있도록 접속 권한을 부여하고 allen 으로접속해보시오 !
+
+create user  allen
+ identified  by tiger;
+
+ grant  connect  allen;
+ 
+ connect  allen/tiger1234 
+ 
+ show  user 
+
+466.  allen 유져에서 아래의 테이블을 생성하시오 !
+
+  테이블명:  emp466
+  컬럼명  :   empno, ename, sal 
+
+create  table  emp466
+( empno   number(10),
+  ename   varchar2(10),
+  sal        numer(10) );
+
+설명:  권한이 부족합니다. 라고 하면서 에러가 발생합니다
+        create  table 권한이 있어야 테이블을 생성할 수 있습니다.
+
+* create  table 권한을 allen 유져에게 부여하는 방법 
+
+ exit
+
+C:\Users\stu> sqlplus "/ as sysdba"     <--- sys 유져로 접속한다. 
+
+show  user
+
+ grant   create   table   to  allen; 
+
+ exit
+
+C:\Users\stu> sqlplus  allen/tiger1234
+
+ create  table  emp466
+   ( empno   number(10),
+   ename   varchar2(10),
+    sal        numer(10) );
+
+* 내가 가지고 있는 시스템 권한 확인하는 방법 
+
+SQL>  select  * from  session_privs;
+SET CONTAINER
+CREATE  TABLE     <--- 테이블 생성 권한 
+CREATE  SESSION  <--- 접속할 수 있는 권한 
+
+* 오라클에 존재하는 권한 리스트를 확인하는 방법 
+SQL> exit
+
+C:\Users\stu> sqlplus "/ as sysdba"
+
+SQL>  select  * from  session_privs;
+
+설명:  database 에 있는 모든 테이블들을 다 볼 수 있는 권한
+         select any table 권한입니다.
+
+* 권한 취소하기 (revoke)
+
+sys 유져에서 allen 에게 주었던 create  table 권한을 취소하려면 ?
+
+show user
+USER은 "SYS"입니다
+
+revoke  create  table  from  allen; 
+
+show user
+
+SELECT * from scott.emp; 
+
+* 유져삭제하는 방법
+
+sys 유져에서 아래와 같이 작업하면 됩니다.
+
+show  user                 <-- "sys" 인지 확인합니다.
+
+drop   user   allen   cascade; 
+
+467. king 유져도 삭제하시오 !
+
+drop  user   king  cascade; 
+
+* Database 에 있는 유져목록 확인하는 방법
+
+select  username
+from  dba_users ;
