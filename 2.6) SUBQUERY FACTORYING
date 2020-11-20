@@ -1,0 +1,385 @@
+	
+• 104 데이터 품질 높이기 1 (PRIMARY KEY)
+		
+데이터 분석을 하다보면 제일로 많은 시간을 할애하는 작업이 데이터 전처리 입니다. 
+품질이 높은 데이터를 처음부터 입력받겠금 강제화 하면 데이터 전처리에 많은 시간을
+ 들이지 않아도 됩니다. 그래서 데이터 품질을 높이기 위한 한 방법으로 제약을 사용합니다.
+처음부터 테이블에 데이터를 입력받을때 엄격한 기준으로
+데이터를 입력받겠금 하려면 제약을 이용하면 됩니다.
+	
+			*제약의 종류
+1.PRIMARY KEY: 중복된 데이터와 Null값을 허용하지 않게 하는 제약   
+2.UNIQUE : 중복된 데이터를 허용하지 않게 하는 제약 
+3.NOT NULL : null 값을 허용하지 않는 제약
+4.CHECK : 특정 데이터 외에 다른 데이터는 입력되지 못하게 하는 제약 
+5.FOREIGN KEY : 참조하는 컬럼에 거는 제약.
+	
+	
+1.Primary key 제약을 생성해서 테이블 생성하기 ! 
+	
+create table emp307
+(empno number(10) Primary key,   → Primary 만들떄의 차이점
+ename varchar2(20)) ;  
+	
+설명 : 위와 같이 테이블을 생성하면 empno 에는 앞으로 중복된 데이터와 null 값이 입력되지 않습니다. 
+	
+insert into emp307 values(1111,'scott');
+insert into emp307 values(2222,'smith');
+insert into emp307 values(1111,'allen');        -----중복되기 떄문에 입력x 안되요~~  
+	
+	
+insert into emp307 values(null,'jones');  ----      중복된 데이터와 Null 값 때문에 입력x 
+
+데이터 품질 높이는 소프트웨어가 있으나 , 이미 엉망으로 들어갔으면 효과가 없다..그래서 처음에 잘넣어야한다! 
+	
+	• 105.데이터 품질 높이기 2 (UNIQUE)
+	
+"중복된 데이터를 허용하지 않게 하는 제약"
+
+데이터 품질을 높이기 위해서 중복된 데이터가 테이블에 입력되지 못하게 하는 제약어 입니다. 
+
+예제
+create table emp 507
+(empno number(10),
+ename  varchar2(10) unique  ) ; → 이런식으로 제약어 건다. 
+
+중복된 데이터가 입력 불가  ! 
+테이블의 특정 칼럼에 제약을 거는것 즉 ename 에 중복이 안생기게 하는것이다!! 
+
+진짜안되는지 확인해보자
+insert into emp507 values(1111,'scott');
+insert into emp507 values(1111,'scott'); 
+
+
+
+이런식으로 에러가 나오면 Unique 걸린거이다. 1행은 입력이 됫는데 2행은 중복이라 입력안됨 
+
+다르지만 중복된 동명이인 이 있어서 제약한것을 해제하고 싶을떄! 
+
+*제약을 삭제
+1.삭제할 제약이름을 확인한다.
+
+select table_name,constraint_name
+from user_constraints   →  제약을 확인하는 데이터 사전! 
+where table_name='EMP507';   → 반드시 대문제로 작성  
+
+2.EMP의 UNIQU제약을 삭제한다…? 
+
+alter table emp507
+drop constratins SYS_C007315
+
+ 3. 중복된 데이터가 입력이 잘 되는지 확인하시오!
+
+ insert   into  emp507  values( 2222, 'scott'); 
+
+4.제약이름을 주고 테이블을 생성하는 방법
+create table emp508
+(empno number(10),
+ename varchar(10) constraint emp508_ename_un nuique);              ---이름을 지어준다.
+                                         ↓
+                      테이블명 _컬럼명_제약이름축약(un) 
+
+5.EMP508테이블에 ename에 걸린 UNIQUE 제약을 확인한다
+select table_name, constratint_name
+  from user_constraints
+where table_ename='EMP508';
+
+
+404. emp508 테이블에 걸린 UNIQUE 제약을 삭제하시오 
+
+alter table emp508
+drop constraint emp508_ename_un;
+
+
+*제약을 생성하는 방법 2가지
+1.테이블 생성할 때
+2.이미 만들어 놓은 테이블에 제약을 추가! 
+
+*이미 만들어 놓은 테이블에 제약을 추가! 
+1.emp table emp
+add constraint emp_ename_un unique(ename); 
+(추가하겠다)         제약어의이름              칼럼명(ename) 
+
+설명:기존에 테이블에 중복된 데이터가 있다면  위의 명령어는 실행되지 않는다. 예를들어 KING 이라는 이름이 한명이 더 있으면 실행안된다! 
+
+DATABASE에서 제약을 사용해야 하는 이유가 무엇입니까?  
+
+답변 : 데이터의 품질을 높이기 위해서 입니다. 
+
+405.우리반 테이블에 이름에(ename) 중복된 UNIQUE 제약을 거십시오 
+alter table emp12
+add constraint emp12_ename_un unique(ename); 
+
+확인하기
+select table_name, constratint_name
+  from user_constraints
+where table_ename='EMP12';
+
+	• 106.데이터의 품질 높이기3 (NOT NULL)
+
+"null 값을 입력하지 못하게 막는 제약" 
+
+예제: 1. 테이블 생성할 떄 제약거는 방법
+          create table emp707
+         (empno number(10) constraint emp707_empno_nn not null,           
+           ename varchar2(20) ; 
+         
+insert into emp507 values(1111,'scott');
+insert into emp507 values(111,''); ----null 이라서 안들어간다 
+
+예제2.만들어진 테이블에 제약거는 방법 
+
+alter table emp
+modify ename constratint emp_ename_nn not null; 
+
+VS
+
+일반 중복 안걸리는 유니크 거는 방법 
+alter table emp
+add constraint emp_ename_un unique(ename) 
+
+둘의 차이를 잘알자! 
+
+406.사원테이블에 월급에 not null 제약을 거시오! 
+alter table emp
+modify sal constraint emp_sal_nn not null;
+
+Null 정보 입력하려고 하면 ...
+
+insert into emp(empno,enamem,sal)
+values(1235,'martin2',null) ;
+
+정보입력이 안된다~
+
+407.사원 테이블 월급에 걸린 not null 제약을 삭제하시오! 
+alter table emp
+drop constraint emp_sal_nn;
+
+
+	• 107 데이터의 품질 높이기4(CHECK)
+
+"지정된 데이터만 입력되고 다른 데이터는 입력되지 못하게 막는 제약"
+
+예: 성별: 남자,여자 
+            남, 여  ----이렇게만 입력을 시켜주세요! 
+
+예제: 1 테이블 생성할때 제약을 거는 방법 
+          create table emp745
+           (ename varchar2(10),
+            loc  varchar2(20) emp745_loc_ck
+           check(loc in ('DALLAS',CHICAGO','BOSTON' ) ) ; 
+
+설명 : loc 에는 DALLAS,CHICAGO,BOSTON 외에는 데이터가 입력되거나 수정되지 않는다 ! 
+
+2.만들어진 테이블에 제약을 거는방법      -------add constraints 쓴다고 생각하면 됩니다   ㅇㄴㅁ ㅇㄴ
+alter table dept
+add constraint dept_loc_ck
+check(loc in ('NEW YORK',DALLAS',CHICAGO,'BOSTON')) 
+
+3.위의 조건의 데이터만 들어오는지 체크하겠다. 
+
+insert into dept(deptno,loc,dname)
+values(50,'SEOUL',RESEARCH');
+
+SEOUL 은 데이터 제약에 걸려서 에러가 난다!! 
+
+
+408.사원테이블의 월급에 월급이 0~9500 사이의 데이터만 입력되겠금 체크 제약거시오
+
+
+alter table emp
+add constratint emp_sal_ck                                  ck는 임의로 지은 이름 
+check (sal between 0 and 9500) ) ;
+
+409.우리반 테이블의 성별 컬럼에 남 아니면 여 만 입력되겠금 CHECK 제약을 거시오
+
+alter table emp12
+add constraint emp12_gender_ck
+check(gender in ( '남','여) );
+
+
+	• 108 데이터의 품질 높이기 5 (FORIEGHN KEY)
+
+"참조하는 컬럼에 거는 제약"
+              emp
+
+자식 데이터에를 변경 하려고하면 부모테이블 한테가서 확인하고 제약을건다. 그래서 엉뚱한 데이터가 못들어가게 막아버린다. 그러면 좋은점은 JOIN할떄 우리회사 50번 부서번호 없는데 사원번호에 50번이 들어가있으면 조인이 안되고 OUTER 조인을 써야하는데 OUTER 조인은 성능이 매우 느리다. 그래서 엉뚱한 데이터가 못들어가도록 딱 맺어놔야한다.!  dept 는 40번까지 있으니까 참조한 40번까지만간다!! 
+
+설명: dept 테이블에 Primary key 제약을 걸고 emp 테이블에 Foreing key 
+        제약을 걸면서 emp 테이블의 deptno 를 참조하겠다라고 하게되면 앞으로 emp 테이블에 deptno 의  부서번호를 입력할때 dept 테이블에 있는 deptno인 10,20,30,40 번 데이터만 입력될수 있습니다. 그리고 dept 테이블에 ,deptno 의 데이터를 지우려고 하면 emp 테이블의 deptno가 참조하고 있으므로 지워지지 않습니다.  이렇게 까지 하는 이유는 결국 1. 데이터 품질을 높이기 위해서 이다!! Data ming …                         
+                                               2.조인할 때 outer 조인을 남발하지 않기 위해서 
+
+예제 emp와 dept 테이블 생성스크립트 수행
+
+	1. dept 테이블에 deptno 에 primary key 제약을 겁니다.
+
+alter table dept
+add constraint dept_deptno_pk primary key(deptno);
+                            제약이름/ Primary key (컬럼이름)
+
+2.emp 테이블에 deptno에 foriegn key 제약을 걸면서 dept 테이블의 데이터를 참조하겠다.
+alter table emp
+add constraint emp_deptno_fk foriegn key(deptno)
+references dept(deptno);  -----dept(depno)를 참조하겠다
+
+insert into emp(empno,ename,sal,deptno)
+values(1234,'jack',4500,70);
+
+	• 109 with 절사용하기 1 (With~As) 
+
+"테스트 테이블과 같이 임시로 사용하는 데이터를 가지고 테스트 할때 유용한 SQL
+
+예제1.1부터 10까지의 숫자를 출력하는 SQL을 작성하시오! 
+select level
+from dual
+connect by levle<=10;
+
+이것을 with 절로 표현할수가있따~!
+
+예제2.위의 SQL을 with 절로 변경하시오
+
+이렇게 하는이유 테이블은 왠만하면 안만들어준다. 1번하면 테이블이 만들어지니까..
+테이블로만들려면 DB에게 부탁을해야하는데 ...안해준다..
+그래서 슬퍼서 내가 사용하는 SQl내에서만 임시로 테이블을 만들면 된다!! 헤헤 
+
+with test_table as (select level as num1                                   test_table 이거 이름은 내맘대로
+                             from dual
+                               connect by level<=10) 
+
+select num1
+from test_table;   ------하지만 만든 테이블은 with 절 내에서만 사용가능하고 한번 사용하면 끝이다!! 
+
+설명: as 다음에 나오는 괄호 안에 쿼리문의 결과 데이터로 임시테이블을 생성하는데 그 테이블 이름이 test_table 이 됩니다. 그리고 그 아래에 쿼리에서 test_table 가지고 다양하게 쿼리문장을 만들어서 테스트 할수 있습니다. 근데 이 데이터는 with 절이 끝나면 없어진다..바람같이 왔다가 사라진다네~~
+
+410.위의결과에서 짝수만 출력하시오!  
+
+
+DB한테 테이블만들어 달라했는데 안만들어줘서 그럼 내가 하나 임시로 만들겠다..그리고 만들어진 테이블내에서 짝수 결과만을 Where 절로 만들어준것.
+
+411.(점심시간문제) with 절로 구구단 2단을 출력하시오! 
+with test_table
+as (select level as num1 from dual
+       connect by level <=9)
+select '2X'||num1||'='||2 * num1 as 구구단2
+from test_table ;
+
+설명 : 오라클은 크게 두가지로 나뉘는데 메모리와/ 하드디스크로 나뉜다. 
+as 다음에 괄호안에 나오는 쿼리문의 결과가 하드 디스크에 저장되고 테이블명이 test_table 이 된다.
+우리가 아래에서 편안하게 가져다가 쓰는것이다! 
+
+*위의 인라인뷰 SQL을 with 절로 변경합니다.   --- 더 간단하게 정보를 얻어낼수있다.  
+
+with temp_table1 
+as (select level as num1 from dual where level!=1 connect by level <=9),
+with temp_table2
+as (select level as num2 from dual connect by level<=9)
+
+select a.num1 || 'x' || b.num2 || '=' ||a.num1*b.num2
+from temp_table1 a, temp_table2 b;
+
+413.아래의 in line view를 SQL을 with 절로 변경하시오! 
+
+select e.ename,e.sal,e.deptno,v.부서평균 
+from emp e, (select deptno,avg(sal)  부서평균 
+                    from emp
+                      group by deptno ) v 
+
+where e.deptno=v.deptno and e.sal> v.부서평균
+ 
+                                 ↓
+with temp_table1 as (select deptno,avg(sal) 부서평균  
+                                     from emp
+                                         group by deptno) 
+select e.ename,e.sal,e.deptno,v.부서평균
+from emp e, temp_table1 v
+where e.deptno=v.deptno and e.sal >v.부서평균 
+
+설명 : as 다음에 나오는 쿼리문의 결과가 아주 많거나 또는 이 쿼리문에 인라인뷰로 쓰였을때는 여러 번 작성될경우 똑같은 쿼리가 한번더있을때..그런경우에는 with 절이 훨씬빠르다! 
+
+with 절의 장점? 똑같은 SQL을 하나의 SQL내에서 여러 번 사용될때 유용합니다.
+
+417.직업,직업별,토탈월급을 출력하시오! (세로출력)
+
+select job,sum(sal),
+from emp
+group by job;
+
+418.위의 직업별 토탈 월급들중에서의 평균값을 출력하시오! 
+
+select avg(sum(sal)),
+from emp
+group by job;
+
+419.문제 417번 쿼리문과 문제 418쿼리문을 둘다 이용해서 직업,직업별,토탈월급을 출력하는데 ,직업별 토탈 월급이 직업별 직업별 토탈 월급보다 더 큰것만 출력하시오! 
+select job,sum(sal)
+from emp
+group by job 
+having sum(sal) > (select avg(sum(sal) )  
+                                  from emp
+                                             group by job ) ;                               ----having 절에다가 subquery 쓴것 
+
+여기를 위에 보면 같은 QUERY 가 하나는 메인에 하나는 Having 절에 정확히 같은 쿼리들이 있다. 이때 with temp 쿼리 쓰면 시간이 절약가능하다 .! 
+
+420.위의 SQL을 with 절로 구현하시오!
+
+with job_sumsal as (select job,sum(sal) as 토탈  ------반드시 단축어 써줘야함.
+      임시 테이블명                   from emp
+                                              group by job) 
+select job,토탈
+from job_sumsal
+where 토탈> (select avg(토탈)
+                from job_sumsal) ; 
+
+설명 : SQL은 복잡한 쿼리 내에 동일 쿼리블럭이 두번 이상 발생하는 경우에 사용하면 좋은 성능을 보이는 SQL 이 with 절 입니다. 
+
+421.위의 SQL의 실행계획을 확인해서 하드 디스크에 TEMP 테이블로 만들어지는지 확인하시오!
+
+explain plan for 
+
+with job_sumsal as (select job,sum(sal) as 토탈 from emp
+                                                                    group by job) 
+select job,토탈
+from job_sumsal
+where 토탈> (select avg(토탈)
+                       from job_sumsal) ;
+
+     select * from table(dbms_xplan.display);
+
+
+
+
+확인해보면 실행이 TEMP TABLE Transformation 이 되었다! 
+
+	• ACCEPT 절 사용 방법! 
+
+select empno,ename,sal
+from emp
+where empno=&사원번호;
+
+예제
+입력 메시지 창에서 사원번호에 대한 값입력이라고 출력되는게 아니라
+사원번호를 입력하세요 ~~ 라고 메시지창의 메세지가 나오게 하고 싶다면?
+
+ACCEPT p_num1 prompt '사원번호를 입력하세요 ~~' 
+select empno,ename,sal
+from emp
+where empno=&p_num1;
+
+	• 110.WITH 절 사용하기 2 (SUBQUERY FACTORYING)
+
+with 절을 사용할 때 with 절 내에서 같은 SQL 이 아래와 같이 두번이상 사용되게 되면 TEMP TABLE 에 자동으로 저장되고 /한번만 사용하면 with 절의 as 다음에 나오는 쿼리문의 결과가 하드디스크 메모리에 저장된다. 
+
+with job_sumsal as (select job,sum(sal) as 토탈  ------반드시 단축어 써줘야함.
+      임시 테이블명                   from emp
+                                              group by job) 
+select job,토탈
+from job_sumsal
+where 토탈> (select avg(토탈)
+                from job_sumsal) ; 
+
+설명 : with 절은 반복수행 하려고 만든거.. 속도를 높이기 위해서 , 그래서 여기 보면 with절에서 만든 테이블이 아래에 한번만 사용이된다. 이러면 한번만 사용이되었기 떄문에 속도를 빠르게 못뽑아낸다. 그래서 한번만 쓰면서 빠르게 활용하고 싶다면 힌트를 주면 된다!!
+
+*with 절을 사용할때 쓰는 유용한 힌트 2가지 
+1. /*+ materialize */ :   →    temp table을 만들어서 하드 디스크에 생성해라 ---빠른속도 !! 
+
+2./*+ inline*/:   →   temp table 만들지 말고 그냥 from 절의 서브쿼리인 in line view 써라~~ 
