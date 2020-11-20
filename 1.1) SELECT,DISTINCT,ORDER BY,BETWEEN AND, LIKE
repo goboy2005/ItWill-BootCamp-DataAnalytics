@@ -1,11 +1,12 @@
 ※ SQL 작성시 주의사항! 
-	1. SQL 은 대소문자를 구분하지 않는다. (But DATA does) 
+
+1. SQL 은 대소문자를 구분하지 않는다. (But DATA does) 
 예) SELECT ENAME,SAL FROM EMP; -- 가능 
     Select ename,sal from emp; -- 가능 
-  2. SQL 을 한줄로 작성하지 말고   
+2. SQL 을 한줄로 작성하지 말고   
      절은 다음 라인으로 분리해서 작성한다. 
      
-  3. 들여쓰기를 해서 SQL 의 가독성을 높인다.
+3. 들여쓰기를 해서 SQL 의 가독성을 높인다.
 
 @결과 화면의 가로사이즈 조절하는 명령어 : Set lines 300
 @ / 하고 엔터 를 치면 방금 수행했던 SQL 을 실행할수 있다
