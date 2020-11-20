@@ -324,3 +324,4 @@ from dual;
 
 select substr(email,instr(email,'@')+1, instr(email,'.'))
                  from emp12; 
+
