@@ -211,8 +211,8 @@ select ename,hiredate,to_date(hiredate,'RRRR'),
                                                         from emp;
 
 106.이름,월급,보너스를 출력하는데 보너스를 월급이 4000이상이면 500출력 
-                                                           월급이 2000이상이면 300 출력
-                                                           하고 나머지 월급사원들은 0을 출력하시오  
+                                        월급이 2000이상이면 300 출력
+                                    하고 나머지 월급사원들은 0을 출력하시오  
 
 select ename,sal,case when sal >= 4000 then 500
                              when sal>= 2000 then 300 
