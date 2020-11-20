@@ -1,6 +1,6 @@
 ※ SQL 작성시 주의사항! 
 	1. SQL 은 대소문자를 구분하지 않는다. (But DATA does) 
-예: SELECT ENAME,SAL FROM EMP; -- 가능 
+예) SELECT ENAME,SAL FROM EMP; -- 가능 
     Select ename,sal from emp; -- 가능 
   2. SQL 을 한줄로 작성하지 말고   
      절은 다음 라인으로 분리해서 작성한다. 
@@ -154,69 +154,83 @@ Control --Enter
 
 
 3.  emp 테이블의 컬럼이 무엇무엇이 있는지 확인 하시오!
+
 describe emp
 
 4. 이름,월급,커미션을 출력하시오
+
 select ename,sal,comm from emp;
 
 5. 이름,직업,입사일 부서번호를 출력하시오!
 select ename,job,hiredate,deptno from emp;
 
 6. emp 테이블에 모든 컬럼을 검색하시오 
+
 describe emp;
 
 7. dept 테이블의 모든 컬럼을 출력하시오
+
 describe dept;
 
 9.이름과 월급을 출력하는데 컬럼명이 아래와 같이 출력되게 하시오! (Employee name, Salary )
+ 
  select ename as 'Employee name'
       sal as 'Salary' from emp;
 
-10. 아래와 같이 결과를 출력하시오!
-    KING 의 직업은 PRESIDENT 입니다  
-    SCOTT 의 직업 ANALYST 입니다. 
-select ename ||'의 직업은'|| job ||'입니다' from emp;
-                      문자       컬럼    문자  
+10.아래와 같이 결과를 출력하시오
+(KING 의 직업은 PRESIDENT 입니다  
+SCOTT 의 직업 ANALYST 입니다) 
 
+select ename ||'의 직업은'|| job ||'입니다' from emp;
+                      
 11. 위의 과에서  출력되는 컬럼명을 사원정보라는 한글로 출력되게 하시오
+
 select ename ||'의 직업은'|| job ||'입니다'  as 사원정보 from emp;
 
 12. 부서번호를 출력하는데 중복을 제거해서 출력하시오.
- select distinct deptno from emp;
+ 
+select distinct deptno from emp;
 
-13.이름과 월급을 출력하는데 월급이 높은 사원부터 출력하시오.
+13.이름과 월급을 출력하는데 월급이 높은 사원부터 출력하시오
+ 
  select ename,sal
   from emp
     order by sal desc;
 
 14. 이름과 입사일을 출력하는데 최근에 입사한 사원부터 출력하시오
+
 select ename,hiredate
  from emp
     order by hiredate desc;
 
 15.이름과 직업과 입사일을 출력하는데 직업은 ABCD 순으로 정렬해서 출력하고 직업을 ABCD 순으로 정렬한걸 기준으로 입사일을
 먼저 입사한 사원부터 출력되게 하시오 (order by 는 한번만 입력하면 된다) 
+
 select ename,job,hiredate
   from emp
     order by 2 asc, 3 asc;
 
 16.사원번호가 7788번인 사원의 사원번호와 이름과 월급을 출력하시오
+
 select ename,empno,sal
   from emp
     where empno=7788;
 
-17. 30번 부서번호에서 근무하는 사원들의 이름과 월급과 부서번호를 출력하시오
+17.30번 부서번호에서 근무하는 사원들의 이름과 월급과 부서번호를 출력하시오
+
 select ename,sal,deptno
  from emp
    where deptno=30;
 
 18. 위의 결과를 다시 출력하는데 월급이 높은 사원부터 출력하시오 (17연결)
+
 select ename,empno,sal
   from emp
   where empno=7788
    order by sal desc;
 
 19.부서번호가 20번인 사원들의 이름과 입사일과 부서번호를 출력하는데 최근에 입사한 사원부터 출력하시오.
+
 select ename,hiredate,deptno
  from emp
    where deptno=20
@@ -228,20 +242,24 @@ select ename,hiredate,deptno
     where job='SALESMAN';
 
 21.81년 11월 17일에 입사한 사원의 이름과 입사일을 출력하시오
+ 
  select ename,hiredate
   from emp
     where hiredate='81/11/17';
 
 22.이름과 연봉(sal*12)을 출력하는데 컬럼명을 한글로 이름,연봉으로 출력하시오
+
 select ename as 이름, sal*12 as 연봉
  from emp;
 
 23.위의 결과를 다시 출력하는데 연봉이 36000인 사원들의 이름과 연봉을 출력하시오 (22연결)
+
 select ename as 이름, sal*12 as 연봉
     from emp
    where sal*12=36000;
 
 24.이름과 연봉을 출력하는데 연봉이 높은 사원부터 출력하시오 
+
 select ename as 이름, sal*12 as 연봉
   from emp
   order by 2 desc;
@@ -249,32 +267,38 @@ select ename as 이름, sal*12 as 연봉
   실행순서 : from---select---order by
  
  25. 커미션이 150 이상인 사원들의 이름과 커미션을 출력하시오 
+
 select ename,sal
    from emp
   where sal<=2400
     order by sal desc;
 
 26.아래의 SQL 에서 더하기 가 먼저 실행되게 하려면?
+
 select ename, (sal +200) * 20
 From emp; 
 
 27.월급이 3000이상인 사원들의 이름과 월급을 출력하시오 
+ 
  select ename,sal
    from emp
    where sal>=3000;
 
 28.직업이 SALESMAN 이 아닌 사원들의 이름과 직업을 출력하시오
+
 select ename,job
     from emp
    where job<>'SALESMAN';
 
 29.월급이 2400 이하인 사원들의 이름고 월급을 력하는데 월급이 높은 사원부터 출력하시오.
+
 select ename,sal
     from emp
     where sal<=2400
   order by sal desc;
 
 30.월급이 1000에서 3000사이인 사원들의 이름과 월급을 출력하시오 
+
 Select ename,sal
 From emp
 Where sal between 1000 and 3000;
@@ -284,31 +308,38 @@ From emp
 Where sal>=1000 and sal <=3000;
 
 31.월급이 1000에서 3000사이가 아닌 사원들의 이름과 월급을 출력 하시오 
+
 select ename,sal
    from emp
    where sal not between 1000 and 3000; 
-(not 을 사용해보리기) 
+     (not 을 사용하기) 
 
 32.1981년도에 입사한 사원들의 사원들의 이름과 입사일을 출력하시오.
+ 
  select ename,hiredate
   from emp
   where hiredate between '81/01/01' and '81/12/31';
 
 33.이름의 끝 글자가 T로 끝나는 사원들의 이름을 출력하시오 
+
 select ename
     from emp
   where ename like '%T';
-	34. 81년도에 입사한 사원들의 이름과 입사일을 출력하는데 between and 사용하지 말고 Like 로 
-	select ename
-	   from emp
-	  where hiredate like '81%';
+
+34. 81년도에 입사한 사원들의 이름과 입사일을 출력하는데 between and 사용하지 말고 Like 로 
+
+select ename
+from emp
+ where hiredate like '81%';
 
 35.이름의 두번째 철자가 M인 사원들의 이름을 출력하시오!
+
 Select name
   From emp
     Where ename like '_M%';
 
 36.이름의 세번째 철자가 A인 사원들의이름. 
+
 select ename 
   from emp
     where ename like '__M%';
