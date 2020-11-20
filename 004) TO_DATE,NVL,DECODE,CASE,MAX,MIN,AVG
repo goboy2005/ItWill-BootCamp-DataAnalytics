@@ -289,3 +289,4 @@ select job,max(sal)
 from emp
 where job='SALESMAN'
 group by job;
+
