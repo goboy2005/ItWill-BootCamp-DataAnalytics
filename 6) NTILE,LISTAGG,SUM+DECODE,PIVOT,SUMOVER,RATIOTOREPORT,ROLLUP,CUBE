@@ -520,7 +520,6 @@ select  telecom,  ename,  age,  sum(age)  over ( partition  by  telecom
 186.  입사한 년도(4자리), 입사한 년도별 토탈월급을 출력하는데 맨 위에 전체토탈월급을
 출력하시오 !
 
-  
 
 
 187.(오늘의 마지막 문제) 답글로 올리세요 ~  
