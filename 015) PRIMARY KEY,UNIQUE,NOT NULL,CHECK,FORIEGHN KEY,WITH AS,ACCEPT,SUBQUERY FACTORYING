@@ -363,7 +363,7 @@ from emp
 where empno=&p_num1;
 
 
-	• 110.WITH 절 사용하기 2 (SUBQUERY FACTORYING)
+• 110.WITH 절 사용하기 2 (SUBQUERY FACTORYING)
 
 with 절을 사용할 때 with 절 내에서 같은 SQL 이 아래와 같이 두번이상 사용되게 되면 TEMP TABLE 에 자동으로 저장되고 /한번만 사용하면 with 절의 as 다음에 나오는 쿼리문의 결과가 하드디스크 메모리에 저장된다. 
 
@@ -380,4 +380,7 @@ where 토탈> (select avg(토탈)
 *with 절을 사용할때 쓰는 유용한 힌트 2가지 
 1. /*+ materialize */ :   →    temp table을 만들어서 하드 디스크에 생성해라 ---빠른속도 !! 
 
-2./*+ inline*/:   →   temp table 만들지 말고 그냥 from 절의 서브쿼리인 in line view 써라~~ 
+2./*+ inline*/:   →   temp table 만들지 말고 그냥 from 절의 서브쿼리인 in line view 써라.
+
+
+
