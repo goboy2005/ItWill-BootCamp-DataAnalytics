@@ -1,4 +1,3 @@
-
 ■ SQL 튜닝 목차
 
  1. 인덱스 SQL 튜닝
@@ -83,14 +82,14 @@ select  index_name
  from  user_indexes
   where table_name='EMP';
 
-23.  아래의 쿼리가 인덱스를 통해서만 데이터를 가져오고 테이블 엑세스
+23.아래의 쿼리가 인덱스를 통해서만 데이터를 가져오고 테이블 엑세스
  를 하지 않도록 결합컬럼 인덱스를 생성하시오 !
 
 select  /*+ gather_plan_statistics */  empno, ename, sal, deptno
    from  emp
    where  empno = 7788;
                         
-답:     create   index   emp_index1
+답:  create   index   emp_index1
           on   emp(empno, ename, sal, deptno);
 
 24.  @demo 스크립트를 다시 돌리고  아래의 SQL을 튜닝하시오 !
@@ -150,13 +149,14 @@ select  /*+  gather_plan_statistics  index_ffs(emp emp_job) */ job, count(job)
                group  by deptno ;
   
 
-26.  @demo 를 돌리고  아래의 인덱스를 생성하고 아래의 SQL을 
+26. 아래의 인덱스를 생성하고 아래의 SQL을 
  튜닝하시오 ! ( min 과 group by 를 사용하지 말고 똑같은 결과가
  출력되게하시오)  
 
 힌트: 결합 컬럼 인덱스의 구조를 이해하면 풀수 있는 문제입니다.
 
-create   index  emp_deptno_sal  on  emp(deptno, sal) ;
+create   index  emp_deptno_sal 
+on  emp(deptno, sal) ;
 
 튜닝전:  select  /*+ gather_plan_statistics */  deptno,  min(sal)
               from  emp
@@ -320,7 +320,7 @@ select  /*+ gather_plan_statistics index_ss(emp emp_job_sal) */
  전자가 skip 할 수 있는 확률이 더 높으므로 선두 컬럼의 데이터의 종류가
  적어야 유리합니다.
 
-30.   직업의 종류가 몇가지 입니까 ?     
+30. 직업의 종류가 몇가지 입니까 ?     
 
   결과 :  5  
 
@@ -364,18 +364,20 @@ create  index  emp_sal  on  emp(sal);
 32. 아래의 SQL을 튜닝하시오 !( 실행계획에 SORT 가 있지 않게 하시오)
  max 함수 사용하지 말고 인덱스에서 데이터를 읽어오게 튜닝하시오
 
-튜닝전 :  select  /*+ gather_plan_statistics */  max(sal)
+튜닝전 
+select  /*+ gather_plan_statistics */  max(sal)
                from  emp; 
    
                           ↓
-튜닝후:   select  /*+ gather_plan_statistics index_desc(emp emp_sal) */ sal
+튜닝후
+select  /*+ gather_plan_statistics index_desc(emp emp_sal) */ sal
               from  emp
               where sal >= 0  and rownum = 1;
 
 33. 아래의 SQL을 튜닝하시오 ! ( emp 테이블을 한번만 엑세스해서 결과가
 나오게 하시오)
 
-튜닝전: 
+튜닝전
 select  /*+ gather_plan_statistics */ ename, sal
   from  emp
   where  sal =  ( select   max(sal)
@@ -383,23 +385,24 @@ select  /*+ gather_plan_statistics */ ename, sal
 
  버퍼의 갯수 3개 
                          ↓
-튜닝후:   
+튜닝후
  select  /*+ gather_plan_statistics  index_desc(emp emp_sal) */ ename, sal
   from  emp
   where  sal >= 0  and  rownum = 1; 
     
-34.  @demo 를 돌리고 아래의 SQL 을 튜닝하시오 ! (order by 절 안쓰고
+34. @demo 를 돌리고 아래의 SQL 을 튜닝하시오 ! (order by 절 안쓰고
  출력되게하시오 !)
 
 @demo
 create  index  emp_deptno_sal  on  emp(deptno, sal) ;
 
-튜닝전:   select /*+ gather_plan_statistics */  empno, deptno, sal
+튜닝전
+select /*+ gather_plan_statistics */  empno, deptno, sal
                   from  emp
                   where  deptno = 20
                   order  by  sal  desc; 
                       ↓
-튜닝후: 
+튜닝후
  select /*+ gather_plan_statistics  index_desc(emp  emp_deptno_sal) */ 
                  empno, deptno, sal
    from  emp
@@ -409,13 +412,15 @@ create  index  emp_deptno_sal  on  emp(deptno, sal) ;
  ( 인덱스도 직접 생성하세요)
 
 @demo
-튜닝전 :  select /*+ gather_plan_statistics */ ename, hiredate
+튜닝전 
+select /*+ gather_plan_statistics */ ename, hiredate
               from  emp
               where  to_char(hiredate, 'RRRR') ='1981'
               order by  hiredate  desc; 
                          
                            ↓
-튜닝후:   create  index  emp_hiredate  
+튜닝후
+create  index  emp_hiredate  
              on  emp(hiredate); 
 
         select /*+ gather_plan_statistics  index_desc(emp emp_hiredate) */ 
@@ -424,7 +429,7 @@ create  index  emp_deptno_sal  on  emp(deptno, sal) ;
               where  hiredate  between   to_date('1981/01/01', 'RRRR/MM/DD')
                                     and         to_date('1981/12/31', 'RRRR/MM/DD');
 
-36.  @demo를 돌리고 아래의 SQL을 튜닝하시오 !
+36. @demo를 돌리고 아래의 SQL을 튜닝하시오 !
 (결합 컬럼 인덱스를 직접 생성하세요 !)
 
 @demo
@@ -446,7 +451,8 @@ create  index  emp_deptno_sal  on  emp(deptno, sal) ;
     "두개의 인덱스를 동시에 사용하여 하나의 인덱스만 사용했을 때보다
      더 좋은 성능을 보이는 스캔 방법"
   
-예제:   @demo  <---  테스트 잘되도록 초기화하는것 !!
+예제)
+@demo  <---  테스트 잘되도록 초기화하는것 !!
           create  index  emp_deptno  on  emp(deptno);
           create  index  emp_job       on  emp(job); 
 
@@ -456,7 +462,7 @@ select  /*+ gather_plan_statistics */  ename, deptno, job
   where  job ='SALESMAN'  and deptno=30;
             ↑                              ↑
           인덱스                        인덱스 
-37. 위의 SQL이 deptno 걸린 인덱스를 타도록 힌트를 주고 실행하시오 !
+37.위의 SQL이 deptno 걸린 인덱스를 타도록 힌트를 주고 실행하시오 !
 
 select  /*+ gather_plan_statistics index(emp emp_deptno) */  
            ename, deptno, job
@@ -509,11 +515,12 @@ select  /*+ gather_plan_statistics  and_equal(emp  emp_job  emp_deptno)   */
     bitmap 을 이용해서 인덱스의 사이즈를 아주 많이 줄인다는게 
    차이점 입니다. 그래서 인덱스를 스캔하는 시간이 짧아집니다. 
  
-예:  책의 내용을 검색하기 위해서 두개의 목차를 먼저 읽고 요약해서
+예)
+책의 내용을 검색하기 위해서 두개의 목차를 먼저 읽고 요약해서
       목차를 A4 한페이지로 만들어 버리면 목차를 빠르게 검색할 수 있기
       때문에 책(테이블)의 데이터를 찾기가 쉬워진다. (빨라집니다.)
 
- 힌트:  index_combine 
+힌트:  index_combine 
 
 select  /*+ gather_plan_statistics  index_combine(emp)   */  
            ename, deptno, job
@@ -554,3 +561,4 @@ select  /*+ gather_plan_statistics  index_join(emp  emp_deptno  emp_job) */
          deptno, job
    from  emp
    where  job='SALESMAN'  and deptno = 30;
+
