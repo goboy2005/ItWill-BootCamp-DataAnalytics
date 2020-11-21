@@ -1,5 +1,5 @@
+ *SQL 튜닝 목차
 
- SQL 튜닝 목차
 1.인덱스 SQL 튜닝
 2.인덱스 
 
@@ -12,7 +12,7 @@ rowid 는 책의 PAGE 라고 이해하면 편하다! 책의 PAGE 번호가 Rowid
 
 책의 페이지 번호는인덱스에 있다. 인덱스가 없다면 책을 풀스캔 할 수밖에 없는데. 인덱스의 목차를 통해서 책의 page번호를 바로 찾아갈수있다. INDEX 가없다면 원하는 데이터를 검색하기 위해서 Full table scan 할 수밖에 없지만..인덱스가 있다면 인덱스(목차)를 통해서 먼저 데이터를 검색하고 인덱스의 rowid를 통해서 테이블을 엑세스 할수 있게 됩니다. 
 
-예 
+예)
 Select ename,sal
      from emp
         where ename = 'BLAKE' ;
@@ -55,7 +55,6 @@ select * from (table dbms_xplan.display)   → 요것은 1. 예상 실행계획�
 index(emp emp_ename) - emp 테이블의 emp_ename 라는 뜻이다.
 
 
-
 순서가 저렇게 간다 먼제 인덱스 RANGE SCAN하고 
 ROWID 로 테이블로 순서로 간다
 
@@ -64,14 +63,16 @@ ROWID 로 테이블로 순서로 간다
 create index emp_job 
 on emp(job);
 
-: select ename,sal,job
+튜닝전
+select ename,sal,job
                from emp
                    where substr(job,1,5)='SALES'
 
 select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
                    
                     ↓
-
+		    
+튜닝후 (하지만 Error)
 select /*+ gather plan_statistics*/ sal,job    
 from emp 
 where substr(job,1,5,)= 'SALES';
@@ -81,9 +82,10 @@ select *from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST)');
 튜닝을 했는데도 Full scan을 해버렸다… 
 
 설명 : 좌변을 가공하 인덱스 스캔을 할 수 없습니다.
-                                 ↓
+                              
+			      ↓
 
-튜닝후!
+튜닝후
 select /*+ gather plan_statistics*/ sal,job    
 from emp 
 where job like 'SALES%';
@@ -91,12 +93,12 @@ where job like 'SALES%';
 Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 (좌변을 가공하지 않은 형태로만들어 졌기에 가능하다)
 
-문제3. 아래의 SQL을 튜닝하시오
+문제3.아래의 SQL을 튜닝하시오
 
 create index emp_sal 
 on emp(sal);                      ----인덱스를 우선 생성 
 
-
+튜닝전
 select /*+ gather plan_statistics*/ ename,sal    
 from emp 
 where sal*12 =36000;
@@ -104,7 +106,7 @@ where sal*12 =36000;
 Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
                      ↓ 
-
+튜닝후
 select /*+ gather plan_statistics index(emp emp_sal)*/ ename,sal  
 from emp 
 where sal = 36000/12;
@@ -118,12 +120,13 @@ Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 create index emp_hiredate
 on emp(hiredate);
 
+튜닝전
 select /*+ gather_plan_statistics*/ ename,hiredate
 from emp
 where to_char(hiredate,'RRRR') ='1980'
 
                          ↓
-
+튜닝후
 select /*+ gather_plan_statistics index(emp emp_hiredate)*/ ename,hiredate
 from emp
 where hiredate = between to_date('1980/01/01','RRRR/MM/DD') and
@@ -138,6 +141,7 @@ Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 create index emp_empno 
 on emp(empno);
 
+튜닝전
 select /*+ gather_plan_statistics*/ empno,ename,sal
             from emp
             where empno||ename = '7788SCOTT'; 
@@ -147,7 +151,7 @@ select /*+ gather_plan_statistics*/ empno,ename,sal
 Select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST')); 
 
                               ↓                 ↓
-             
+튜닝후   
 select /*+ gather_plan_statistics*/ empno,ename,sal
             from emp
             where empno=7788 and ename='SCOTT' ;
@@ -173,6 +177,7 @@ Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
 7.아래의 SQL을 튜닝하시오! 
 
+튜닝전
 select/*+ gather_plan_statistics*/ ename,sal
             from emp
            where sal like '30%';
@@ -190,8 +195,9 @@ SQL 에서 조건절에 LIKE 를 자주 사용하는 쿼리의 테이블의 컬�
 
                           ↓             ↓
 
-함수기반 인덱스를 생성해서 튜닝합니다.  ????????????????????????????????
+함수기반 인덱스를 생성해서 튜닝합니다.  
 
+튜닝후
 create index emp_sal_func
 on emp( to_char(sal) );
 
@@ -200,7 +206,6 @@ select/*+ gather_plan_statistics index (emp_sal_func)*/ ename,sal
            where sal like '30%';
 
 Select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
-
 
 *암시적 형변환 사용시 주의 사항
 
@@ -217,8 +222,6 @@ from emp;
 
 select max(decode(job,'PRESIDENT',null,sal))
 from emp;
-
-
 
 왜 30000이 안나오고 950이 나왔나...우리가 위에 정렬했을때 king 다음이 3000인데 … 뭘까유 
 
@@ -251,8 +254,7 @@ null 이 아니라 0으로 바꿔주면 됩니다!
  1. unique 인덱스 : 값이 중복되지 않고 unique해야 생성되는 index 
  2. non unique 인덱스 : 값이 중복되어도 상관없이 그냥 생성되는 index 
 
-예제: 
-1@demo.sql
+예제)
 create unique index emp_empno on emp(empno);    ----생성됨
 create unique index emp_deptno on emp(empno);    ----생성안됨 
 
@@ -291,7 +293,6 @@ where job='SALESMAN';
 
 select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
 
-
 인덱스 엑세스 방법 8가지 
 
 1.index range scan
@@ -303,7 +304,7 @@ index unique scan
 
 unique 인덱스는 중복된 데이터가 없어야지만 인덱스가걸린다.! 
 
-예제
+예제)
 create uniqe emp_empno
 on emp(empno); 
 
@@ -359,7 +360,7 @@ SELECT /*+ gather_plan_statistics*/ *
 select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS')); 
 
 --힌트를 안준상태지만, 옵티마이져에 따라서 index 스캔할수도 있다.
-추가로 unique acess 를 주려면 아래의 힌트를 주면 된다.
+  추가로 unique acess 를 주려면 아래의 힌트를 주면 된다.
 
 17.아래의 SQL이 loc 에걸린 non unique 인덱스를 엑세스 하도록  힌트를 주시오! 
 
@@ -378,11 +379,12 @@ select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
 2.index unique scan
 3.index full scan
 
-	index full scan
+*index full scan
 
 "인덱스 전체를 full 로 읽어서 원하는 데이터를 엑세스 하는방법 "   full tabel scan 과 다르다 NOT TABLE 
 
-예제: 사원 테이블의 인원수가 전부 몇명인가? 
+예제)
+사원 테이블의 인원수가 전부 몇명인가? 
 
 select count(*)
 from emp; 
@@ -405,7 +407,7 @@ emp_empno 인덱스를 full scan 하여 사원수를 카운트 했습니다.
 select/*+ gather_plan_statistics full(emp)*/count(*)
 from emp;
 
---- 이렇게 하면 full table 스캔을 해버린다.! 
+--- 이렇게 하면 full table 스캔을 해버린다.
 
 설명: Full table scan은 buffer 갯수가 3이고 index full scan은 버퍼의 갯수가 1로 3배의 성능이 좋아지는 효과를 볼 수 있습니다. 
 
@@ -429,7 +431,7 @@ index_fs(emp emp_empno) 힌트가 index full scan이고
 full(emp) 힌트가 full table scan입니다.
 
 
-	* 4.index fast full scan   
+* 4.index fast full scan   
 
 인덱스 엑세스 방법 8가지
 
@@ -448,7 +450,7 @@ full(emp) 힌트가 full table scan입니다.
 multi block i/o 란?  : 책 앞에 목차가 1페이지~100페이지라고 한다면 index full scan은 한페이지 한페이지 하나씩 넘기는게 index full scan이고 index fast full scan은 한번 넘길
 때 10장씩 넘기는 것입니다. 
 
-예제 
+예제)
 
 create index emp_job 
 on emp(job);
@@ -502,7 +504,7 @@ select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
 *index fast full scan은 무조건 not null 절 제약을 걸어줘야한다… 
 
 21.우리반 테이블에서 통신사,통신사별 인원수를 출력하는데
-   index fast full scan이 될 수 있도록 하시오!
+   index fast full scan이 될 수 있도록 하시오! (제약도 걸어야 한다)
 
 create index emp12_telecom
 on emp12(telecom)
@@ -515,3 +517,5 @@ from emp12
 group by telecom; 
 
 select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LASTS'));
+
+
