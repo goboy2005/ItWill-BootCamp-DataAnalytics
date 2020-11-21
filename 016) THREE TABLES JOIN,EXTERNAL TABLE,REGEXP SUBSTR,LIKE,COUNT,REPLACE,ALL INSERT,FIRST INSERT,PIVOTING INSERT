@@ -1,4 +1,4 @@
-	• 기타 SQL 기능들과 수업떄 안다뤘던 주요 SQL 기능들
+• 기타 SQL 기능들과 수업떄 안다뤘던 주요 SQL 기능들
 
 복습  1. 기본 SQL 문장 : 
         2. 함수
@@ -44,9 +44,8 @@ where 절에다가 and 로
 
 e.deptno = d.deptno   and    e.sal between s.losal and s.hisal
 
-
 426.이름과 부서위치와 월급과 부서번호를 출력하시오!  
-     emp dept 를조인하세요
+emp dept 를조인하세요
 
 select e.ename,e.sal,e.deptno,d.loc
 from emp e, dept d
@@ -58,7 +57,7 @@ select e.ename,e.sal,d.loc,s.grade
 from emp e , dept d, salgrade s
 where e.deptno=d.deptno and e.sal between s.losal and s.hisal;
 
-emp 가 중앙에서 세개를 이어준다.
+emp가 중앙에서 세개를 이어준다.
 
 428.아래와 같이 bonus 라는 테이블을 생성하시오! 
 
@@ -69,13 +68,11 @@ from emp
 
 (as 문 써서 emp 에 있는거 뽑아옴) 
 
-
 429.사원이름,월금,부서위치,comm2 를 출력하시오 
 
 select e.ename,e.sal,d.loc,b.comm2
 from emp e, dept d, bonus b
 where e.deptno=d.deptno and e.empno=b.empno and e.sal>2000;
-
 
 430.위의 결과에서 월급이 2000이상인 사원들만 출력하시오! 
 
@@ -83,22 +80,19 @@ select e.ename,e.sal,d.loc,b.comm2
 from emp e, dept d, bonus b
 where e.deptno=d.deptno and e.empno=b.empno and e.sal>2000;
 
-	• 외부 테이블 (external table)
+• 외부 테이블 (external table)
 
 *오라클 테이블의 종류 1. 일반 테이블(heap table)
                               2. 임시 테이블(temp table)
                               3. 외부테이블 (external table)             
                               4.파티션테이블(partition table) 
 
+외부 테이블(external table) ? Database 외부에 있는 엑셀 파일이나,csv 파일,text 파일을 insert 문으로 만들어서 데이터 베이스에 입력하지 않고도
+그냥 링크만 걸어서 해당파일의 데이터를 select 할 수 있는 테이블 ! 
+엑셀을 테이블로 만들고 싶은거 !! nsert 테이블을 만들어서 엑셀을 sql로 넣으려는거입니다.
 
 
-외부 테이블(external table) ? Database 외부에 있는 엑셀 파일이나,csv 파일,text 파일을 insert 문으로 만들어서 데이터 베이스에 입력하지 않고도 그냥 링크만 걸어서 해당파일의 데이터를 select 할 수 있는 테이블 ! 
-엑셀을 테이블로 만들고 싶은거 .!! insert 테이블을 만들어서 엑셀을 sql로 넣으려는거지!! 
-
-근데 존나 빡샘 데이터 베이스 테이블 잘해야 한다 절반성공하고 절반은 성공 못한다.
-다 성공하자
-
-예제 1. emp.txt 를 c드라이브 밑에 data라는 폴더를 만들고 그안에 emp.txt 를 넣으시오
+예제   1. emp.txt 를 c드라이브 밑에 data라는 폴더를 만들고 그안에 emp.txt 를 넣으시오
 
 
        2.   c드라이브에 data 폴더를 오라클 디렉토리로 생성하시오! 
@@ -153,7 +147,7 @@ insert로 하면 오래걸린다. db에넣을 떄 공간 부족하다등..시간
 
 select*from ext_emp11;
 
-432. ext_emp11 테이블을 조회하여 직업이 SALESMAN인 사원들의 이름과 직업과 월급을 출력하시오! 
+432.ext_emp11 테이블을 조회하여 직업이 SALESMAN인 사원들의 이름과 직업과 월급을 출력하시오! 
 
 select ename,job,sal
 from ext_emp11
@@ -201,16 +195,16 @@ default directory dept_dir
             location ('dept.txt') );                          
 
 
-	외부 테이블에 뭐가 있는지 확인하고 삭제하는 방법 
+외부 테이블에 뭐가 있는지 확인하고 삭제하는 방법 
 
 select table_name,external
-from user_tables                                   -----   확인 
+from user_tables                                  ----   확인 
 where external = 'YES';
 
-drop table ext_emp11;                           ---     삭제
+drop table ext_emp11;                             -----    삭제
 
 
-	• 정규식 함수 5가지
+• 정규식 함수 5가지
 
 "데이터 검색을 좀더 상세하게 하려 할때 기존에 함수로는 표현할 수 없는 검색을 할 수 있게 해주는 함수 "
 
@@ -228,30 +222,25 @@ Poxis는 포터블 operation system interace의 약자로 시스템간 호환성
 
 Posix 연산자에는 기본연산자,앵커,수량사,서브표현식,역참조 문자 리스트,Posix 문자 클래스등이 있습니다.
 
-	1.Regexp_substr
+1.Regexp_substr
 
 1.기본 연산자
       
-        연산자                           영문                           설명 
+        연산자                                 영문                           설명 
            .                                  dot                         모든 문자와 일치
            |                                  or                           대체 문자를 구분
           
-          \                                 backslash                다음 문자를 일반 문자로 처리
+           \                                 backslash                다음 문자를 일반 문자로 처리
 
-예제
+예제)
 select regexp_substr('aab','a.b') as c1,
         regexp_substr('abb','a.b') as c2
         regexp_substr('acb','a.b') as c3
         regexp_substr('adc','a.b') as c4   ---애는 아무것도 안나옴...설정이 안되니까.
 from dual;
 
+dot 이 뭐냐면, 이자리에 뭐가 와도 관계가 없다는 뜻이다. 
 
-
-
-dot 이 뭐냐면...이자리에 뭐가 와도 관계가 없다는 뜻이다. 
-
-
-그이건 이해되
 'abc',1,3) 처음부터 3개 짤라버려라…
 
 a.b 부분을 짤라내라는 뜻인데 "." 어디에도 와도 상관이없다요~~ 
@@ -274,7 +263,6 @@ where regexp_like(ename,'EN | IN');
 
 정규 표현식 함수
 
-
 438.우리반 테이블에서 전공이 통계,수학,컴퓨터,전자 가 포함된 학생들의 이름과 전공을 출력하시오! 
 
 1.like 사용시
@@ -286,7 +274,7 @@ where major like '%통계%' or
              major like '%전자%'
 
 
-	2.regexp_like 사용시
+2.regexp_like 사용시
 
 select ename
 from emp12
@@ -294,7 +282,6 @@ where regexp_like(major,'통계|수학|컴퓨터|전자 ');
 
 훨씬 간단하게 해결이 가능합니다! 
 
-439.employees.scv 파일을 오라클의 테이블로 생성하시오! 
 
 440.이름의 첫글자가 St로 시작하면서 끝글자가 en으로 끝나는 사원들의 first name을 출력하시오! 
 
@@ -318,7 +305,6 @@ select ename
 from emp12
 where regexp_like(ename,'^(김|허)(.)+민$');
 
-
 서브표현식
 서브포현식은 표현식을 소괄호로 묶은 표현식입니다.
 서브표현은 하나의 단위로 처리됩니다.
@@ -328,9 +314,7 @@ where regexp_like(ename,'^(김|허)(.)+민$');
    +                                      1회 또는 그이상의 횟수로 일치 
 
 
-
-
-	3.regexp_count 함수
+3.regexp_count 함수
 
 특정 단어나 철자가 문장에서 몇번 반복되어서 출력되는지 확인하는 함수
 
@@ -352,7 +336,6 @@ ctctgctctcctctcctgaacccctgaaccctctggctaccccagagcacttagagccag',
 FROM dual;
 
 위의 긴문장에서 gtc 라는 단어가 몇번나오는가… 이것을 세는것이다. 
-만약에 찾아본다면 찾기 어렵다...ㅠㅠ 
 
 442.겨울왕국(winter kingdom) 에는 elsa 가 몇번 나오나? 
 
@@ -365,7 +348,7 @@ select sum(regexp_count(숫자,'8',1))
      from dual 
      connect by level<=10000) ;
                                            -----숫자 에서 8을 찾는데 1번째 자리부터 센다. 
-	5.regexp_replace
+5.regexp_replace
 
 replace-----------------------------------regexp_replace
 예제: 이름과  월급을 출력하는데 replace함수를 이용해서 
@@ -374,18 +357,13 @@ replace-----------------------------------regexp_replace
 select ename,replace(sal,0,'*')
 from emp;
 
-
-
-
-
-예제: 이름과 월급을 출력하는데 월급 숫자 0~3 까지는 * 로 출력하시오!
+예제)
+이름과 월급을 출력하는데 월급 숫자 0~3 까지는 * 로 출력하시오!
 
 select ename,regexp_replace(sal,'[0-3]','*')
 from emp;
 
-
-
-0에서 3까지를 별표로 나오게 해라 라고 할수 있다요 있다요!~
+0에서 3까지를 * 별표로 나오게 해라 라고 할수 있다.
 
 443.우리반 테이블에서  이름과 나이를 출력하는데 나이를 출력할때
 아래와 같이 앞의 숫자를  * 로 출력되게 하시오!
@@ -393,7 +371,7 @@ from emp;
 select ename, regexp_replace(substr(age,1,1), '[0-9]', '*')||substr(age,2,1) as 나이
 from emp12;
 
-	• 다중 insert 문 
+• 다중 insert 문 
 
 insert into emp(empno,ename,sal)
             values(1234,'SCOTT',3000);
@@ -410,11 +388,8 @@ insert into emp(empno,ename,sal)
 
 '여러개의 테이블에 조건 없이 한번에 데이터를 입력하는것 ' 
 
-그림으로 표현하자면,   
-
-
-
-예제 : create table target_a
+예제)
+create table target_a
 as
 select *
 from emp
@@ -436,8 +411,6 @@ where 1=2;     --------- where 절에 1=2 가 거짓이므로 emp테이블에서
 
 select * from target_c; 
 
-
-
 이렇게 구조만 가지고온다.
 
 select * from target_a;
@@ -454,11 +427,9 @@ insert all into target_a
 select *
 from emp; 
 
-
-
 444.우리반 테이블(emp12)를 3개를 emp12_a,emp_b,emp12_c 로 구조만 가져와서 만들고 무조건 all insert 문으로 emp12테이블의 전체 데이터를 3개의 테이블에 동시에 입력하시오! 
 
- create table emp12_a
+create table emp12_a
 as
 select *
 from emp12
@@ -492,7 +463,7 @@ truncate table emp12_a;
 truncate table emp12_b;
 truncate table emp12_c;
 
--Truncate 는 구조만 남겨두고 데이터를 다 지워버린다.
+-Truncate 는 구조만 남겨두고 데이터를 다 지워버린다-
 
 2.조건부 all insert 문
 
@@ -545,13 +516,12 @@ from emp12;
 select * from emp12_sk;
 
 
-
-
 3.조건부 fisrt insert 문 
 
 조건에 맞는 데이터가 첫번째 테이블에 입력되고 남은 나머지 데이터를 가지고 새로운 조건에 맞춰서 두번째 또는 세번째에 입력하는 insert문
 
-예제: 부서번호가 20번인 사원들은 target_a 에 입력하고 
+예제)
+부서번호가 20번인 사원들은 target_a 에 입력하고 
 남은 나머지 부서번호인 사원들의 월급중에서 월급이 1200이상은 target_b 에 입력하고 1200보다 작은 사원은 target_c 에 입력하시오! 
 
 truncate table target_a;
@@ -613,3 +583,5 @@ insert all into sales_info values (ename,mon)
 
 select ename,mon,tues,wed,thur,fri
 from week_sum_sal;
+
+
