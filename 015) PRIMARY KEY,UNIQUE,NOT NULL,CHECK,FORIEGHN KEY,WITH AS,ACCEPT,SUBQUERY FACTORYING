@@ -1,4 +1,3 @@
-	
 • 104 데이터 품질 높이기 1 (PRIMARY KEY)
 		
 데이터 분석을 하다보면 제일로 많은 시간을 할애하는 작업이 데이터 전처리 입니다. 
@@ -32,7 +31,7 @@ insert into emp307 values(null,'jones');  ----      중복된 데이터와 Null 
 
 데이터 품질 높이는 소프트웨어가 있으나 , 이미 엉망으로 들어갔으면 효과가 없다..그래서 처음에 잘넣어야한다! 
 	
-	• 105.데이터 품질 높이기 2 (UNIQUE)
+• 105.데이터 품질 높이기 2 (UNIQUE)
 	
 "중복된 데이터를 허용하지 않게 하는 제약"
 
@@ -51,7 +50,6 @@ insert into emp507 values(1111,'scott');
 insert into emp507 values(1111,'scott'); 
 
 
-
 이런식으로 에러가 나오면 Unique 걸린거이다. 1행은 입력이 됫는데 2행은 중복이라 입력안됨 
 
 다르지만 중복된 동명이인 이 있어서 제약한것을 해제하고 싶을떄! 
@@ -68,7 +66,7 @@ where table_name='EMP507';   → 반드시 대문제로 작성
 alter table emp507
 drop constratins SYS_C007315
 
- 3. 중복된 데이터가 입력이 잘 되는지 확인하시오!
+3. 중복된 데이터가 입력이 잘 되는지 확인하시오!
 
  insert   into  emp507  values( 2222, 'scott'); 
 
@@ -115,7 +113,7 @@ select table_name, constratint_name
   from user_constraints
 where table_ename='EMP12';
 
-	• 106.데이터의 품질 높이기3 (NOT NULL)
+• 106.데이터의 품질 높이기3 (NOT NULL)
 
 "null 값을 입력하지 못하게 막는 제약" 
 
@@ -127,7 +125,8 @@ where table_ename='EMP12';
 insert into emp507 values(1111,'scott');
 insert into emp507 values(111,''); ----null 이라서 안들어간다 
 
-예제2.만들어진 테이블에 제약거는 방법 
+예제2)
+만들어진 테이블에 제약거는 방법 
 
 alter table emp
 modify ename constratint emp_ename_nn not null; 
@@ -156,14 +155,15 @@ alter table emp
 drop constraint emp_sal_nn;
 
 
-	• 107 데이터의 품질 높이기4(CHECK)
+• 107 데이터의 품질 높이기4(CHECK)
 
 "지정된 데이터만 입력되고 다른 데이터는 입력되지 못하게 막는 제약"
 
 예: 성별: 남자,여자 
             남, 여  ----이렇게만 입력을 시켜주세요! 
 
-예제: 1 테이블 생성할때 제약을 거는 방법 
+예제)
+1.테이블 생성할때 제약을 거는 방법 
           create table emp745
            (ename varchar2(10),
             loc  varchar2(20) emp745_loc_ck
@@ -186,7 +186,6 @@ SEOUL 은 데이터 제약에 걸려서 에러가 난다!!
 
 408.사원테이블의 월급에 월급이 0~9500 사이의 데이터만 입력되겠금 체크 제약거시오
 
-
 alter table emp
 add constratint emp_sal_ck                                  ck는 임의로 지은 이름 
 check (sal between 0 and 9500) ) ;
@@ -198,7 +197,7 @@ add constraint emp12_gender_ck
 check(gender in ( '남','여) );
 
 
-	• 108 데이터의 품질 높이기 5 (FORIEGHN KEY)
+• 108 데이터의 품질 높이기 5 (FORIEGHN KEY)
 
 "참조하는 컬럼에 거는 제약"
               emp
@@ -211,7 +210,7 @@ check(gender in ( '남','여) );
 
 예제 emp와 dept 테이블 생성스크립트 수행
 
-	1. dept 테이블에 deptno 에 primary key 제약을 겁니다.
+1. dept 테이블에 deptno 에 primary key 제약을 겁니다.
 
 alter table dept
 add constraint dept_deptno_pk primary key(deptno);
@@ -225,7 +224,7 @@ references dept(deptno);  -----dept(depno)를 참조하겠다
 insert into emp(empno,ename,sal,deptno)
 values(1234,'jack',4500,70);
 
-	• 109 with 절사용하기 1 (With~As) 
+• 109 with 절사용하기 1 (With~As) 
 
 "테스트 테이블과 같이 임시로 사용하는 데이터를 가지고 테스트 할때 유용한 SQL
 
@@ -236,7 +235,8 @@ connect by levle<=10;
 
 이것을 with 절로 표현할수가있따~!
 
-예제2.위의 SQL을 with 절로 변경하시오
+예제2)
+위의 SQL을 with 절로 변경하시오
 
 이렇게 하는이유 테이블은 왠만하면 안만들어준다. 1번하면 테이블이 만들어지니까..
 테이블로만들려면 DB에게 부탁을해야하는데 ...안해준다..
@@ -251,14 +251,13 @@ from test_table;   ------하지만 만든 테이블은 with 절 내에서만 사
 
 설명: as 다음에 나오는 괄호 안에 쿼리문의 결과 데이터로 임시테이블을 생성하는데 그 테이블 이름이 test_table 이 됩니다. 그리고 그 아래에 쿼리에서 test_table 가지고 다양하게 쿼리문장을 만들어서 테스트 할수 있습니다. 근데 이 데이터는 with 절이 끝나면 없어진다..바람같이 왔다가 사라진다네~~
 
-410.위의결과에서 짝수만 출력하시오!  
-
 
 DB한테 테이블만들어 달라했는데 안만들어줘서 그럼 내가 하나 임시로 만들겠다..그리고 만들어진 테이블내에서 짝수 결과만을 Where 절로 만들어준것.
 
 411.(점심시간문제) with 절로 구구단 2단을 출력하시오! 
-with test_table
-as (select level as num1 from dual
+
+with test_table as 
+(select level as num1 from dual
        connect by level <=9)
 select '2X'||num1||'='||2 * num1 as 구구단2
 from test_table ;
@@ -286,7 +285,8 @@ from emp e, (select deptno,avg(sal)  부서평균
 
 where e.deptno=v.deptno and e.sal> v.부서평균
  
-                                 ↓
+                   ↓
+
 with temp_table1 as (select deptno,avg(sal) 부서평균  
                                      from emp
                                          group by deptno) 
@@ -296,7 +296,7 @@ where e.deptno=v.deptno and e.sal >v.부서평균
 
 설명 : as 다음에 나오는 쿼리문의 결과가 아주 많거나 또는 이 쿼리문에 인라인뷰로 쓰였을때는 여러 번 작성될경우 똑같은 쿼리가 한번더있을때..그런경우에는 with 절이 훨씬빠르다! 
 
-with 절의 장점? 똑같은 SQL을 하나의 SQL내에서 여러 번 사용될때 유용합니다.
+with 절의 장점은 똑같은 SQL을 하나의 SQL내에서 여러 번 사용될때 유용합니다.
 
 417.직업,직업별,토탈월급을 출력하시오! (세로출력)
 
@@ -345,18 +345,15 @@ where 토탈> (select avg(토탈)
 
      select * from table(dbms_xplan.display);
 
-
-
-
 확인해보면 실행이 TEMP TABLE Transformation 이 되었다! 
 
-	• ACCEPT 절 사용 방법! 
+• ACCEPT 절 사용 방법! 
 
 select empno,ename,sal
 from emp
 where empno=&사원번호;
 
-예제
+예제)
 입력 메시지 창에서 사원번호에 대한 값입력이라고 출력되는게 아니라
 사원번호를 입력하세요 ~~ 라고 메시지창의 메세지가 나오게 하고 싶다면?
 
@@ -364,6 +361,7 @@ ACCEPT p_num1 prompt '사원번호를 입력하세요 ~~'
 select empno,ename,sal
 from emp
 where empno=&p_num1;
+
 
 	• 110.WITH 절 사용하기 2 (SUBQUERY FACTORYING)
 
