@@ -1,6 +1,4 @@
-
-	■  DCL 문장 
-
+■  DCL 문장 
 1.쿼리문 : select 문의 6가지절
 2.DML 문 : insert,update,delete,merge
 3.DDL 문 : create,alter,drop,truncate,rename
@@ -34,6 +32,8 @@ connect scott/tiger
 sqlplus allen/connect allen/tiger1234
 
 show user 
+
+
 
 show user 
 sys 가맞는지확인하고 
