@@ -1,7 +1,3 @@
-
-데이터가 대부분 대용량 데이터이기 때문에 데이터를 검색하는 검색 속도가 
-많이 느리므로 빠른 데이터 분석을 위해서는 SQL 튜닝기술도 잘 알고 있어야합니다. 
-
 SQL 튜닝이란 ? 데이터 검색속도를 향상시키는 기술 
 
 Index 튜닝을 하도록 할게요 
@@ -18,7 +14,7 @@ Index 튜닝을 하도록 할게요
 8.index join                                                index_join
 
 
-자그런데 요기서 힌트가뭔지 따로 정리해줄게요!!
+자그런데 여기서 힌트가뭔지 따로 정리해줄게요!!
 
 오라클 힌트(hint) ? 오라클 옵티마이져가 SQL을 수행할 때 
 실행계획을 만든느데 실행계획을 SQL 사용자가 조정하는 명령어!
@@ -28,8 +24,7 @@ Index 튜닝을 하도록 할게요
 
 오라클이 완전히 최적의 실행계획을 만들어가지고 우리가 어떻게 SQL을 만들어서 실행되면 좋겠지만..우리가 SQL을 만들때 같이 이야기해주면 좀더 효과가 좋습니다. 검색속도를 빠르게해주어서 좋습니다. 먼저 실행계획보는걸 처음부터 다시 알려줄테니까…
 
-
- *실행계획 보는 방법 
+*실행계획 보는 방법 
 1.emp와 dept 테이블 재생성 스크립트를 돌린다. 
 
 2.아래의 SQL의 실행계획을 확인합니다.
@@ -71,7 +66,8 @@ Buffers : 3
 그래서 개발자들이 산속에서 SQL되게 잘짜요..그.. 되게 잘짜요 1000개인가 10,000개인가 그렇다. 
 지금은 우리가 SQL이 작아서 별 차이없지만. 대용량에서는 쭉쭉올라간다. 튜닝을 해볼게요…
 
-예제1. 위의 SQL을 튜닝하시오! 
+예제1)
+위의 SQL을 튜닝하시오! 
 
 1.emp 테이블에 sal 에 인덱스를 생성하시오!
 
@@ -106,3 +102,8 @@ select /*+ gather_plan_statistics*/empno,ename,sal,job    ----- 힌트 주고 (�
 select * from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
 44.(조인순서 연습) emp 와 Salgrade 테이블을 조인해서 이름과 월급과 급여등급(grade) 를 출력하시오 조인순서 성능이 좋도록 하시오!!
+
+ select   /*+ gather_plan_statistics  ordered */ e.ename, e.sal,  s.grade
+   from salgrade   s, emp  e
+   where  e.sal  between  s.losal   and  s.hisal ;
+
