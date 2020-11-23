@@ -71,7 +71,7 @@ trim : 양쪽에 있 공백을 잘라버리겠다.
     복수행 함수 :  max,min,avg,sum,count 
 
 
-?   023 반올림해서 출력하기(ROUND)            
+023 반올림해서 출력하기(ROUND)            
 
 예제)
 select   round( 786.567,  -1 )
