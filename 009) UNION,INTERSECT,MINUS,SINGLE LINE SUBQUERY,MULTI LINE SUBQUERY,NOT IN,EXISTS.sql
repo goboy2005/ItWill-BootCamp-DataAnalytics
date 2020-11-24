@@ -243,7 +243,7 @@ MANAGER                2,975       2,450      2,758            3
 PRESIDENT                5,000       5,000       5,000           1
 전체:                       5,000        800       2,073            14
 
-? 069 집합 연산자로 데이터의 교집합을 출력하기(INTERSECT)
+■ 069 집합 연산자로 데이터의 교집합을 출력하기(INTERSECT)
 
  집합 연산자 :  1. 합집합 연산자 :  union all , union
                     2. 교집합 연산자 :  intersect 
@@ -545,11 +545,11 @@ where e.deptno=d.deptno
 group  by e.deptno;
  
 279. (오늘의 마지막 문제)  위의 결과에 null 값 대신에 0 으로 출력되게하시오 
-DEPTNO   NEW YORK     DALLAS    CHICAGO
+DEPTNO    NEW YORK      DALLAS               CHICAGO
 ------- ----------      ----------       ----------
   30        0                0              9400
-  10       8750            0                0
-  20         0            16875            0
+  10       8750             0                 0
+  20        0            16875             0
       
       
 select e. deptno, sum(decode(d.loc, 'NEW YORK', e.sal,0)) as "NEW YORK",
