@@ -120,7 +120,7 @@ select  *
  출력하시오 ! 
 
 
-	? 77 서브 쿼리 사용하기 7 (SELECT절의 서브 쿼리)
+■ 77 서브 쿼리 사용하기 7 (SELECT절의 서브 쿼리)
 
 " select 절에 서브쿼리를 사용할 수 있는데 select 절의 서브쿼리를 scalar subquery
   라고 합니다. "
