@@ -91,7 +91,7 @@ select ename,sal
 From emp
 where sal=3000;
 
-008 Where 절 배우기 2 (문자와 날짜 검색)
+■ 008 Where 절 배우기 2 (문자와 날짜 검색)
 
 where 절로 데이터를 검색할 때 숫자와는 다르게 
 문자와 양쪽에 싱글 퀘티이션 마크를 둘러줘야합니다.
