@@ -1,4 +1,4 @@
-1.ÀÎµ¦½º SQL Æ©´× ( 8°¡Áö ¿¢¼¼½º ¹æ¹ý)
+1.ì¸ë±ìŠ¤ SQL íŠœë‹ ( 8ê°€ì§€ ì—‘ì„¸ìŠ¤ ë°©ë²•)
           1.index range scan
           2.index unique scan
           3.index full scan
@@ -8,35 +8,35 @@
           7.Index bitmap merge scan
           8.Index join
 
-2.Á¶ÀÎ ¹®Àå Æ©´× ( Á¶ÀÎ¼ø¼­,Á¶ÀÎ¹æ¹ý 3°¡Áö)
-           1.nested lopp Á¶ÀÎ : use_nl         
+2.ì¡°ì¸ ë¬¸ìž¥ íŠœë‹ ( ì¡°ì¸ìˆœì„œ,ì¡°ì¸ë°©ë²• 3ê°€ì§€)
+           1.nested lopp ì¡°ì¸ : use_nl         
            2.Hash join : use_hash
-           3.sort merge Á¶ÀÎ: use_merge 
-3.¼­ºêÄõ¸® ¹®Àå Æ©´×
-4.µ¥ÀÌÅÍ ºÐ¼®ÇÔ¼ö
-5.ÀÚµ¿ SQL Æ©´×
+           3.sort merge ì¡°ì¸: use_merge 
+3.ì„œë¸Œì¿¼ë¦¬ ë¬¸ìž¥ íŠœë‹
+4.ë°ì´í„° ë¶„ì„í•¨ìˆ˜
+5.ìžë™ SQL íŠœë‹
 
-¡× 3.¼­ºêÄõ¸®¹®Àå Æ©´×
+â–  3.ì„œë¸Œì¿¼ë¦¬ë¬¸ìž¥ íŠœë‹
 
-¿¹Á¦)
-DALLAS ¿¡¼­ ±Ù¹«ÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À! 
+ì˜ˆì œ)
+DALLAS ì—ì„œ ê·¼ë¬´í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤! 
 
 select ename,sal
 from emp
 where deptno in (select deptno  
                               from dept
                                     where loc='DALLAS');
-                           ¡é
+                           â†“
          
-99.À§ÀÇ ¼­ºêÄõ¸®¹®À» Á¶ÀÎÀ¸·Î ¼öÇàÇØ¼­ °°Àº °á°ú¸¦ º¸½Ã¿À   
- DALLAS ¿¡¼­ ±Ù¹«ÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À 
+99.ìœ„ì˜ ì„œë¸Œì¿¼ë¦¬ë¬¸ì„ ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰í•´ì„œ ê°™ì€ ê²°ê³¼ë¥¼ ë³´ì‹œì˜¤   
+ DALLAS ì—ì„œ ê·¼ë¬´í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select e.ename,e.sal
 from emp e ,dept d
 where e.deptno=d.deptno
 and d.loc='DALLAS';
 
-¾Æ·¡ÀÇ ¼­ºêÄõ¸®¹®ÀÇ ½ÇÇà°èÈ¹À» º¸½Ã¿À
+ì•„ëž˜ì˜ ì„œë¸Œì¿¼ë¦¬ë¬¸ì˜ ì‹¤í–‰ê³„íšì„ ë³´ì‹œì˜¤
 select /*+ gather_plan_statistics*/ename,sal
 from emp
 where deptno in (select deptno
@@ -46,32 +46,32 @@ where deptno in (select deptno
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
 
-¼³¸í: À§ÀÇ ½ÇÇà°èÈ¹¿¡ filter °¡ º¸ÀÌ¸é À§ÀÇ  SQLÀ» ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàÇÑ°Í
-ÀÌ°í hash join ÀÌ ½ÇÇà°èÈ¹¿¡ º¸ÀÌ¸é Á¶ÀÎ¹®ÀåÀ¸·Î
-º¯°æÇØ¼­ ¼öÇàÇÑ °ÍÀÔ´Ï´Ù. ¿ì¸®´Â ¼­ºêÄõ¸®¹®À¸·Î ÀÛ¼ºÇß´Âµ¥
-¿ÉÆ¼¸¶ÀÌÁ®°¡ Á¶ÀÎÀ¸·Î º¯°æÇØ¼­ ¼öÇàÇÑ°ÍÀÔ´Ï´Ù. 
+ì„¤ëª…: ìœ„ì˜ ì‹¤í–‰ê³„íšì— filter ê°€ ë³´ì´ë©´ ìœ„ì˜  SQLì„ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰í•œê²ƒ
+ì´ê³  hash join ì´ ì‹¤í–‰ê³„íšì— ë³´ì´ë©´ ì¡°ì¸ë¬¸ìž¥ìœ¼ë¡œ
+ë³€ê²½í•´ì„œ ìˆ˜í–‰í•œ ê²ƒìž…ë‹ˆë‹¤. ìš°ë¦¬ëŠ” ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìž‘ì„±í–ˆëŠ”ë°
+ì˜µí‹°ë§ˆì´ì ¸ê°€ ì¡°ì¸ìœ¼ë¡œ ë³€ê²½í•´ì„œ ìˆ˜í–‰í•œê²ƒìž…ë‹ˆë‹¤. 
 
-*¼­ºêÄõ¸®ÀÇ ½ÇÇà°èÈ¹ÀÌ Å©°Ô µÎ°¡Áö·Î ºÐ·ù
-1.¼ø¼öÇÏ°Ô ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàµÇ°ÔÇÏ´Â ¹æ¹ý : no_unnest 
-                  (°­ÇÏ°Ô °¨½Î¶ó~ ¼­ºêÄõ¸®·Î Ç®¾î¶ó!)
-                        -¼­ºêÄõ¸®ºÎÅÍ ¼öÇàÇØ¶ó~ : push_subq
-                        -¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàÇØ¶ó~ : no_push_subq
+*ì„œë¸Œì¿¼ë¦¬ì˜ ì‹¤í–‰ê³„íšì´ í¬ê²Œ ë‘ê°€ì§€ë¡œ ë¶„ë¥˜
+1.ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œí•˜ëŠ” ë°©ë²• : no_unnest 
+                  (ê°•í•˜ê²Œ ê°ì‹¸ë¼~ ì„œë¸Œì¿¼ë¦¬ë¡œ í’€ì–´ë¼!)
+                        -ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í•´ë¼~ : push_subq
+                        -ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í•´ë¼~ : no_push_subq
       
-2.Á¶ÀÎÀ¸·Î º¯°æµÇ¾î¼­ ¼öÇàµÇ°Ô ÇÏ´Â ¹æ¹ý : unnest 
+2.ì¡°ì¸ìœ¼ë¡œ ë³€ê²½ë˜ì–´ì„œ ìˆ˜í–‰ë˜ê²Œ í•˜ëŠ” ë°©ë²• : unnest 
   
-  -¼¼¹ÌÁ¶ÀÎ( Semi join)
+  -ì„¸ë¯¸ì¡°ì¸( Semi join)
                     1.Nested loop semi join : nl_sj
                     2.hash semi join : hash_sj
                     3.merge semi join : merge_sj
-      - ¾ÈÆ¼Á¶ÀÎ(anti join)
+      - ì•ˆí‹°ì¡°ì¸(anti join)
                          1.nested loop anti join : nl_aj
                          2.hash anti join : hash_aj
                          3.merge anti join : merge_aj
                  
-unnest ----°¨½ÎÁö ¸»¾Æ¶ó ----Á¶ÀÎÀ¸·Î Ç®¾î ÇìÃÄ¶ó ¼­ºê·Î °¨½ÎÁö¸»°í
-no_unnest ---- °¨½Î¶ó °­ÇÏ°Ô ¼­ºêÄõ¸®·Î Ç®¾î¶ó
+unnest ----ê°ì‹¸ì§€ ë§ì•„ë¼ ----ì¡°ì¸ìœ¼ë¡œ í’€ì–´ í—¤ì³ë¼ ì„œë¸Œë¡œ ê°ì‹¸ì§€ë§ê³ 
+no_unnest ---- ê°ì‹¸ë¼ ê°•í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¡œ í’€ì–´ë¼
 
-100.¾Æ·¡ÀÇ SQLÀÇ ½ÇÇà°èÈ¹ÀÌ Á¶ÀÎÀ¸·Î Ç®¸®°Ô ÇÏ½Ã¿À!
+100.ì•„ëž˜ì˜ SQLì˜ ì‹¤í–‰ê³„íšì´ ì¡°ì¸ìœ¼ë¡œ í’€ë¦¬ê²Œ í•˜ì‹œì˜¤!
 
 select /*+ gather_plan_statistics*/ename,sal
 from emp
@@ -80,12 +80,12 @@ where deptno in  (select /*+ unnest*/ deptno
                                where loc='DALLAS'); 
 
 
-¼³¸í: unnest °¡ À¯¸®ÇÑ °æ¿ì´Â ¼­ºêÄõ¸®¹®ÀÇ ½ÇÇà°èÈ¹ÀÌ filter °¡ ³ª¿À¸é¼­
-¼º´ÉÀÌ ³Ê¹« ´À¸±¶§ Á¶ÀÎÀÇ ¹æ¹ýÁß °¡Àå °­·ÂÇÑ hash joinÀ¸·Î
-¼öÇàµÇ°Ô ÇÏ¸é¼­ ¼º´ÉÀ» ³ôÀÌ°í ½ÍÀ»¶§ À¯¸®ÇÕ´Ï´Ù. 
+ì„¤ëª…: unnest ê°€ ìœ ë¦¬í•œ ê²½ìš°ëŠ” ì„œë¸Œì¿¼ë¦¬ë¬¸ì˜ ì‹¤í–‰ê³„íšì´ filter ê°€ ë‚˜ì˜¤ë©´ì„œ
+ì„±ëŠ¥ì´ ë„ˆë¬´ ëŠë¦´ë•Œ ì¡°ì¸ì˜ ë°©ë²•ì¤‘ ê°€ìž¥ ê°•ë ¥í•œ hash joinìœ¼ë¡œ
+ìˆ˜í–‰ë˜ê²Œ í•˜ë©´ì„œ ì„±ëŠ¥ì„ ë†’ì´ê³  ì‹¶ì„ë•Œ ìœ ë¦¬í•©ë‹ˆë‹¤. 
 
-101.±×·¯¸é ¾Æ·¡ÀÇ ½ÇÇà°èÈ¹ÀÌ Á¶ÀÎÀ¸·Î Ç®¸®Áö ¾Ê°í filter°¡ ½ÇÇà°èÈ¹¿¡ 
-³ª¿À´Â ¼ø¼öÇÑ ¼­ºêÄõ¸®¹®À¸·Î ½ÇÇàµÇ°Ô ÇÏ½Ã¿À
+101.ê·¸ëŸ¬ë©´ ì•„ëž˜ì˜ ì‹¤í–‰ê³„íšì´ ì¡°ì¸ìœ¼ë¡œ í’€ë¦¬ì§€ ì•Šê³  filterê°€ ì‹¤í–‰ê³„íšì— 
+ë‚˜ì˜¤ëŠ” ìˆœìˆ˜í•œ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ì‹¤í–‰ë˜ê²Œ í•˜ì‹œì˜¤
 
 select /*+ gather_plan_statistics*/ename,sal
 from emp
@@ -93,15 +93,15 @@ where deptno in (select /*+ no_unnest*/  deptno
                          from dept     
                              where loc='DALLAS'); 
 
-¼³¸í: no_unnest¸¦ »ç¿ëÇØ¼­ ¼ø¼öÇÏ°Ô ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàµÇ¾ú½À´Ï´Ù.
-±×·±µ¥ ¹öÆÛÀÇ °¹¼ö°¡ 13°³·Î ¾Æ±î hash join semi ·Î ¼öÇàµÇ¾úÀ»¶§ ´Â 
-7°³¿´´Âµ¥ ¾à2¹è °¡·® ¼º´ÉÀÌ ´À·ÁÁ³½À´Ï´Ù.
-À§ÀÇ ¼­ºêÄõ¸®ÀÇ Å×ÀÌºí 2°³°¡ ´ë¿ë·® Å×ÀÌºíÀÎ °æ¿ì´Â unnest
-¸¦ ½á¼­ Á¶ÀÎ(ÇØ½¬Á¶ÀÎ)À¸·Î ¼öÇàµÇ´Â°Ô À¯¸®ÇÏ°í
-±×·¸Áö ¾Ê°í Å×ÀÌºíÀÌ ÀÛ´Ù¸é ±»ÀÌ ¸Þ¸ð¸®¸¦ »ç¿ëÇÏ´Â ÇØ½¬Á¶ÀÎÀ¸·Î
-À¯µµÇÏÁö ¸»°í ¼­ºêÄõ¸®¹®ÀÇ ½ÇÇà°èÈ¹(filter)·Î ¼öÇàµÇ´Â°Ô À¯¸®ÇÕ´Ï´Ù.
+ì„¤ëª…: no_unnestë¥¼ ì‚¬ìš©í•´ì„œ ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ì—ˆìŠµë‹ˆë‹¤.
+ê·¸ëŸ°ë° ë²„í¼ì˜ ê°¯ìˆ˜ê°€ 13ê°œë¡œ ì•„ê¹Œ hash join semi ë¡œ ìˆ˜í–‰ë˜ì—ˆì„ë•Œ ëŠ” 
+7ê°œì˜€ëŠ”ë° ì•½2ë°° ê°€ëŸ‰ ì„±ëŠ¥ì´ ëŠë ¤ì¡ŒìŠµë‹ˆë‹¤.
+ìœ„ì˜ ì„œë¸Œì¿¼ë¦¬ì˜ í…Œì´ë¸” 2ê°œê°€ ëŒ€ìš©ëŸ‰ í…Œì´ë¸”ì¸ ê²½ìš°ëŠ” unnest
+ë¥¼ ì¨ì„œ ì¡°ì¸(í•´ì‰¬ì¡°ì¸)ìœ¼ë¡œ ìˆ˜í–‰ë˜ëŠ”ê²Œ ìœ ë¦¬í•˜ê³ 
+ê·¸ë ‡ì§€ ì•Šê³  í…Œì´ë¸”ì´ ìž‘ë‹¤ë©´ êµ³ì´ ë©”ëª¨ë¦¬ë¥¼ ì‚¬ìš©í•˜ëŠ” í•´ì‰¬ì¡°ì¸ìœ¼ë¡œ
+ìœ ë„í•˜ì§€ ë§ê³  ì„œë¸Œì¿¼ë¦¬ë¬¸ì˜ ì‹¤í–‰ê³„íš(filter)ë¡œ ìˆ˜í–‰ë˜ëŠ”ê²Œ ìœ ë¦¬í•©ë‹ˆë‹¤.
 
-102.¾Æ·¡ÀÇ SQLÀÇ ½ÇÇà°èÈ¹À» È®ÀÎÇÏ°í Á¶ÀÎÀ¸·Î º¯°æµÇ¾î¼­ ¼öÇàµÇ°Ô ÇÏ½Ã¿À!
+102.ì•„ëž˜ì˜ SQLì˜ ì‹¤í–‰ê³„íšì„ í™•ì¸í•˜ê³  ì¡°ì¸ìœ¼ë¡œ ë³€ê²½ë˜ì–´ì„œ ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤!
 
 select /*+ gather_plan_statistics*/ ename,sal
 from emp 
@@ -109,10 +109,10 @@ from emp
                            from dept
                                 where deptno =10);
 
-½ÇÇà¼ø¼­´Â ¾ÈÂÊ ºÎÅÍ 1 ..2..3
-¼³¸í: À§ÀÇ SQLÀ» ¼ø¼öÇÏ°Ô ¼­ºêÄõ¸® ¹®À¸·Î ¼öÇàÇÑ SQLÀÎµ¥ ¼­ºêÄõ¸®¿Í
-¸ÞÀÎÄõ¸®Áß¿¡ ¾î´À°ÍÀ» ¸ÕÀú ¼öÇàÇß³Ä¸é ¼­ºêÄõ¸®¹®ºÎÅÍ ¼öÇàÇÏ¿´½À´Ï´Ù.
-                         ¡é
+ì‹¤í–‰ìˆœì„œëŠ” ì•ˆìª½ ë¶€í„° 1 ..2..3
+ì„¤ëª…: ìœ„ì˜ SQLì„ ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ ë¬¸ìœ¼ë¡œ ìˆ˜í–‰í•œ SQLì¸ë° ì„œë¸Œì¿¼ë¦¬ì™€
+ë©”ì¸ì¿¼ë¦¬ì¤‘ì— ì–´ëŠê²ƒì„ ë¨¼ì € ìˆ˜í–‰í–ˆëƒë©´ ì„œë¸Œì¿¼ë¦¬ë¬¸ë¶€í„° ìˆ˜í–‰í•˜ì˜€ìŠµë‹ˆë‹¤.
+                         â†“
 
 select /*+ gather_plan_statistics*/ ename,sal
 from emp 
@@ -122,8 +122,8 @@ from emp
 
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
-ÀÌ·¸°Ô ÇÏ¸é ¾ÈµÈ´Ù = ·Î Ç®¸é¾ÈµÇ°í inÀ» »ç¿ëÇØ¾ß ÇÑ´Ù! 
-                         ¡é
+ì´ë ‡ê²Œ í•˜ë©´ ì•ˆëœë‹¤ = ë¡œ í’€ë©´ì•ˆë˜ê³  inì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤! 
+                         â†“
 select /*+ gather_plan_statistics*/ ename,sal
 from emp 
   where deptno in (select /*+ unnest*/ deptno
@@ -132,21 +132,21 @@ from emp
 
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
-¼³¸í : À§ÀÇ ¼­ºêÄõ¸®¹®°ú ¸ÞÀÎ Äõ¸®¹® »çÀÌÀÇ ¿¬»êÀÚ¸¦ = ·Î ÇÏ¸é
-unnest ÈùÆ®°¡ ¸ÔÈ÷Áö ¾Ê½À´Ï´Ù. ¿Ö³ÄÇÏ¸é ¼­ºêÄõ¸®¿¡¼­ ¸ÞÀÎÄõ¸®·Î
-ÇÑ°Ç¸¸ ¸®ÅÏÇÑ´Ù°í ÇÏ¸é ±»ÀÌ ÇØ½¬Á¶ÀÎÀ¸·Î Ç®Áö ¾Ê¾Æµµ µÇ±â ¶§¹®ÀÔ´Ï´Ù.
-±×·¡¼­ ¸¸¾à hash joinÀ¸·Î ¼öÇàµÇ°Ô ÇÏ°í ½Í´Ù¸é ¿¬»êÀÚ¸¦ = ¿¡¼­ 
-in À¸·Î ¹Ù²ãÁà¾ß ÇÕ´Ï´Ù. 
+ì„¤ëª… : ìœ„ì˜ ì„œë¸Œì¿¼ë¦¬ë¬¸ê³¼ ë©”ì¸ ì¿¼ë¦¬ë¬¸ ì‚¬ì´ì˜ ì—°ì‚°ìžë¥¼ = ë¡œ í•˜ë©´
+unnest ížŒíŠ¸ê°€ ë¨¹ížˆì§€ ì•ŠìŠµë‹ˆë‹¤. ì™œëƒí•˜ë©´ ì„œë¸Œì¿¼ë¦¬ì—ì„œ ë©”ì¸ì¿¼ë¦¬ë¡œ
+í•œê±´ë§Œ ë¦¬í„´í•œë‹¤ê³  í•˜ë©´ êµ³ì´ í•´ì‰¬ì¡°ì¸ìœ¼ë¡œ í’€ì§€ ì•Šì•„ë„ ë˜ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤.
+ê·¸ëž˜ì„œ ë§Œì•½ hash joinìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ê³  ì‹¶ë‹¤ë©´ ì—°ì‚°ìžë¥¼ = ì—ì„œ 
+in ìœ¼ë¡œ ë°”ê¿”ì¤˜ì•¼ í•©ë‹ˆë‹¤. 
 
-103.¾Æ·¡ÀÇ SQLÀÇ ½ÇÇà°èÈ¹ÀÌ Á¶ÀÎÀ¸·Î Ç®¸®Áö ¸»°í ¼­ºêÄõ¸®¹®À¸·Î
-¼öÇàµÇ°Ô ÇÏ´Âµ¥ ¼­ºêÄõ¸®¹®ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ½Ã¿À!
+103.ì•„ëž˜ì˜ SQLì˜ ì‹¤í–‰ê³„íšì´ ì¡°ì¸ìœ¼ë¡œ í’€ë¦¬ì§€ ë§ê³  ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ
+ìˆ˜í–‰ë˜ê²Œ í•˜ëŠ”ë° ì„œë¸Œì¿¼ë¦¬ë¬¸ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤!
 
 select /*+ gather_plan_statistics*/ ename,sal
  from emp
    where deptno = (select deptno
                               from dept
                                    where deptno=10);
-                               ¡é
+                               â†“
                         
 select /*+ gather_plan_statistics*/ ename,sal
  from emp
@@ -154,10 +154,10 @@ select /*+ gather_plan_statistics*/ ename,sal
                               from dept
                                    where deptno=10);
 
-                                 ¡é
+                                 â†“
 
-104.À§ÀÇ SQL ÀÇ ½ÇÇà°èÈ¹ÀÌ ÀÌ¹ø¿¡´Â ¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ½Ã¿À!
-(¼ø¼öÇÏ°Ô ¼­ºêÄõ¸®·Î ¼öÇàµÇ¸é¼­ ¸ÞÀÎÄõ¸®·ÎºÎÅÍ ¼öÇàµÇ°Ô ÇÏ½Ã¿À! 
+104.ìœ„ì˜ SQL ì˜ ì‹¤í–‰ê³„íšì´ ì´ë²ˆì—ëŠ” ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤!
+(ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¡œ ìˆ˜í–‰ë˜ë©´ì„œ ë©”ì¸ì¿¼ë¦¬ë¡œë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤! 
 
 
 select /*+ gather_plan_statistics*/ ename,sal
@@ -167,18 +167,18 @@ select /*+ gather_plan_statistics*/ ename,sal
                                    where deptno=10);
 
 
-filter °¡ ³ª¿Ô´Ü°ÍÀº ¸ÞÀÎ¼­ºêÄõ¸®ºÎÅÍ ÀÐÇû´Ü ¶æÀÌ´Ù. 
+filter ê°€ ë‚˜ì™”ë‹¨ê²ƒì€ ë©”ì¸ì„œë¸Œì¿¼ë¦¬ë¶€í„° ì½í˜”ë‹¨ ëœ»ì´ë‹¤. 
 
-¼³¸í : no_unnest ¿Í no_push_subq ´Â ¼­·Î Â¦±ÃÈùÆ® ÀÔ´Ï´Ù.
-no_unnest ´Â Á¶ÀÎÀ¸·Î Ç®Áö ¸»°í ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàÇØ¶ó ~ ¶ó´Â 
-ÈùÆ®ÀÌ°í ÀÌ ÈùÆ®¸¦ ¸ÕÀú½áÁà¾ß Á¶ÀÎÀ¸·Î Ç®Áö¾Ê°í ¼­ºêÄõ¸®¹®À¸·Î
-¼öÇàµÉ¼ö ÀÖ±â ¶§¹®¿¡ no_push_subq ÈùÆ®°¡ ¼öÇàµÉ ¼ö ÀÖ¾ú´ø °ÍÀÔ´Ï´Ù.
-´ëÃ¼·Î push_subqÈùÆ®°¡ ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàµÇ¾úÀ»¶§´Â ´õ À¯¸®ÇÑ ÈùÆ®ÀÔ´Ï´Ù.
-¿Ö³ÄÇÏ¸é ¼­ºêÄõ¸®¹® ºÎÅÍ ¼öÇàÇÏ¸é¼­ µ¥ÀÌÅÍ¸¦ °Ë»öÇØ ¸ÞÀÎÄõ¸®·Î ³Ñ°ÜÁÖ±â¸¸ ÇÏ¸é µÇ±â ¶§¹®ÀÔ´Ï´Ù. ±×·±µ¥ ¸¸¾à¿¡ ¸ÞÀÎ Äõ¸®ºÎÅÍ ¼öÇàµÈ´Ù¸é ¸ÞÀÎ Äõ¸®¿¡ ÀÖ´Â 
-ºÎ¼­¹øÈ£Áß¿¡ ¼­ºêÄõ¸®¿¡ ÀÖ´Â ºÎ¼­¹øÈ£¸¦ Ã£±â À§ÇØ¼­ ÀÏÀÏÈ÷ ½ºÄµÇÏ¸é¼­ Ã£´Â ÀÛ¾÷(Fliter) ¸¦ ÇØ¾ßÇÏ±â ¶§¹®¿¡ ´ë¿ë·®ÀÎ °Ï¿ì´Â ¼º´ÉÀÌ ¸¹ÀÌ ´À·ÁÁý´Ï´Ù. 
+ì„¤ëª… : no_unnest ì™€ no_push_subq ëŠ” ì„œë¡œ ì§ê¶ížŒíŠ¸ ìž…ë‹ˆë‹¤.
+no_unnest ëŠ” ì¡°ì¸ìœ¼ë¡œ í’€ì§€ ë§ê³  ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰í•´ë¼ ~ ë¼ëŠ” 
+ížŒíŠ¸ì´ê³  ì´ ížŒíŠ¸ë¥¼ ë¨¼ì €ì¨ì¤˜ì•¼ ì¡°ì¸ìœ¼ë¡œ í’€ì§€ì•Šê³  ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ
+ìˆ˜í–‰ë ìˆ˜ ìžˆê¸° ë•Œë¬¸ì— no_push_subq ížŒíŠ¸ê°€ ìˆ˜í–‰ë  ìˆ˜ ìžˆì—ˆë˜ ê²ƒìž…ë‹ˆë‹¤.
+ëŒ€ì²´ë¡œ push_subqížŒíŠ¸ê°€ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ì—ˆì„ë•ŒëŠ” ë” ìœ ë¦¬í•œ ížŒíŠ¸ìž…ë‹ˆë‹¤.
+ì™œëƒí•˜ë©´ ì„œë¸Œì¿¼ë¦¬ë¬¸ ë¶€í„° ìˆ˜í–‰í•˜ë©´ì„œ ë°ì´í„°ë¥¼ ê²€ìƒ‰í•´ ë©”ì¸ì¿¼ë¦¬ë¡œ ë„˜ê²¨ì£¼ê¸°ë§Œ í•˜ë©´ ë˜ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤. ê·¸ëŸ°ë° ë§Œì•½ì— ë©”ì¸ ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ëœë‹¤ë©´ ë©”ì¸ ì¿¼ë¦¬ì— ìžˆëŠ” 
+ë¶€ì„œë²ˆí˜¸ì¤‘ì— ì„œë¸Œì¿¼ë¦¬ì— ìžˆëŠ” ë¶€ì„œë²ˆí˜¸ë¥¼ ì°¾ê¸° ìœ„í•´ì„œ ì¼ì¼ížˆ ìŠ¤ìº”í•˜ë©´ì„œ ì°¾ëŠ” ìž‘ì—…(Fliter) ë¥¼ í•´ì•¼í•˜ê¸° ë•Œë¬¸ì— ëŒ€ìš©ëŸ‰ì¸ ê²…ìš°ëŠ” ì„±ëŠ¥ì´ ë§Žì´ ëŠë ¤ì§‘ë‹ˆë‹¤. 
 
-105.¾Æ·¡ÀÇ SQLÀÌ ¼ø¼öÇÏ°Ô ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàµÇ°Ô ÇÏ°í
-¼­ºêÄõ¸®ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ½Ã¿À!
+105.ì•„ëž˜ì˜ SQLì´ ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ê³ 
+ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤!
 
 select /*+ gather_plan_statistics */ ename,sal
  from emp
@@ -187,7 +187,7 @@ select /*+ gather_plan_statistics */ ename,sal
 
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
-                                         ¡é
+                                         â†“
 
 select /*+ gather_plan_statistics */ ename,sal
  from emp
@@ -198,11 +198,11 @@ select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
 
 
-¼³¸í: no_unnest ´Â ¼­ºêÄõ¸®·Î ¼öÇàÇØ¶ó~~ ¶ó´Â °ÍÀÌ°í
-       push_subq´Â ¼­ºêÄõ¸®ºÎÅÍ ¼öÇàÇØ¶ó~~¶ó´Â °ÍÀÔ´Ï´Ù. 
+ì„¤ëª…: no_unnest ëŠ” ì„œë¸Œì¿¼ë¦¬ë¡œ ìˆ˜í–‰í•´ë¼~~ ë¼ëŠ” ê²ƒì´ê³ 
+       push_subqëŠ” ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í•´ë¼~~ë¼ëŠ” ê²ƒìž…ë‹ˆë‹¤. 
 
 
-106.À§ÀÇ SQLÀÇ ½ÇÇà°èÈ¹ÀÌ ¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ¼¼¿ä
+106.ìœ„ì˜ SQLì˜ ì‹¤í–‰ê³„íšì´ ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì„¸ìš”
 
 select /*+ gather_plan_statistics */ ename,sal
  from emp
@@ -218,16 +218,16 @@ select /*+ gather_plan_statistics */ ename,sal
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
         
-Filter ¶ó´Â °ÍÀº ¸ÞÀÎºÎÅÍ µé¾î°¬´Ù ¶ó´Â °ÍÀ» Á¤ÀÇÇØÁØ´Ù. 
+Filter ë¼ëŠ” ê²ƒì€ ë©”ì¸ë¶€í„° ë“¤ì–´ê°”ë‹¤ ë¼ëŠ” ê²ƒì„ ì •ì˜í•´ì¤€ë‹¤. 
 
-107.À§ÀÇ SQLÀÌ Á¶ÀÎÀ¸·Î ¼öÇàµÇ°ÔÇÏ½Ã¿À
+107.ìœ„ì˜ SQLì´ ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œí•˜ì‹œì˜¤
 
 select /*+ gather_plan_statistics */ ename,sal
  from emp
      where deptno in ( select deptno 
                               from dept) ;
 
-                        ¡é
+                        â†“
 
 select /*+ gather_plan_statistics */ ename,sal
  from emp
@@ -237,14 +237,14 @@ select /*+ gather_plan_statistics */ ename,sal
 
 
 
-¼³¸í: semi ÀÇ ¶æÀº Àý¹ÝÀÌ¶ó´Â ¶æÀ¸·Î Á¶ÀÎÀ» Çß´Âµ¥ ¿ÏÀüÇÑ Á¶ÀÎÀ» ÇÑ°Ô
-¾Æ´Ï¶ó Àý¹ÝÀÇ Á¶ÀÎÀ» Çß½À´Ï. ¿Ö ¿ÏÀüÇÑ Á¶ÀÎÀ» ¸øÇÏ°í Àý¹Ý Á¶ÀÎÀ»³Ä¸é À§ÀÇ SQL
-ÀÌ Á¶ÀÎ¹®ÀåÀÌ ¾Æ´Ï¶ó ¼­ºêÄõ¸®¹®ÀåÀÌ±â ¶§¹®ÀÔ´Ï´Ù.
+ì„¤ëª…: semi ì˜ ëœ»ì€ ì ˆë°˜ì´ë¼ëŠ” ëœ»ìœ¼ë¡œ ì¡°ì¸ì„ í–ˆëŠ”ë° ì™„ì „í•œ ì¡°ì¸ì„ í•œê²Œ
+ì•„ë‹ˆë¼ ì ˆë°˜ì˜ ì¡°ì¸ì„ í–ˆìŠµë‹ˆ. ì™œ ì™„ì „í•œ ì¡°ì¸ì„ ëª»í•˜ê³  ì ˆë°˜ ì¡°ì¸ì„ëƒë©´ ìœ„ì˜ SQL
+ì´ ì¡°ì¸ë¬¸ìž¥ì´ ì•„ë‹ˆë¼ ì„œë¸Œì¿¼ë¦¬ë¬¸ìž¥ì´ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤.
 
 
 
-108.À§ÀÇ SQLÀÇ ½ÇÇà°èÈ¹ÀÌ dept°¡ ¸Þ¸ð¸®·Î ¿Ã¶ó°¡°Ô ÇÏ½Ã¿À!
-(dept °¡ hash tableÀÌ µÇ°ÔÇÏ½Ã¿À!) 
+108.ìœ„ì˜ SQLì˜ ì‹¤í–‰ê³„íšì´ deptê°€ ë©”ëª¨ë¦¬ë¡œ ì˜¬ë¼ê°€ê²Œ í•˜ì‹œì˜¤!
+(dept ê°€ hash tableì´ ë˜ê²Œí•˜ì‹œì˜¤!) 
 
 swap_join_inputs
 
@@ -253,12 +253,12 @@ select /*+ gather_plan_statistics */ ename,sal
      where deptno in ( select/*+ unnest hash_sj swap_join_inputs(dept)*/ deptno 
                               from dept) ;
 
-¼³¸í: emp¿Í dept °¡ ´ë¿ë·® Å×ÀÌºíÀÌ°í À§¿Í °°Àº SQLÀÌ¸é
-ÇØ½¬ ¼¼¹ÌÁ¶ÀÎÀ¸·Î ¼öÇàÇÏµÇ ÀÛÀº Å×ÀÌºíÀÌ ¸Þ¸ð¸®·Î ¿Ã¶ó°¡°Ô
-ÈùÆ®¸¦ ÁØ À§ÀÇ ÈùÆ®°¡ °¡Àå ¸ð¹üÀûÀÎ ÈùÆ®ÀÔ´Ï´Ù. 
+ì„¤ëª…: empì™€ dept ê°€ ëŒ€ìš©ëŸ‰ í…Œì´ë¸”ì´ê³  ìœ„ì™€ ê°™ì€ SQLì´ë©´
+í•´ì‰¬ ì„¸ë¯¸ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰í•˜ë˜ ìž‘ì€ í…Œì´ë¸”ì´ ë©”ëª¨ë¦¬ë¡œ ì˜¬ë¼ê°€ê²Œ
+ížŒíŠ¸ë¥¼ ì¤€ ìœ„ì˜ ížŒíŠ¸ê°€ ê°€ìž¥ ëª¨ë²”ì ì¸ ížŒíŠ¸ìž…ë‹ˆë‹¤. 
 
-109.±×·³ À§ÀÇ ½ÇÇà°èÈ¹ÀÌ ¼ø¼öÇÏ°Ô ¼­ºêÄõ¸®¹®À¸·Î ¼öÇàµÇ°Ô ÇÏ´Âµ¥
-nested loop semi Á¶ÀÎÀÌ µÇ°Ô ÇÏ½Ã¿À
+109.ê·¸ëŸ¼ ìœ„ì˜ ì‹¤í–‰ê³„íšì´ ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ëŠ”ë°
+nested loop semi ì¡°ì¸ì´ ë˜ê²Œ í•˜ì‹œì˜¤
 
 select /*+ gather_plan_statistics */ ename,sal
 from emp
@@ -266,7 +266,7 @@ where deptno in
            (select / *+ unnest ? */deptno
                     from dept d) 
  
-                           ¡é
+                           â†“
  
 select /*+ gather_plan_statistics */ ename,sal
 from emp
@@ -276,12 +276,12 @@ where deptno in
 
 select *  from table(dbms_xplan.display_cursor(null,null,'ALLSTATS LAST'));
 
-¼³¸í hash semi Á¶ÀÎ¶§´Â ¹öÆÛÀÇ °³¼ö 7°³¿´´Âµ¥ nested loop semi Á¶ÀÎ
-¶§´Â ¹öÆÛÀÇ °¹¼ö°¡ 46°³·Î ÈÎ¾À ¸¹ÀÌ ´Ã¾î³µ½À´Ï´Ù.
-Áï hash semi Á¶ÀÎÀ» »ç¿ëÇÏ´Â°Ô ÈÎ¾À ¼º´É¿¡ À¯¸®ÇÕ´Ï´Ù.
+ì„¤ëª… hash semi ì¡°ì¸ë•ŒëŠ” ë²„í¼ì˜ ê°œìˆ˜ 7ê°œì˜€ëŠ”ë° nested loop semi ì¡°ì¸
+ë•ŒëŠ” ë²„í¼ì˜ ê°¯ìˆ˜ê°€ 46ê°œë¡œ í›¨ì”¬ ë§Žì´ ëŠ˜ì–´ë‚¬ìŠµë‹ˆë‹¤.
+ì¦‰ hash semi ì¡°ì¸ì„ ì‚¬ìš©í•˜ëŠ”ê²Œ í›¨ì”¬ ì„±ëŠ¥ì— ìœ ë¦¬í•©ë‹ˆë‹¤.
 
-110.°ü¸®ÀÚÀÎ »ç¿øµéÀÇ ÀÌ¸§À» Ãâ·ÂÇÏ½Ã¿À!
-(ÀÚ±â ¹Ø¿¡ Á÷¼ÓºÎÇÏ°¡ ÇÑ¸íÀÌ¶óµµ ÀÖ´Â »ç¿øµé) 
+110.ê´€ë¦¬ìžì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ì„ ì¶œë ¥í•˜ì‹œì˜¤!
+(ìžê¸° ë°‘ì— ì§ì†ë¶€í•˜ê°€ í•œëª…ì´ë¼ë„ ìžˆëŠ” ì‚¬ì›ë“¤) 
 
 select ename
 from emp
@@ -289,10 +289,10 @@ where empno  in ( select mgr from emp );
 
 
                                                
-¼³¸í: ½ÇÇà°èÈ¹À» º¸¸é µÑ´Ù emp ¿©¼­ ¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàÇß´ÂÁö ¾Æ´Ï¸é
-¼­ºêÄõ¸®ºÎÅÍ ¼öÇàÇß´ÂÁö È®½ÇÈ÷ ¾Ë±â°¡ ¾î·Æ½À´Ï´Ù. 
+ì„¤ëª…: ì‹¤í–‰ê³„íšì„ ë³´ë©´ ë‘˜ë‹¤ emp ì—¬ì„œ ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í–ˆëŠ”ì§€ ì•„ë‹ˆë©´
+ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í–ˆëŠ”ì§€ í™•ì‹¤ížˆ ì•Œê¸°ê°€ ì–´ë µìŠµë‹ˆë‹¤. 
 
-111.±×·¡¼­ È®½ÇÈ÷ ¾Ë¼ö ÀÖµµ·Ï QB_NAME ÈùÆ®¸¦ ½á¼­ ´Ù½Ã ½ÇÇàÇÏ½Ã¿À! 
+111.ê·¸ëž˜ì„œ í™•ì‹¤ížˆ ì•Œìˆ˜ ìžˆë„ë¡ QB_NAME ížŒíŠ¸ë¥¼ ì¨ì„œ ë‹¤ì‹œ ì‹¤í–‰í•˜ì‹œì˜¤! 
 
 select /*+ gather_plan_statistics QB_NAME(mainquery) * /ename
 from emp
@@ -301,12 +301,12 @@ where empno in (select/* QB_NAME(subquery) * /mgr
 
 select * from table(dbms_xplan.display(format=>'basic') ) ; 
 
-¼³¸í: format => 'advanced' ¸¦ »ç¿ëÇÏ°Ô µÇ¸é Á»´õ Á¤º¸°¡ ¸¹Àº ½ÇÇà°èÈ¹À»
-È®ÀÎ ÇÒ ¼ö ÀÖ½À´Ï´Ù.  QB_NAME ÈùÆ®¸¦ »ç¿ëÇÏ¸é ±×ÇØ´çÄõ¸®¿¡ ÀÌ¸§À» 
-Áö¾îÁÖ°Ô µË´Ï´Ù. Äõ¸®ÀÇ ÀÌ¸§À» ÅëÇØ¼­ ¿©±â°¡ ¸ÞÀÎÄõ¸®ÀÎÁö ¼­ºêÄõ¸®ÀÎÁö
-È®À» ÇÒ ¼ö ÀÖ°Ô µË´Ï´Ù. 
+ì„¤ëª…: format => 'advanced' ë¥¼ ì‚¬ìš©í•˜ê²Œ ë˜ë©´ ì¢€ë” ì •ë³´ê°€ ë§Žì€ ì‹¤í–‰ê³„íšì„
+í™•ì¸ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.  QB_NAME ížŒíŠ¸ë¥¼ ì‚¬ìš©í•˜ë©´ ê·¸í•´ë‹¹ì¿¼ë¦¬ì— ì´ë¦„ì„ 
+ì§€ì–´ì£¼ê²Œ ë©ë‹ˆë‹¤. ì¿¼ë¦¬ì˜ ì´ë¦„ì„ í†µí•´ì„œ ì—¬ê¸°ê°€ ë©”ì¸ì¿¼ë¦¬ì¸ì§€ ì„œë¸Œì¿¼ë¦¬ì¸ì§€
+í™•ì„ í•  ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤. 
 
-113.¾Æ·¡ÀÇ Äõ¸®ÀÇ ½ÇÇà°èÈ¹ÀÌ ÇØ½¬¼¼¹ÌÁ¶ÀÎÀ¸·Î ¼öÇàµÇ°Ô ÇÏ½Ã¿À! 
+113.ì•„ëž˜ì˜ ì¿¼ë¦¬ì˜ ì‹¤í–‰ê³„íšì´ í•´ì‰¬ì„¸ë¯¸ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤! 
 
 select /*+ gather_plan_statistics */ ename
  from emp
@@ -316,8 +316,8 @@ select /*+ gather_plan_statistics */ ename
 select * from table(dbms_xplan.display(format=>'basic') ) ; 
 
 
-114.À§ÀÇ SQLÀÇ ½ÇÇà°èÈ¹À» º¸¸é ¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàÇß´ÂÁö ¼­ºêÄõ¸®ºÎÅÍ 
-¼öÇàÇß´ÂÁö¸¦ È®ÀÎÇÏ±â À§ÇØ QB_NAME ÈùÆ®¸¦ ½á¼­ ¼öÇàÇÏ½Ã¿À!
+114.ìœ„ì˜ SQLì˜ ì‹¤í–‰ê³„íšì„ ë³´ë©´ ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰í–ˆëŠ”ì§€ ì„œë¸Œì¿¼ë¦¬ë¶€í„° 
+ìˆ˜í–‰í–ˆëŠ”ì§€ë¥¼ í™•ì¸í•˜ê¸° ìœ„í•´ QB_NAME ížŒíŠ¸ë¥¼ ì¨ì„œ ìˆ˜í–‰í•˜ì‹œì˜¤!
 
 select /*+ gather_plan_statistics QB_NAME(main) */ ename
    from emp
@@ -326,10 +326,10 @@ select /*+ gather_plan_statistics QB_NAME(main) */ ename
 
 select * from table(dbms_xplan.display_cursor(format=>'advanced') );
 
-¼³¸í: ¼¼¹ÌÁ¶ÀÎÀº ¹«Á¶°Ç ¸ÞÀÎÄõ¸®ºÎÅÍ ¼öÇàµË´Ï´Ù. ±×·±µ¥ swap_join_inputs
-¸¦ ¾²¸é ¼­ºêÄõ¸®ºÎÅÍ ¼öÇàµÇ°Ô ÇÒ ¼ö ÀÖ½À´Ï´Ù. 
+ì„¤ëª…: ì„¸ë¯¸ì¡°ì¸ì€ ë¬´ì¡°ê±´ ë©”ì¸ì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë©ë‹ˆë‹¤. ê·¸ëŸ°ë° swap_join_inputs
+ë¥¼ ì“°ë©´ ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. 
 
-115.À§ÀÇ SQLÀÌ  subquery ºÎÅÍ ¼öÇàµÇ´Â hash semi join ÀÌ µÇ°ÔÇÏ½Ã¿À
+115.ìœ„ì˜ SQLì´  subquery ë¶€í„° ìˆ˜í–‰ë˜ëŠ” hash semi join ì´ ë˜ê²Œí•˜ì‹œì˜¤
 
 select /*+ gather_plan_statistics QB_NAME(main) */ ename
  from emp
@@ -337,15 +337,15 @@ select /*+ gather_plan_statistics QB_NAME(main) */ ename
 
 select * from table(dbms_xplan.display_cursor(format=>'advanced') );
 
-¼³¸í: À§¿Í °°ÀÌ ¸ÞÀÎÄõ¸®ÀÇ Å×ÀÌºí°ú ¼­ºêÄõ¸®ÀÇ Å×ÀÌºíÀÌ ¼­·Î °°À»¶§
-ÇØ½¬ ¼¼¹ÌÁ¶ÀÎÀ» ÇÏ´Â °æ¿ì ¼­ºêÄõ¸®ÀÇ Å×ÀÌºí ºÎÅÍ ¼öÇàµÇ°Ô 
-ÇÏ°í ½Í´Ù¸é QB_NAME(sub) ÈùÆ®¸¦ ÀÌ¿ëÇØ¼­ Äõ¸®ºí·°ÀÇ ÀÌ¸§À»
-sub¶ó°í ÁÖ°í swap_join_inputs °ýÈ£¾È¿¡ Å×ÀÌºí º°ÄªÀ¸·Î emp@sub
-¸¦ »ç¿ëÇÏ¸é µË´Ï´Ù. ±×·¯¸é ½ÇÇà°èÈ¹ÀÌ ¼­ºêÄõ¸®ÀÇ Å×ÀÌºí ºÎÅÍ ¼öÇàµÇ¸é¼­
-hash right semi joinÀ¸·Î ¼öÇàµË´Ï´Ù. 
+ì„¤ëª…: ìœ„ì™€ ê°™ì´ ë©”ì¸ì¿¼ë¦¬ì˜ í…Œì´ë¸”ê³¼ ì„œë¸Œì¿¼ë¦¬ì˜ í…Œì´ë¸”ì´ ì„œë¡œ ê°™ì„ë•Œ
+í•´ì‰¬ ì„¸ë¯¸ì¡°ì¸ì„ í•˜ëŠ” ê²½ìš° ì„œë¸Œì¿¼ë¦¬ì˜ í…Œì´ë¸” ë¶€í„° ìˆ˜í–‰ë˜ê²Œ 
+í•˜ê³  ì‹¶ë‹¤ë©´ QB_NAME(sub) ížŒíŠ¸ë¥¼ ì´ìš©í•´ì„œ ì¿¼ë¦¬ë¸”ëŸ­ì˜ ì´ë¦„ì„
+subë¼ê³  ì£¼ê³  swap_join_inputs ê´„í˜¸ì•ˆì— í…Œì´ë¸” ë³„ì¹­ìœ¼ë¡œ emp@sub
+ë¥¼ ì‚¬ìš©í•˜ë©´ ë©ë‹ˆë‹¤. ê·¸ëŸ¬ë©´ ì‹¤í–‰ê³„íšì´ ì„œë¸Œì¿¼ë¦¬ì˜ í…Œì´ë¸” ë¶€í„° ìˆ˜í–‰ë˜ë©´ì„œ
+hash right semi joinìœ¼ë¡œ ìˆ˜í–‰ë©ë‹ˆë‹¤. 
 
-116.°ü¸®ÀÚ°¡ ¾Æ´Ñ »ç¿øµéÀÇ ÀÌ¸§À» Ãâ·ÂÇÏ½Ã¿À!
-(ÀÚ±â ¹Ø¿¡ Á÷¼ÓºÎÇÏ°¡ ÇÑ¸íµµ ¾ø´Â »ç¿øµé)
+116.ê´€ë¦¬ìžê°€ ì•„ë‹Œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ì„ ì¶œë ¥í•˜ì‹œì˜¤!
+(ìžê¸° ë°‘ì— ì§ì†ë¶€í•˜ê°€ í•œëª…ë„ ì—†ëŠ” ì‚¬ì›ë“¤)
 
 select ename
 from emp
@@ -353,20 +353,19 @@ where empno not in (select mgr
                       from emp where mgr is not null);
                         
 
-117.ÀÇ ½ÇÇà°èÈ¹ÀÌ ¼­ºêÄõ¸®·Î Ç®¸®Áö ¾Ê°í Á¶ÀÎÀ¸·Î Ç®¸®°Ô ÇÏ½Ã¿À!
+117.ì˜ ì‹¤í–‰ê³„íšì´ ì„œë¸Œì¿¼ë¦¬ë¡œ í’€ë¦¬ì§€ ì•Šê³  ì¡°ì¸ìœ¼ë¡œ í’€ë¦¬ê²Œ í•˜ì‹œì˜¤!
 
 select /*+  gather_plan_statistics QB_NAME(main)  */ ename
 from emp
 where empno not in (select /*+ QB_NAME(sub) hash_aj*/ mgr
                                                from emp where mgr is not null);
 
-not in À» ›§±â ¶§¹®¿¡ hash_aj (¾ÈÆ¼Á¶ÀÎ) À» »ç¿ëÇÑ´Ù.
 
-¼³¸í: not in À» »ç¿ëÇÑ ¼­ºêÄõ¸® ¹®ÀåÀÇ ¼º´ÉÀ» ³ôÀÌ±â À§ÇØ¼­´Â
-hash anti  Á¶ÀÎÀ» »ç¿ëÇÏ¸é µË´Ï´Ù. ÇØ½¬ ¾ÈÆ¼ Á¶ÀÎÀ¸·Î ¼öÇàµÇ°Ô ÇÏ±â
-À§ÇÑ ÈùÆ®´Â unnest hash_aj ÀÔ´Ï´Ù.
+ì„¤ëª…: not in ì„ ì‚¬ìš©í•œ ì„œë¸Œì¿¼ë¦¬ ë¬¸ìž¥ì˜ ì„±ëŠ¥ì„ ë†’ì´ê¸° ìœ„í•´ì„œëŠ”
+hash anti  ì¡°ì¸ì„ ì‚¬ìš©í•˜ë©´ ë©ë‹ˆë‹¤. í•´ì‰¬ ì•ˆí‹° ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ê¸°
+ìœ„í•œ ížŒíŠ¸ëŠ” unnest hash_aj ìž…ë‹ˆë‹¤.
 
-118.À§ÀÇ ÇØ½¬Á¶ÀÎ ½ÇÇà°èÈ¹ÀÇ Á¶ÀÎ¼ø¼­°¡ ¼­ºêÄõ¸® ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ½Ã¿À! 
+118.ìœ„ì˜ í•´ì‰¬ì¡°ì¸ ì‹¤í–‰ê³„íšì˜ ì¡°ì¸ìˆœì„œê°€ ì„œë¸Œì¿¼ë¦¬ ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ì‹œì˜¤! 
 
 select /*+  gather_plan_statistics QB_NAME(main)  */ ename
 from emp
@@ -375,47 +374,47 @@ where empno not in (select /*+ QB_NAME(sub) unnest hash_aj swap join_inputs(emp@
 
 hash_sj
 
-¼³¸í : not in À» »ç¿ëÇÑ ¼­ºêÄõ¸® ¹®ÀåÀÇ ¼º´ÉÀ» ³ôÀÌ±â À§ÇØ¼­´Â
-ÇØ½¬ ¾ÈÆ¼ Á¶ÀÎÀ¸·Î ¼öÇàµÇ°Ô ÇÏ¸é µÇ´Âµ¥ ¼­ºêÄõ¸®ºÎÅÍ ¼öÇàµÇ°Ô ÇÏ·Á¸é
-swap_join_inputs¸¦ ½á¼­ hash right anti join À¸·Î ¼öÇàµÇ°Ô ÇÏ¸é µË´Ï´Ù.
+ì„¤ëª… : not in ì„ ì‚¬ìš©í•œ ì„œë¸Œì¿¼ë¦¬ ë¬¸ìž¥ì˜ ì„±ëŠ¥ì„ ë†’ì´ê¸° ìœ„í•´ì„œëŠ”
+í•´ì‰¬ ì•ˆí‹° ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ë©´ ë˜ëŠ”ë° ì„œë¸Œì¿¼ë¦¬ë¶€í„° ìˆ˜í–‰ë˜ê²Œ í•˜ë ¤ë©´
+swap_join_inputsë¥¼ ì¨ì„œ hash right anti join ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ë©´ ë©ë‹ˆë‹¤.
 
 
-*¼­ºêÄõ¸® Æ©´×À» Á¤¸®ÇÏ¸é
+*ì„œë¸Œì¿¼ë¦¬ íŠœë‹ì„ ì •ë¦¬í•˜ë©´
 
-¼­ºêÄõ¸®¿Í ¸ÞÀÎÄõ¸®ÀÇ Å×ÀÌºíÀÌ ´ë¿ë·®ÀÌ ¾Æ´Ï¸é?
+ì„œë¸Œì¿¼ë¦¬ì™€ ë©”ì¸ì¿¼ë¦¬ì˜ í…Œì´ë¸”ì´ ëŒ€ìš©ëŸ‰ì´ ì•„ë‹ˆë©´?
 
-"¼ø¼öÇÏ°Ô ¼­ºêÄõ¸® ½ÇÇà°èÈ¹À¸·Î ½ÇÇàµÇ°Ô ÇÏ¼¼¿ä
+"ìˆœìˆ˜í•˜ê²Œ ì„œë¸Œì¿¼ë¦¬ ì‹¤í–‰ê³„íšìœ¼ë¡œ ì‹¤í–‰ë˜ê²Œ í•˜ì„¸ìš”
 
-°ü·ÃÈùÆ®  no_unnest 
-no_unnest ¿Í Â¦²áÀÎ ÈùÆ®?       push_subq
+ê´€ë ¨ížŒíŠ¸  no_unnest 
+no_unnest ì™€ ì§ê¿ì¸ ížŒíŠ¸?       push_subq
                                           no_push_subq 
 
-¼­ºêÄõ¸®¿Í ¸ÞÀÎÄõ¸®ÀÇ Å×ÀÌºíÀÌ ´ë¿ë·®ÀÌ¸é?
+ì„œë¸Œì¿¼ë¦¬ì™€ ë©”ì¸ì¿¼ë¦¬ì˜ í…Œì´ë¸”ì´ ëŒ€ìš©ëŸ‰ì´ë©´?
 
-*Hash semi Á¶ÀÎ ¶Ç´Â Hash Anti Á¶ÀÎÀ¸·Î ¼öÇàµÇ°Ô ÇÏ¼¼¿ä!
+*Hash semi ì¡°ì¸ ë˜ëŠ” Hash Anti ì¡°ì¸ìœ¼ë¡œ ìˆ˜í–‰ë˜ê²Œ í•˜ì„¸ìš”!
 
 select ename
 from emp
 where empno in ( select mgr 
                             from emp) ;
 
-   ¡é °ü·Ã ÈùÆ®
+   â†“ ê´€ë ¨ ížŒíŠ¸
     /* = unnest hash_sj*/ 
 
 select ename 
 from emp
   where empno not in (select mgr from emp);
   
-     ¡é °ü·Ã ÈùÆ®
+     â†“ ê´€ë ¨ ížŒíŠ¸
     /* = unnest hash_aj*/ 
 
 
-¡× 4.µ¥ÀÌÅÍ ºÐ¼®ÇÔ¼ö¸¦ ÀÌ¿ëÇÑ Æ©´×
+â–  4.ë°ì´í„° ë¶„ì„í•¨ìˆ˜ë¥¼ ì´ìš©í•œ íŠœë‹
 
-'¾Õ¿¡¼­´Â SQL Æ©´×À» ÇÒ¶§ ÈùÆ®¸¦ ÀÌ¿ëÇØ¼­ Æ©´×À» Çß´Âµ¥
-Áö±ÝºÎÅÍ´Â ¿ÏÀüÈ÷ ´Ù¸¥ SQL·Î º¯°æÇØ¼­ Æ©´×ÇÏ°Ú½À´Ï´Ù.
+'ì•žì—ì„œëŠ” SQL íŠœë‹ì„ í• ë•Œ ížŒíŠ¸ë¥¼ ì´ìš©í•´ì„œ íŠœë‹ì„ í–ˆëŠ”ë°
+ì§€ê¸ˆë¶€í„°ëŠ” ì™„ì „ížˆ ë‹¤ë¥¸ SQLë¡œ ë³€ê²½í•´ì„œ íŠœë‹í•˜ê² ìŠµë‹ˆë‹¤.
 
-Æ©´×Àü
+íŠœë‹ì „
  select detpno,sum(sal)
  from emp
 group by deptno
@@ -425,16 +424,16 @@ union all
  select null as deptno,sum(sal)
  from emp;
 
-                       ¡é
+                       â†“
 
 select deptno,sum(sal)
 from emp
 group by rollup(deptno);
 
 
-120.¾Æ·¡ÀÇ UNION SQLÀ» Æ©´×ÇÏ½Ã¿À! 
+120.ì•„ëž˜ì˜ UNION SQLì„ íŠœë‹í•˜ì‹œì˜¤! 
 
-Æ©´×Àü 
+íŠœë‹ì „ 
 select deptno,null as job,sum(sal)
 from emp
 group by deptno
@@ -444,17 +443,17 @@ union all
 select null as deptno,job,sum(sal)
 from emp
 group by job
-order by deptno asc,job asc;    ---------¹öÆÛ 8°³
+order by deptno asc,job asc;    ---------ë²„í¼ 8ê°œ
        
-               ¡é
+               â†“
 
 select deptno,job,sum(sal)
 from emp
-group by grouping sets ( (deptno), (job) );             ----- ¹öÆÛ 
+group by grouping sets ( (deptno), (job) );             ----- ë²„í¼ 
 
-121.¾Æ·¡ÀÇ UNION 3´ÜÀýÀ» Æ©´×ÇÏ½Ã¿À! 
+121.ì•„ëž˜ì˜ UNION 3ë‹¨ì ˆì„ íŠœë‹í•˜ì‹œì˜¤! 
 
-Æ©´×Àü
+íŠœë‹ì „
 select deptno,null as job,sum(sal)
 from emp
 group by deptno
@@ -470,43 +469,43 @@ union all
 select null as deptno,null as job,sum(sal)
 from emp
 order by deptno asc,job asc
-                   ¡é
-Æ©´×ÈÄ
+                   â†“
+íŠœë‹í›„
 select deptno,job,sum(sal)
 from emp
 group by grouping sets ( (deptno), (job) ,() );    
 
-122.¾Æ·¡ÀÇ SQLÀ» Æ©´× ÇÏ½Ã¿À! 
+122.ì•„ëž˜ì˜ SQLì„ íŠœë‹ í•˜ì‹œì˜¤! 
 
-Æ©´×Àü
+íŠœë‹ì „
 select empno,ename,sal(select sum(sal)
                                     from emp s
-                                           where s.empno <=m.empno) ´©ÀûÄ¡
+                                           where s.empno <=m.empno) ëˆ„ì ì¹˜
 from emp m
 order by empno asc;
 
-(Scalar subquery »ç¿ëÇÑ °ÍÀÓ) 
+(Scalar subquery ì‚¬ìš©í•œ ê²ƒìž„) 
                       
-                             ¡é
-Æ©´×ÈÄ 
+                             â†“
+íŠœë‹í›„ 
 select /*+ gather_plan_statistics*/ empno,ename,sal,
-              sum(sal) over (order by empno asc) ´©ÀûÄ¡  
+              sum(sal) over (order by empno asc) ëˆ„ì ì¹˜  
                      from emp; 
 
-¼³¸í : Æ©´×ÀüÀº emp Å×ÀÌºíÀ» 2¹ø ¿¢¼¼½º ÇßÀ¸³ª Æ©´×ÈÄ´Â ÇÑ¹ø¸¸ 
-¿¢¼¼½º Çß½À´Ï´Ù.
+ì„¤ëª… : íŠœë‹ì „ì€ emp í…Œì´ë¸”ì„ 2ë²ˆ ì—‘ì„¸ìŠ¤ í–ˆìœ¼ë‚˜ íŠœë‹í›„ëŠ” í•œë²ˆë§Œ 
+ì—‘ì„¸ìŠ¤ í–ˆìŠµë‹ˆë‹¤.
 
-123.¾Æ·¡ÀÇ SQLÀ» Æ©´×ÇÏ½Ã¿À
-(´©Àû º¸¿©ÁÖ´Â Query)
+123.ì•„ëž˜ì˜ SQLì„ íŠœë‹í•˜ì‹œì˜¤
+(ëˆ„ì  ë³´ì—¬ì£¼ëŠ” Query)
 select deptno,ename,sal (select sum(sal)
                    from emp s
                      where s.empno<=m.empno
-                      and s.deptno=m.deptno) ´©ÀûÄ¡
+                      and s.deptno=m.deptno) ëˆ„ì ì¹˜
                       from emp m
                       order by deptno asc,empno asc;
 
-                        ¡é
+                        â†“
 
 select deptno,empno,ename,sal, sum(sal) over (partition by deptno
-                     order by empno asc) ´©ÀûÄ¡
+                     order by empno asc) ëˆ„ì ì¹˜
  from emp;
