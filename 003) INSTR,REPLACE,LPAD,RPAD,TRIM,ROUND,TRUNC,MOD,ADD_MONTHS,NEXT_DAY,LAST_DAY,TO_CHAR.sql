@@ -1,4 +1,4 @@
-019 자에서 특정 철자의 위치 출력하기(INSTR)
+■ 019 자에서 특정 철자의 위치 출력하기(INSTR)
 
 정의 : 특정 철자의 자릿수를 출력하는 함수
 문법:instr('smith','m')  --- 여기에 +,- 가능?  
@@ -21,7 +21,7 @@ from emp12;
 예제: select replace('smith','m','k')
 from dual; 
 
-020 특정 철자를 다른 철자로 변경하기 (REPLACE)
+■ 020 특정 철자를 다른 철자로 변경하기 (REPLACE)
 
  " 특정 철자를 다른 철자로 변경하는 함수"
 
@@ -41,7 +41,7 @@ select ename,  replace(sal, 0, '*')
       replace(ename, substr(ename, -2, 1), '*' )
 	       from emp12;
 
-021 특정 철자를 N개 만큼 채우기(LPAD, RPAD)
+■ 021 특정 철자를 N개 만큼 채우기(LPAD, RPAD)
 정의: 항상 고정된 자리수를 보장하기 위해 필요한 함수 
 문법: lpad(컬럼명,전체자리수,채워넣을값)
 	- 컬럼 left 쪽에 채워넣어서 전체자리수 10개를 만들것이다. 근데 채워넣을값은  
@@ -49,7 +49,7 @@ select ename,  replace(sal, 0, '*')
 select sal, lpad(sal,10,'*')
 from emp;
 
-022 특정 철자 잘라내기(TRIM, RTRIM, LTRIM)
+■ 022 특정 철자 잘라내기(TRIM, RTRIM, LTRIM)
 
 정의 : 공백을 잘라낼때 많이 사용하는 함수
 문법 : 컬럼(trim) , adress(rtrim), name(ltrim) 
@@ -71,7 +71,7 @@ trim : 양쪽에 있 공백을 잘라버리겠다.
     복수행 함수 :  max,min,avg,sum,count 
 
 
-023 반올림해서 출력하기(ROUND)            
+■ 023 반올림해서 출력하기(ROUND)            
 
 예제)
 select   round( 786.567,  -1 )
@@ -90,7 +90,7 @@ select   round( 786.567,  -1 )
 select    round( avg(age), 0 ) 
    from   emp12;		
 
-024 숫자를 버리고 출력하기(TRUNC)
+■ 024 숫자를 버리고 출력하기(TRUNC)
 숫자 함수 
    1. round : 반올림하는 함수
    2. trunc : 잘라내서 버리는 함수
@@ -112,7 +112,7 @@ select round(786.567,2)
 -3-2-1 0 1 2 3 
 0 = 위치가 . 이다 
 
-025 나눈 나머지 값 출력하기(MOD)
+■ 025 나눈 나머지 값 출력하기(MOD)
 
 예제)
 select mod(10,3)
@@ -120,7 +120,7 @@ select mod(10,3)
 
 나이가 짝수인지 홀수인지 구분할때 사용한다.    mod(8,2) mod(7,2) 
 
-026 날짜 간 개월 수 출력하기(MONTHS_BETWEEN)
+■ 026 날짜 간 개월 수 출력하기(MONTHS_BETWEEN)
 
 날짜 - 숫자 =날짜
 날짜+숫자 = 날짜
@@ -145,14 +145,14 @@ from emp;
 3.next_day
 4.last_day
 
-027 개월 수 더한 날짜 출력하기 (ADD_MONTHS)
+■ 027 개월 수 더한 날짜 출력하기 (ADD_MONTHS)
 
 오늘부터 100달 뒤에 돌아오는 날짜가 몇일인가. 
 문법 : add_months(sysdate,100) 
 from dual;
 
 
-028 특정 날짜 뒤에 오는 요일 날짜 출력하기 (NEXT_DAY)
+■ 028 특정 날짜 뒤에 오는 요일 날짜 출력하기 (NEXT_DAY)
 
 문법:  next_day(sysdate,'월요일')
 특정 날짜 뒤에 오는 요일날짜 출력하기 
@@ -160,7 +160,7 @@ from dual;
 select next_day(sysdate,'월요일') 
 from dual; 
 
-029 특정 날짜가 있는 달의 마지막 날짜 출력하기 (LAST_DAY)
+■ 029 특정 날짜가 있는 달의 마지막 날짜 출력하기 (LAST_DAY)
  
 문법 : select sysdate,last_day(sysdate)
             from dual;
@@ -176,7 +176,7 @@ from dual;
                     lpad/rpad
                     trim/rtrim/ltrim
      
-030 문자형으로 데이터 유형 변환하기 (TO_CHAR)
+■ 030 문자형으로 데이터 유형 변환하기 (TO_CHAR)
 
 정의 : 숫자형 데이터를 문자형 데이터로 변환하는것 
 
