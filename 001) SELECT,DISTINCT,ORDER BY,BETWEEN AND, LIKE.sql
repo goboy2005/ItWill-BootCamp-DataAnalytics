@@ -51,7 +51,7 @@ select * from emp
 
 @edit or ed : 메모장 수정--- 저장 
 
-005 중복된 데이터를 제거해서 출력하기 (distinct) 
+■ 005 중복된 데이터를 제거해서 출력하기 (distinct) 
 
 'distinct' 키워드를 컬럼명 앞에 작성하고 실행하면 중복된 데이터를 제거하고 출력할 수 있습니다.
 select distinct job from emp;
