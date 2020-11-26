@@ -1,193 +1,194 @@
 
-¡á Q-37.ÀÌ¸§ Ã¹¹øÂ° Ã¶ÀÚ°¡ A·Î ½ÃÀÛÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À
+â–  Q-37.ì´ë¦„ ì²«ë²ˆì§¸ ì² ìžê°€ Aë¡œ ì‹œìž‘í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,sal
 from emp
 where ename like 'A%';
 
-¡á Q-38.ÀÌ¸§ÀÌ SCOTTÀÎ »ç¿øÀÇ ÀÌ¸§°ú ¿ù±Þ°ú Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À
+â–  Q-38.ì´ë¦„ì´ SCOTTì¸ ì‚¬ì›ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,sal,job
 from emp
 where ename='SCOTT';
 
-¡á Q-39.ÀÌ¸§ÀÇ ³¡¿¡¼­ µÎ¹øÂ° Ã¶ÀÚ°¡ TÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À
+â–  Q-39.ì´ë¦„ì˜ ëì—ì„œ ë‘ë²ˆì§¸ ì² ìžê°€ Tì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,sal
 from emp
 where ename like '%T_';
 
-¡á Q-40.Ä¿¹Ì¼ÇÀÌ null ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú Ä¿¹Ì¼ÇÀ» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-40.ì»¤ë¯¸ì…˜ì´ null ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì»¤ë¯¸ì…˜ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,comm
 from emp
 where comm is null;
 
-¡á Q-41.Ä¿¹Ì¼ÇÀÌ nullÀÌ ¾Æ´Ñ »ç¿øµéÀÇ ÀÌ¸§°ú Ä¿¹Ì¼ÇÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-41.ì»¤ë¯¸ì…˜ì´ nullì´ ì•„ë‹Œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì»¤ë¯¸ì…˜ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,comm
 from emp
 where comm is not null;
 
-¡á Q-42.°ü¸®ÀÚÀÇ »ç¿ø¹øÈ£ (mgr) ÀÌ null ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-42.ê´€ë¦¬ìžì˜ ì‚¬ì›ë²ˆí˜¸ (mgr) ì´ null ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,job,mgr
 from emp
 where mgr is null;
-¼³¸í:»çÀå (President) Àº °ü¸®ÀÚ°¡ ¹øÈ£ (mgr) °¡ ¾ø´Ù. (ÀÚ±â°¡ Â¯ÀÌ´Ï±î)
+ì„¤ëª…:ì‚¬ìž¥ (President) ì€ ê´€ë¦¬ìžê°€ ë²ˆí˜¸ (mgr) ê°€ ì—†ë‹¤. (ìžê¸°ê°€ ì§±ì´ë‹ˆê¹Œ)
 
-¡á Q-43.»ç¿ø¹øÈ£,ÀÌ¸§,°ü¸®ÀÚÀÇ ¹øÈ£ (mgr)À» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-43.ì‚¬ì›ë²ˆí˜¸,ì´ë¦„,ê´€ë¦¬ìžì˜ ë²ˆí˜¸ (mgr)ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,mgr
 from emp;
 
-¡á Q-44.Á÷¾÷ÀÌ SALESMAN,ANALYST ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-44.ì§ì—…ì´ SALESMAN,ANALYST ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,job
 from emp
 where job in ('SALESMAN','ANALYST');
 
-¡á Q-45.Á÷¾÷ÀÌ SALESMAN,ANALYST °¡ ¾Æ´Ñ »ç¿øµéÀÇ ÀÌ¸§°ú Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À!
+â–  Q-45.ì§ì—…ì´ SALESMAN,ANALYST ê°€ ì•„ë‹Œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤!
 
 select ename,job
 from emp
 where job not in ('SALESMAN','ANALYST');
 
-¡á Q-46.Á÷¾÷ÀÌ SALESMAN ÀÌ ¾Æ´Ñ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-46.ì§ì—…ì´ SALESMAN ì´ ì•„ë‹Œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤ !
 
 select ename,sal,job
 from emp
 where job!='SALESMAN';
 
-¡á Q-47.À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ¿ù±ÞÀÌ ³ôÀº »ç¿øºÎÅÍ Ãâ·ÂÇÏ½Ã¿À (46¿¬°á)
+â–  Q-47.ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì›”ê¸‰ì´ ë†’ì€ ì‚¬ì›ë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤ (46ì—°ê²°)
 
 select ename,job,sal
 from emp
 where job!='SALESMAN'
 order by 3 desc,1 asc;
 
-¡á Q-48.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ ³ªÀÌ°¡ ³ôÀº ÇÐ»ýºÎÅÍ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-48.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë‚˜ì´ê°€ ë†’ì€ í•™ìƒë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,age
 from emp12
 order by age desc;
 
-¡á Q-49.ÀÌ¸§°ú ³ªÀÌ¿Í ÁÖ¼Ò¸¦ Ãâ·ÂÇÏ´Âµ¥ 30»ì ÀÌ»óÀÎ ÇÐ»ýµé¸¸ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-49.ì´ë¦„ê³¼ ë‚˜ì´ì™€ ì£¼ì†Œë¥¼ ì¶œë ¥í•˜ëŠ”ë° 30ì‚´ ì´ìƒì¸ í•™ìƒë“¤ë§Œ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,age,address
 from emp12
 where age>=30;
 
-¡á Q-50.¼º¾¾°¡ ±è¾¾ÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú Åë½Å»ç¸¦ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-50.ì„±ì”¨ê°€ ê¹€ì”¨ì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ í†µì‹ ì‚¬ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,telecom
 from emp12
-where ename like '±è%';
+where ename like 'ê¹€%';
 
-¡á Q-51.Àü°ø¿¡ Åë°è¸¦ Æ÷ÇÔÇÏ°í ÀÖ´Â ÇÐ»ýµéÀÇ ÀÌ¸§°ú Àü°øÀ» Ãâ·ÂÇÏ½Ã¿À
+â–  Q-51.ì „ê³µì— í†µê³„ë¥¼ í¬í•¨í•˜ê³  ìžˆëŠ” í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ì „ê³µì„ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,major
 from emp12
-where major like '%Åë°è%';
+where major like '%í†µê³„%';
 
-¡á Q-52.¿ì¸®¹Ý¿¡gmailÀ» »ç¿ëÇÏ´Â(Æ÷ÇÔ°ú °°À½) ÇÐ»ýµéÀÇ ÀÌ¸§°ú ¸ÞÀÏÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-52.ìš°ë¦¬ë°˜ì—gmailì„ ì‚¬ìš©í•˜ëŠ”(í¬í•¨ê³¼ ê°™ìŒ) í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë©”ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,email
 from emp12
 where email like '%gmail%';
 
-¡á Q-53.³ªÀÌ°¡ 27¿¡¼­ 34»çÀÌÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-53.ë‚˜ì´ê°€ 27ì—ì„œ 34ì‚¬ì´ì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,age
 from emp12
 where age between 27 and 34
 
-¡á Q-54.³ªÀÌ°¡ 27¿¡¼­ 34»çÀÌ°¡ ¾Æ´Ñ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-54.ë‚˜ì´ê°€ 27ì—ì„œ 34ì‚¬ì´ê°€ ì•„ë‹Œ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤
 select ename,age
 from emp12
 where age not between 27 and 34;
 
-¡á Q-55.ÁÖ¼Ò°¡ °æ±âµµÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¿Í ÁÖ¼Ò¸¦ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-55.ì£¼ì†Œê°€ ê²½ê¸°ë„ì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ì™€ ì£¼ì†Œë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,age,address
 from emp12
-where address like '%°æ±âµµ%'
+where address like '%ê²½ê¸°ë„%'
 
-¡á Q-56.Åë½Å»ç°¡ sk,lgÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú Åë½Å»ç¸¦ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-56.í†µì‹ ì‚¬ê°€ sk,lgì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ í†µì‹ ì‚¬ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,telecom
 from emp12
 where telecom in ('sk','lg');
 
-¡á Q-57.¼­¿ï¿¡¼­ »ç´Â ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¿Í Àü°øÀ» Ãâ·ÂÇÏ½Ã¿À, 
-³ªÀÌ°¡ ³ôÀº ÇÐ»ýºÎÅÍ Ãâ·Â.
+â–  Q-57.ì„œìš¸ì—ì„œ ì‚¬ëŠ” í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ì™€ ì „ê³µì„ ì¶œë ¥í•˜ì‹œì˜¤, 
+ë‚˜ì´ê°€ ë†’ì€ í•™ìƒë¶€í„° ì¶œë ¥.
 
 select ename,age,major
 from emp12
-where address like '%¼­¿ï%'
+where address like '%ì„œìš¸%'
 order by age desc;
 
-¡á Q-58.ÀÌ¸ÞÀÏÀÌgmailÀÌ ¾Æ´Ñ ÇÐ»ýµéÀÇ ÀÌ¸§°ú emailÀ» Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-58.ì´ë©”ì¼ì´gmailì´ ì•„ë‹Œ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ emailì„ ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,email
 from emp12
 where email not like '%gmail%';
 
-¡á Q-59.¾Æ·¡¿Í °°ÀÌ °á°ú°¡ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À! 
-    ±èÁÖ¿ø ÇÐ»ýÀÇ ³ªÀÌ´Â 44 ÀÔ´Ï´Ù. 
-    (ename 'ÇÐ»ýÀÇ ³ªÀÌ´Â' age 'ÀÔ´Ï´Ù')
+â–  Q-59.ì•„ëž˜ì™€ ê°™ì´ ê²°ê³¼ê°€ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤! 
+    ê¹€ì£¼ì› í•™ìƒì˜ ë‚˜ì´ëŠ” 44 ìž…ë‹ˆë‹¤. 
+    (ename 'í•™ìƒì˜ ë‚˜ì´ëŠ”' age 'ìž…ë‹ˆë‹¤')
 
-select ename||'ÇÐ»ýÀÇ ³ªÀÌ´Â'||age||'ÀÔ´Ï´Ù.' "
+select ename||'í•™ìƒì˜ ë‚˜ì´ëŠ”'||age||'ìž…ë‹ˆë‹¤.' "
 from emp12
 
-¡á Q-60.Á÷¾÷ÀÌ SALESMAN ÀÌ°Å³ª ANALYSTÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ,Á÷¾÷À» Ãâ·ÂÇÏ½Ã¿À. (2°³ ¹æ¹ý Á¸Àç)  
+â–  Q-60.ì§ì—…ì´ SALESMAN ì´ê±°ë‚˜ ANALYSTì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰,ì§ì—…ì„ ì¶œë ¥í•˜ì‹œì˜¤. (2ê°œ ë°©ë²• ì¡´ìž¬)  
 
 select ename,sal,job
 from emp
 where job='ANALYST' or job='SALESMAN';
-ÀÌ°Íµµ µÇ°í
+ì´ê²ƒë„ ë˜ê³ 
 select ename,sal,job
 from emp
 where job in ('SALESMAN','ANALYST');
 
-¡á Q-61.¼º¾¾°¡ ±è¾¾,ÀÌ¾¾°¡ ¾Æ´Ñ ÇÐ»ýµéÀÇ ÀÌ¸§À» Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-61.ì„±ì”¨ê°€ ê¹€ì”¨,ì´ì”¨ê°€ ì•„ë‹Œ í•™ìƒë“¤ì˜ ì´ë¦„ì„ ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename
 from emp12
-where ename not like '±è%' and ename not like 'ÀÌ%'
+where ename not like 'ê¹€%' and ename not like 'ì´%'
 
-¡á Q-62.ÀÌ¸ÞÀÏ gmail °ú naver °¡ ¾Æ´Ñ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ÀÌ¸ÞÀÏÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-62.ì´ë©”ì¼ gmail ê³¼ naver ê°€ ì•„ë‹Œ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ì´ë©”ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,email
 from emp12
 where email not like '%gmail%' and email not like '%naver%';
 
-¡á Q-63.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ Åë½Å»ç°¡ sk ¿Í °ü·ÃµÈ Åë½Å»ç ÀÌ¸é ±× ÇÐ»ýÀÇ ÀÌ¸§°ú Åë½Å»ç¸¦ Ãâ·ÂÇÏ½Ã¿À. Á¤È®ÇÏ°Ô µ¥ÀÌÅÍ°¡ Ãâ·ÂÀÌ µÇ¾îÁö°Ú±Ý, SQLÀ» ÀÛ¼ºÇÏ¼¼¿ä. (´ë¹®ÀÚ ÅëÇÕÀ¸·Î,¼Ò¹®ÀÚ ÅëÇÕÀ¸·Î , ¾Õ´ë¹®ÀÚ, µÚ´Â ¼Ò¹®ÀÚ ÅëÇÕ) 
+â–  Q-63.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ í†µì‹ ì‚¬ê°€ sk ì™€ ê´€ë ¨ëœ í†µì‹ ì‚¬ ì´ë©´ ê·¸ í•™ìƒì˜ ì´ë¦„ê³¼ í†µì‹ ì‚¬ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤. 
+ì •í™•í•˜ê²Œ ë°ì´í„°ê°€ ì¶œë ¥ì´ ë˜ì–´ì§€ê² ê¸ˆ, SQLì„ ìž‘ì„±í•˜ì„¸ìš”. (ëŒ€ë¬¸ìž í†µí•©ìœ¼ë¡œ,ì†Œë¬¸ìž í†µí•©ìœ¼ë¡œ , ì•žëŒ€ë¬¸ìž, ë’¤ëŠ” ì†Œë¬¸ìž í†µí•©) 
 
 select ename,telecom
 from emp12
 where upper(telecom) like '%SK%';
-ÇÙ½É : Where upper(telecom) :  (telecom µ¥ÀÌÅÍ¸¦ ÀüºÎ ´ë¹®ÀÚ·Î º¯°æÇÑÇØ ¹ö¸®±â) 
+í•µì‹¬ : Where upper(telecom) :  (telecom ë°ì´í„°ë¥¼ ì „ë¶€ ëŒ€ë¬¸ìžë¡œ ë³€ê²½í•œí•´ ë²„ë¦¬ê¸°) 
 
-¡á Q-64.±è,ÀÌ,À¯ ¾¾ÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ like ¾²Áö ¸»°í in°ú substr ½á¼­ ÃßÃâ·ÂÇÏ½Ã¿À.  
+â–  Q-64.ê¹€,ì´,ìœ  ì”¨ì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° like ì“°ì§€ ë§ê³  inê³¼ substr ì¨ì„œ ì¶”ì¶œë ¥í•˜ì‹œì˜¤.  
 
 select ename,age
 from emp12
-where substr(ename,1,1) in ('±è','ÀÌ','À¯');
+where substr(ename,1,1) in ('ê¹€','ì´','ìœ ');
 
-¡á Q-65.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ ÀÌ¸ÞÀÏ°ú ÀÌ¸ÞÀÏÀÇ Ã¶ÀÚ¿¡ ±æÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ ÀÌ¸ÞÀÏ Ã¶ÀÚÀÇ ±æÀÌ°¡ °¡Àå ±ä°ÍºÎÅÍ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-65.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ ì´ë©”ì¼ê³¼ ì´ë©”ì¼ì˜ ì² ìžì— ê¸¸ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ì´ë©”ì¼ ì² ìžì˜ ê¸¸ì´ê°€ ê°€ìž¥ ê¸´ê²ƒë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,email,length(email)
 from emp12
 order by length(email) desc;
 
-¡á Q-66.empÅ×ÀÌºí¿¡¼­ ename À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ enameÀÇ Ã¹¹øÂ° Ã¶ÀÚ¸¦ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-66.empí…Œì´ë¸”ì—ì„œ ename ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— enameì˜ ì²«ë²ˆì§¸ ì² ìžë¥¼ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,substr(ename,1,1) 
 from emp ;
 
-¡á Q-67.À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ÀÌ¸§ÀÇ Ã¹¹øÂ° Ã¶ÀÚ·Î Ãâ·ÂµÇ´Â ºÎºÐÀ» ¼Ò¹®ÀÚ·Î Ãâ·Â
-ÇÏ½Ã¿À 
+â–  Q-67.ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì´ë¦„ì˜ ì²«ë²ˆì§¸ ì² ìžë¡œ ì¶œë ¥ë˜ëŠ” ë¶€ë¶„ì„ ì†Œë¬¸ìžë¡œ ì¶œë ¥
+í•˜ì‹œì˜¤ 
 
 select ename,substr(lower(ename),1,1)
 from emp;
@@ -195,7 +196,7 @@ Or
 select ename,lower(substr(ename,1,1))
 from emp;
 
-¡á Q-68.¾Æ·¡ÀÇ °á°ú¸¦ initcap¾²Áö ¸»°í upper,lower,substr, || »ç¿ëÇØ¼­ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-68.ì•„ëž˜ì˜ ê²°ê³¼ë¥¼ initcapì“°ì§€ ë§ê³  upper,lower,substr, || ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì‹œì˜¤.
     (        select initcap(ename)   from emp;  ) 
 
 select upper(substr(ename,1,1))||lower(substr(ename,2,10))as "INITCAP(ENAME)"
