@@ -197,7 +197,7 @@ select ename,lower(substr(ename,1,1))
 from emp;
 
 ■ Q-68.아래의 결과를 initcap쓰지 말고 upper,lower,substr, || 사용해서 출력하시오.
-    (        select initcap(ename)   from emp;  ) 
+    (  select initcap(ename)  from emp;  ) 
 
 select upper(substr(ename,1,1))||lower(substr(ename,2,10))as "INITCAP(ENAME)"
 from emp;
