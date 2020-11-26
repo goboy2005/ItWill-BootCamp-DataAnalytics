@@ -42,7 +42,6 @@ select   dense_rank(2975)  within  group ( order  by sal desc ) 순위
                             within group (order by hiredate asc) 순위
    from emp;
 
-
 ■ Q-166.  이름, 나이, 등급을 출력하는데 등급을 7등급으로 나눠서
 출력하시오 (나이가 높은 순서데로 등급을 나누시오)
 
@@ -191,7 +190,6 @@ select  job,  sum(sal)
            sum(decode( job, 'SALESMAN', sal, null))  as  "SALESMAN"
  from  emp; 
 
-
 ■ Q-180.  통신사, 통신사별 토탈나이를 가로로 출력하시오 ( pivot문으로)
 
    sk     lg    kt
@@ -203,7 +201,6 @@ select   *
                                                 'lg' as  "lg",
                                                 'kt' as  "kt" )  ) ; 
 
-
 ■ Q-181. 위의 결과를 토탈나이가 아니라 평균나이로 나오게 하시오 !
 
 select   *
@@ -211,7 +208,7 @@ select   *
   pivot  ( avg(age)  for  telecom  in ('sk' as  "sk", 
                                                 'lg' as  "lg",
                                                 'kt' as  "kt" )  ) ; 
-
+                      
 ■ Q-182. 이름, 나이, 나이의 누적치를 출력하시오 
 
 select  ename, age,  sum(age)  over ( order  by  ename  asc ) 누적치
