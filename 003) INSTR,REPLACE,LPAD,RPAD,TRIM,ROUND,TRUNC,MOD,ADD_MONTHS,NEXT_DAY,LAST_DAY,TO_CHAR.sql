@@ -1,108 +1,109 @@
+Day 3 Problems 
 
-¡á Q-69.»ç¿ø Å×ÀÌºí¿¡¼­ ÀÌ¸§À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ÀÌ¸§ÀÇ ³¡Ã¶ÀÚ¸¦ Ãâ·ÂÇÏ´Âµ¥ ³¡ Ã¶ÀÚ¸¦ ¼Ò¹®ÀÚ·Î Ãâ·ÂÇÏ½Ã¿À
+â–  Q-69.ì‚¬ì› í…Œì´ë¸”ì—ì„œ ì´ë¦„ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ì´ë¦„ì˜ ëì² ìžë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë ì² ìžë¥¼ ì†Œë¬¸ìžë¡œ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,upper(substr(ename,-1,1))
 from emp12;
 
-¡á Q-71.»ç¿ø Å×ÀÌºí¿¡¼­ ÀÌ¸§ ¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥, ¿ù±ÞÀ» Ãâ·ÂÇÒ¶§ ¼ýÀÚ 0À» *·Î Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-71.ì‚¬ì› í…Œì´ë¸”ì—ì„œ ì´ë¦„ ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë°, ì›”ê¸‰ì„ ì¶œë ¥í• ë•Œ ìˆ«ìž 0ì„ *ë¡œ ì¶œë ¥í•˜ì‹œì˜¤ 
 select ename,replace(sal,0,'*')
 from emp;
 
-¡á Q-72.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ ÀÌ¸§À» Ãâ·ÂÇÏ°í ±×¿·¿¡ ÀÌ¸§¿¡ µÎ¹øÂ° Ã¶ÀÚ¸¦ Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-72.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ ì´ë¦„ì„ ì¶œë ¥í•˜ê³  ê·¸ì˜†ì— ì´ë¦„ì— ë‘ë²ˆì§¸ ì² ìžë¥¼ ì¶œë ¥í•˜ì‹œì˜¤! 
 
 select substr(ename,2,1)
 from emp12;
 
-¡á Q-73.¾Æ»êº´¿øÀÇ Àü±¤ÆÇÀ» ±¸ÇöÇÏ½Ã¿À! (À¯*¼ö,¼º*Ã¢)
+â–  Q-73.ì•„ì‚°ë³‘ì›ì˜ ì „ê´‘íŒì„ êµ¬í˜„í•˜ì‹œì˜¤! (ìœ *ìˆ˜,ì„±*ì°½)
 
 select ename,replace(ename,substr(ename,2,1),'*')
 from emp12;
 
-¡á Q-74.³²±Ã¼Ö¹Ì µ¥ÀÌÅÍ¸¦ ÀÔÇÏ°í ³²±Ã*¹Ì·Î Ãâ·ÂµÇ°Ô À§ÀÇ SQLÀ» ´Ù½Ã ÀÛ¼ºÇÏ½Ã¿À (73¿¬°á)
+â–  Q-74.ë‚¨ê¶ì†”ë¯¸ ë°ì´í„°ë¥¼ ìž…í•˜ê³  ë‚¨ê¶*ë¯¸ë¡œ ì¶œë ¥ë˜ê²Œ ìœ„ì˜ SQLì„ ë‹¤ì‹œ ìž‘ì„±í•˜ì‹œì˜¤ (73ì—°ê²°)
 
 select ename,replace(ename,substr(ename,-2,1),'*')
 from emp12;
 
-¡á Q-75.°æ±âµµ¿¡ »ç´Â ÇÐ»ýµéÀÇ ÀÌ¸§°ú ÁÖ¼Ò¸¦ Ãâ·ÂÇÏ½Ã¿À ! ¿ÍÀÏµå Ä«µå¸¦ ¾çÂÊ¿¡ »ç¿ëÇÏÁö 
-¸»°í ÇÑÂÊ¿¡¸¸ »ç¿ëÇØ¼­ Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-75.ê²½ê¸°ë„ì— ì‚¬ëŠ” í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ì£¼ì†Œë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ ! ì™€ì¼ë“œ ì¹´ë“œë¥¼ ì–‘ìª½ì— ì‚¬ìš©í•˜ì§€ 
+ë§ê³  í•œìª½ì—ë§Œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,address
 from emp12
-where ltrim(address) like '°æ±âµµ%';
+where ltrim(address) like 'ê²½ê¸°ë„%';
 
-¡á Q-76.Á¤º¸Åë°èÇÐ°ú°¡ Àü°øÀÎ ÇÐ»ýÀÇ ÀÌ¸§°ú ³ªÀÌ¿Í Àü°øÀ» Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-76.ì •ë³´í†µê³„í•™ê³¼ê°€ ì „ê³µì¸ í•™ìƒì˜ ì´ë¦„ê³¼ ë‚˜ì´ì™€ ì „ê³µì„ ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,age,major
 from emp12
-where trim(major) like '%Á¤º¸Åë°èÇÐ°ú%';
+where trim(major) like '%ì •ë³´í†µê³„í•™ê³¼%';
 
-¡á Q-77.¿ì¸®¹Ý ³ªÀÌÀÇ Æò±Õ°ªÀ» Ãâ·ÂÇÏ½Ã¿À. avg(age)
+â–  Q-77.ìš°ë¦¬ë°˜ ë‚˜ì´ì˜ í‰ê· ê°’ì„ ì¶œë ¥í•˜ì‹œì˜¤. avg(age)
 
 select avg(age)
 from emp12;
 
-¡á Q-78.À§ÀÇ °á°ú¸¦ ¹Ý¿Ã¸²ÇØ¼­ ¼Ò¼öÁ¡ ÀÌÈÄ´Â ¾È³ª¿À°Ô ÇÏ½Ã¿À.
-select round(avg(age),0) / ¾Æ´Ï¸é ±×³É ´Ý±â.
+â–  Q-78.ìœ„ì˜ ê²°ê³¼ë¥¼ ë°˜ì˜¬ë¦¼í•´ì„œ ì†Œìˆ˜ì  ì´í›„ëŠ” ì•ˆë‚˜ì˜¤ê²Œ í•˜ì‹œì˜¤.
+select round(avg(age),0) / ì•„ë‹ˆë©´ ê·¸ëƒ¥ ë‹«ê¸°.
 from emp12;
 
-¡á Q-78.¿ì¸®¹Ý¿¡¼­ ³ªÀÌ°¡ Â¦¼öÀÎ ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-78.ìš°ë¦¬ë°˜ì—ì„œ ë‚˜ì´ê°€ ì§ìˆ˜ì¸ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,age,mod(age,2) 
 from emp12
 where mod(age,2)=0;
 
-¡á Q-80.select ename,sysdate-hiredate from emp; ÀÌ°á°ú¿¡¼­ ¼Ò¼öÁ¡ ÀÌÇÏ´Â ¾È³ª¿À°Ô
- ¹Ý¿Ã¸²ÇÏ½Ã¿À.
+â–  Q-80.select ename,sysdate-hiredate from emp; ì´ê²°ê³¼ì—ì„œ ì†Œìˆ˜ì  ì´í•˜ëŠ” ì•ˆë‚˜ì˜¤ê²Œ
+ ë°˜ì˜¬ë¦¼í•˜ì‹œì˜¤.
 
 select ename,round(sysdate-hiredate,0)
 from emp
 
-¡á Q-81.ÀÌ¸§,ÀÔ»çÇÑ ³¯Â¥ºÎÅÍ ¿À´Ã±îÁö ÃÑ ¸îÁÖ ±Ù¹«Çß´ÂÁö Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-81.ì´ë¦„,ìž…ì‚¬í•œ ë‚ ì§œë¶€í„° ì˜¤ëŠ˜ê¹Œì§€ ì´ ëª‡ì£¼ ê·¼ë¬´í–ˆëŠ”ì§€ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,round(round(sysdate-hiredate,0)/7,0)
 from emp;
 
-¡á Q-82.ÀÌ¸§,ÀÔ»çÇÑ ³¯Â¥ºÎÅÍ ¿À´Ã±îÁö ÃÑ ¸î ´Þ ¹«Çß´ÂÁö Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-82.ì´ë¦„,ìž…ì‚¬í•œ ë‚ ì§œë¶€í„° ì˜¤ëŠ˜ê¹Œì§€ ì´ ëª‡ ë‹¬ ë¬´í–ˆëŠ”ì§€ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename, round(months_between(sysdate,hiredate))
   from emp;
 
-¡á Q-83. KingÀº 467´ÞÀ» ±Ù¹«Çß½À´Ï´Ù. 
+â–  Q-83. Kingì€ 467ë‹¬ì„ ê·¼ë¬´í–ˆìŠµë‹ˆë‹¤. 
 
-select ename||'Àº'||round(months_between(sysdate,hiredate))||'´ÞÀ» ±Ù¹«Çß½À´Ï´Ù'
+select ename||'ì€'||round(months_between(sysdate,hiredate))||'ë‹¬ì„ ê·¼ë¬´í–ˆìŠµë‹ˆë‹¤'
   from emp;
 
-¡á Q-84.¿À´Ã ³¯Â¥¿¡¼­ 100´Þ µÚ¿¡ µ¹¾Æ¿À´Â ¸ñ¿äÀÏÀÇ ³¯Â¥¸¦ Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-84.ì˜¤ëŠ˜ ë‚ ì§œì—ì„œ 100ë‹¬ ë’¤ì— ëŒì•„ì˜¤ëŠ” ëª©ìš”ì¼ì˜ ë‚ ì§œë¥¼ ì¶œë ¥í•˜ì‹œì˜¤. 
 
-select next_day(add_months(sysdate,100),'¸ñ¿äÀÏ')
+select next_day(add_months(sysdate,100),'ëª©ìš”ì¼')
 from dual;
 
-¡á Q-85.81/11/17 ÀÏ¿¡ ÀÔ»çÇÑ »ç¿øÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Ãâ·ÂÇÏ½Ã¿À .
+â–  Q-85.81/11/17 ì¼ì— ìž…ì‚¬í•œ ì‚¬ì›ì˜ ì´ë¦„ê³¼ ìž…ì‚¬ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤ .
 
 select ename,hiredate
 from emp
 where hiredate='81/11/17';
 
-¡á Q-86.ÀÌ¸§,ÀÔ»çÀÏ,ÀÔ»çÇÑ ¿äÀÏÀ» Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-86.ì´ë¦„,ìž…ì‚¬ì¼,ìž…ì‚¬í•œ ìš”ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤! 
 
 select ename,hiredate,to_char(hiredate,'day')
 from emp;
 
-¡á Q-87.¼ö¿äÀÏ¿¡ ÀÔ»çÇÑ »ç¿øµéÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-87.ìˆ˜ìš”ì¼ì— ìž…ì‚¬í•œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ìž…ì‚¬ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,hiredate,to_char(hiredate,'day')
 from emp
-where to_char(hiredate,'day') = '¼ö¿äÀÏ'
+where to_char(hiredate,'day') = 'ìˆ˜ìš”ì¼'
 
-¡á Q-88.³»°¡ ¹«½¼ ¿äÀÏ¿¡ ÅÂ¾î³µ´ÂÁö È®ÀÎÇÏ½Ã¿À. (to_date·Î º¯È¯ÇÏ´Â ±â´ÉÀ» ¾Ë¾Æ¾ßÇÔ.)
+â–  Q-88.ë‚´ê°€ ë¬´ìŠ¨ ìš”ì¼ì— íƒœì–´ë‚¬ëŠ”ì§€ í™•ì¸í•˜ì‹œì˜¤. (to_dateë¡œ ë³€í™˜í•˜ëŠ” ê¸°ëŠ¥ì„ ì•Œì•„ì•¼í•¨.)
 
 select to_char(to_date('92/01/14','RR/MM/DD'),'day')
 from dual;
 
-¡á Q-89.Ä«Æä¿¡ ´ä±Û·Î ¿Ã¸®¼¼¿ä~
-ÀÌ¸§,ÀÔ»çÇÑ ¿äÀÏÀ» Ãâ·ÂÇÏ´Âµ¥ 
-ÀÔ»çÇÑ ¿äÀÏÀÌ ÀÏ¿ùÈ­¼ö¸ñ±ÝÅä ¼øÀ¸·Î 
+â–  Q-89.ì¹´íŽ˜ì— ë‹µê¸€ë¡œ ì˜¬ë¦¬ì„¸ìš”~
+ì´ë¦„,ìž…ì‚¬í•œ ìš”ì¼ì„ ì¶œë ¥í•˜ëŠ”ë° 
+ìž…ì‚¬í•œ ìš”ì¼ì´ ì¼ì›”í™”ìˆ˜ëª©ê¸ˆí†  ìˆœìœ¼ë¡œ 
 
-¡á Q-90.¸¶Áö¸·¹®Á¦ ÀÌ¸ÞÀÏÀ» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ÀÌ¸ÞÀÏÀÇ µµ¸ÞÀÎÀ» Ãâ·ÂÇÏ½Ã¿À. ex) gmail,naver 
+â–  Q-90.ë§ˆì§€ë§‰ë¬¸ì œ ì´ë©”ì¼ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ì´ë©”ì¼ì˜ ë„ë©”ì¸ì„ ì¶œë ¥í•˜ì‹œì˜¤. ex) gmail,naver 
 select substr(email,instr(email,'@')+1, instr(email,'.'))
                  from emp12; 
