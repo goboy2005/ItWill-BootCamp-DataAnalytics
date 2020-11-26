@@ -1,185 +1,186 @@
+Day 4 problems 
 
-¡á Q-90.Á÷¾÷ÀÌ SALESMAN ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú Á÷¾÷À» Ãâ·ÂÇÏ´Âµ¥ ¿ù±ÞÀÌ ³ôÀº »ç¿øºÎÅÍ Ãâ·ÂÇÏ½Ã¿À!
+â–  Q-90.ì§ì—…ì´ SALESMAN ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ëŠ”ë° ì›”ê¸‰ì´ ë†’ì€ ì‚¬ì›ë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤!
 
 select ename,job,sal
 from emp
 where job = 'SALESMAN'
 order by sal desc;
 
-¡á Q-91.Á÷¾÷ÀÌ SALESMAN ÀÌ ¾Æ´Ñ »ç¿øµéÀÇ ÀÌ¸§°ú ÀÔ»çÀÏ°ú Á÷¾÷À» Ãâ·ÂÇÏ´Âµ¥ ÃÖ±Ù¿¡ ÀÔ»çÇÑ »ç¿øºÎÅÍ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-91.ì§ì—…ì´ SALESMAN ì´ ì•„ë‹Œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ìž…ì‚¬ì¼ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ëŠ”ë° ìµœê·¼ì— ìž…ì‚¬í•œ ì‚¬ì›ë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,job,hiredate
 from emp
 where job not in ('SALESMAN')
 order by hiredate desc;
 
-¡á Q-92.¿ù±ÞÀÌ 1000¿¡¼­ 3000»çÀÌÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-92.ì›”ê¸‰ì´ 1000ì—ì„œ 3000ì‚¬ì´ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,sal
 from emp
 where sal between 1000 and 3000;
 
-¡á Q-93.ÀÌ¸§À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ÀÌ¸§ÀÇ Ã¹¹øÂ° Ã¶ÀÚ¸¸ Ãâ·ÂÇÏ´Âµ¥
-¼Ò¹®ÀÚ·Î Ãâ·ÂÇÏ½Ã¿À
+â–  Q-93.ì´ë¦„ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ì´ë¦„ì˜ ì²«ë²ˆì§¸ ì² ìžë§Œ ì¶œë ¥í•˜ëŠ”ë°
+ì†Œë¬¸ìžë¡œ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,lower(substr(ename,1,1))
 from emp;
 
-¡á Q-94.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ ÀÌ¸§°ú ÀÌ¸ÞÀÏÀ» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ÀÌ¸ÞÀÏ¿¡¼­ @°¡ ¸î¹øÂ° Ã¶ÀÚÀÎÁö Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-94.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ ì´ë¦„ê³¼ ì´ë©”ì¼ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ì´ë©”ì¼ì—ì„œ @ê°€ ëª‡ë²ˆì§¸ ì² ìžì¸ì§€ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,email,instr(email,'@')
 from emp12;
 
-¡á Q-95.ÀÌ¸§°ú ÀÔ»çÀÏ,ÀÔ»çÇÑ ³âµµ¸¦ 4ÀÚ¸®·Î Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-95.ì´ë¦„ê³¼ ìž…ì‚¬ì¼,ìž…ì‚¬í•œ ë…„ë„ë¥¼ 4ìžë¦¬ë¡œ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,hiredate, to_char(hiredate,'RRRR') 
 from emp;
 
-¡á Q-96.11¿ù¿¡ ÀÔ»çÇÑ »ç¿øµéÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-96.11ì›”ì— ìž…ì‚¬í•œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ìž…ì‚¬ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select ename,hiredate,to_char(hiredate,'MM')
 from emp
 where to_char(hiredate,'MM')=11; 
 
-¡á Q-97.96¹øÀ» to_char »ç¿ëÇÏÁö ¸»°í substr ·Î ¼öÇàÇÏ½Ã¿À
+â–  Q-97.96ë²ˆì„ to_char ì‚¬ìš©í•˜ì§€ ë§ê³  substr ë¡œ ìˆ˜í–‰í•˜ì‹œì˜¤
 
 select ename,hiredate
 from emp
 where substr(hiredate,4,2) like '11';
 
-¡á Q-98.1981³âµµ¿¡ ÀÔ»çÇÑ »ç¿øµéÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Ãâ·ÂÇÏ½Ã¿À . 
-to_char »ç¿ë
+â–  Q-98.1981ë…„ë„ì— ìž…ì‚¬í•œ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ìž…ì‚¬ì¼ì„ ì¶œë ¥í•˜ì‹œì˜¤ . 
+to_char ì‚¬ìš©
 
 select ename,hiredate
 from emp
 where to_char(hiredate,'RRRR') = '1981' ;
 or
-to_date »ç¿ë 
+to_date ì‚¬ìš© 
 select ename
 from emp
 where hiredate between to_date('81/01/01','RR/MM/DD') and to_date('81/12/31','RR/MM/DD');
 
-¡á Q-99. 1981³âµµ¿¡ ÀÔ»çÇÑ »ç¿øµé ÀÌ¸§°ú ÀÔ»çÇÑ ³âµµ¸¦ Ãâ·ÂÇÏ´Âµ¥
-ÃÖ±Ù¿¡ ÀÔ»çÇÑ »ç¿øºÎÅÍ Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-99. 1981ë…„ë„ì— ìž…ì‚¬í•œ ì‚¬ì›ë“¤ ì´ë¦„ê³¼ ìž…ì‚¬í•œ ë…„ë„ë¥¼ ì¶œë ¥í•˜ëŠ”ë°
+ìµœê·¼ì— ìž…ì‚¬í•œ ì‚¬ì›ë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,hiredate
 from emp
 where hiredate between to_date('81/01/01','RR/MM/DD') and to_date('81/12/31','RR/MM/DD')
 order by hiredate desc;
 
-¡á Q-100.ÀÌ¸§,Ä¿¹Ì¼ÇÀ» Ãâ·ÂÇÏ½Ã¿À
+â–  Q-100.ì´ë¦„,ì»¤ë¯¸ì…˜ì„ ì¶œë ¥í•˜ì‹œì˜¤
 
 select ename,comm
 from emp;
 
-¡á Q-101.ÀÌ¸§ Ä¿¹Ì¼ÇÀ» Ãâ·ÂÇÏ´Âµ¥ Ä¿¹Ì¼ÇÀÌ nullÀÎ »ç¿øµéÀº no commÀÌ¶ó´Â ±Û¾¾·Î Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-101.ì´ë¦„ ì»¤ë¯¸ì…˜ì„ ì¶œë ¥í•˜ëŠ”ë° ì»¤ë¯¸ì…˜ì´ nullì¸ ì‚¬ì›ë“¤ì€ no commì´ë¼ëŠ” ê¸€ì”¨ë¡œ ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,nvl(comm,'no comm')
 from emp;
-¿¡·¯°¡ ³­´Ù. ÀÌÀ¯´Â commÀº ¼ýÀÚÇüÀÌ°í 'no comm'Àº ¹®ÀÚÇü ÀÌ±â¶§¹®ÀÌ´Ù. 
-¼³¸í : ¼ýÀÚÇüÀ» ¹®ÀÚÇüÀ¸·Î º¯È¯ÇØ¼­ µ¥ÀÌÅÍ Å¸ÀÔÀ» ¼­·Î µ¿ÀÏÇÏ°Ô ¸ÂÃçÁÖ°í Ãâ·ÂÇÏ¸é µÈ´Ù. 
+ì—ëŸ¬ê°€ ë‚œë‹¤. ì´ìœ ëŠ” commì€ ìˆ«ìží˜•ì´ê³  'no comm'ì€ ë¬¸ìží˜• ì´ê¸°ë•Œë¬¸ì´ë‹¤. 
+ì„¤ëª… : ìˆ«ìží˜•ì„ ë¬¸ìží˜•ìœ¼ë¡œ ë³€í™˜í•´ì„œ ë°ì´í„° íƒ€ìž…ì„ ì„œë¡œ ë™ì¼í•˜ê²Œ ë§žì¶°ì£¼ê³  ì¶œë ¥í•˜ë©´ ëœë‹¤. 
 select ename,nvl(to_char(comm),'no comm')
 from emp;
 
-¡á Q-102.Ä¿¹Ì¼ÇÀÌ null ÀÎ »ç¿øÀÇ ÀÌ¸§°ú Ä¿¹Ì¼ÇÀ» Ãâ·ÂÇÏ½Ã¿À! is null »ç¿ë x
-(ÀÚ·á¿¡ 0ÀÌ ÀÖ¾î¼­ 0Àº ¸ø¾²°í -1·Î ´ëÃ¼ÇÏ±â °³´É) 
+â–  Q-102.ì»¤ë¯¸ì…˜ì´ null ì¸ ì‚¬ì›ì˜ ì´ë¦„ê³¼ ì»¤ë¯¸ì…˜ì„ ì¶œë ¥í•˜ì‹œì˜¤! is null ì‚¬ìš© x
+(ìžë£Œì— 0ì´ ìžˆì–´ì„œ 0ì€ ëª»ì“°ê³  -1ë¡œ ëŒ€ì²´í•˜ê¸° ê°œëŠ¥) 
 
 select ename,comm
 from emp
 where nvl(comm,-1) = -1;
 
-¡á Q-103.ÀÌ¸§,¿ù±Þ,Á÷¾÷,º¸³Ê½º¸¦ Ãâ·ÂÇÏ´Âµ¥ º¸³Ê½º°¡ Á÷¾÷ÀÌ SALESMAN ÀÌ¸é 4500À» Ãâ·ÂÇÏ°í 
-Á÷¾÷ÀÌ ANALYST ¸é 2400À» Ãâ·ÂÇÏ°í,³ª¸ÓÁö Á÷¾÷À» 0 Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-103.ì´ë¦„,ì›”ê¸‰,ì§ì—…,ë³´ë„ˆìŠ¤ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë³´ë„ˆìŠ¤ê°€ ì§ì—…ì´ SALESMAN ì´ë©´ 4500ì„ ì¶œë ¥í•˜ê³  
+ì§ì—…ì´ ANALYST ë©´ 2400ì„ ì¶œë ¥í•˜ê³ ,ë‚˜ë¨¸ì§€ ì§ì—…ì„ 0 ì¶œë ¥í•˜ì‹œì˜¤. 
 
 select ename,sal,job,
 decode(job,'SALESMAN',4500,
                         'ANALYST',2400,
-                        0) as º¸³Ê½º 
+                        0) as ë³´ë„ˆìŠ¤ 
  from emp;
 
-¡á Q-104.ÀÌ¸§,ÀÔ»çÇÑ ³âµµ 4ÀÚ¸®·Î Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-104.ì´ë¦„,ìž…ì‚¬í•œ ë…„ë„ 4ìžë¦¬ë¡œ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,hiredate,to_char(hiredate,'RRRR')
 form emp;
 
-¡á Q-105.ÀÌ¸§, ÀÔ»çÇÑ ³âµµ, º¸³Ê½º¸¦  Ãâ·ÂÇÏ´Âµ¥ º¸³Ê½º°¡
-ÀÔ»çÇÑ 1980³âÀÌ¸é 5000À» Ãâ·ÂÇÏ°í 1981³âÀÌ¸é 4000À» Ãâ·ÂÇÏ°í ³ª¸ÓÁö ³âµµ´Â 0À¸·Î Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-105.ì´ë¦„, ìž…ì‚¬í•œ ë…„ë„, ë³´ë„ˆìŠ¤ë¥¼  ì¶œë ¥í•˜ëŠ”ë° ë³´ë„ˆìŠ¤ê°€
+ìž…ì‚¬í•œ 1980ë…„ì´ë©´ 5000ì„ ì¶œë ¥í•˜ê³  1981ë…„ì´ë©´ 4000ì„ ì¶œë ¥í•˜ê³  ë‚˜ë¨¸ì§€ ë…„ë„ëŠ” 0ìœ¼ë¡œ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select ename,hiredate,to_date(hiredate,'RRRR'),
 decode(to_date(hiredate,'RRRR'),'1981',5000,
                                                   '1980',4000,
-                                                     0) as º¸³Ê½º 
+                                                     0) as ë³´ë„ˆìŠ¤ 
       from emp;
 
-¡á Q-106.ÀÌ¸§,¿ù±Þ,º¸³Ê½º¸¦ Ãâ·ÂÇÏ´Âµ¥ º¸³Ê½º¸¦ ¿ù±ÞÀÌ 4000ÀÌ»óÀÌ¸é 500Ãâ·Â 
-                                                           ¿ù±ÞÀÌ 2000ÀÌ»óÀÌ¸é 300 Ãâ·Â
-                                                           ÇÏ°í ³ª¸ÓÁö ¿ù±Þ»ç¿øµéÀº 0À» Ãâ·ÂÇÏ½Ã¿À  
+â–  Q-106.ì´ë¦„,ì›”ê¸‰,ë³´ë„ˆìŠ¤ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë³´ë„ˆìŠ¤ë¥¼ ì›”ê¸‰ì´ 4000ì´ìƒì´ë©´ 500ì¶œë ¥ 
+                                                           ì›”ê¸‰ì´ 2000ì´ìƒì´ë©´ 300 ì¶œë ¥
+                                                           í•˜ê³  ë‚˜ë¨¸ì§€ ì›”ê¸‰ì‚¬ì›ë“¤ì€ 0ì„ ì¶œë ¥í•˜ì‹œì˜¤  
 
 select ename,sal,case when sal >= 4000 then 500
                              when sal>= 2000 then 300 
-                         else 0 end as º¸³Ê½º 
+                         else 0 end as ë³´ë„ˆìŠ¤ 
 from emp;
 
-¡á Q-107.ÀÌ¸§,¿ù±Þ,ºÎ¼­¹øÈ£,º¸³Ê½º¸¦ Ãâ·ÂÇÏ´Âµ¥ º¸³Ê½º°¡ ºÎ¼­¹øÈ£°¡ 10¹øÀÌ¸é
-500À» Ãâ·ÂÇÏ°í ºÎ¼­¹øÈ£°¡ 20¹øÀÌ¸é 300À» Ãâ·ÂÇÏ°í ³ª¸ÓÁö ºÎ¼­¹øÈ£¸é 0À» Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-107.ì´ë¦„,ì›”ê¸‰,ë¶€ì„œë²ˆí˜¸,ë³´ë„ˆìŠ¤ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë³´ë„ˆìŠ¤ê°€ ë¶€ì„œë²ˆí˜¸ê°€ 10ë²ˆì´ë©´
+500ì„ ì¶œë ¥í•˜ê³  ë¶€ì„œë²ˆí˜¸ê°€ 20ë²ˆì´ë©´ 300ì„ ì¶œë ¥í•˜ê³  ë‚˜ë¨¸ì§€ ë¶€ì„œë²ˆí˜¸ë©´ 0ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 select ename,sal,deptno, case when deptno = 10 then 500
                                               when deptno = 20 then 300
-                                                                 else 0 end as º¸³Ê½º
+                                                                 else 0 end as ë³´ë„ˆìŠ¤
  from emp;
 
-¡á Q-108.¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ ÀÌ¸§À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ º¸³Ê½º¸¦ Ãâ·ÂÇÏ´Âµ¥ ÀÌ¸§ÀÇ Ã¶ÀÚ°¡ 3±ÛÀÚÀÌ¸é º¸³Ê½º¸¦ 7000À» Ãâ·ÂÇÏ°í, ÀÌ¸§ÀÇ Ã¶ÀÚ°¡ 2±ÛÀÚÀÌ¸é º¸³Ê½º¸¦ 5000À» Ãâ·Â
-ÀÌ¸§ÀÇ Ã¶ÀÚ°¡ 4±ÛÀÚÀÌ¸é º¸³Ê½º¸¦ 4000À» Ãâ·Â!        
+â–  Q-108.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ ì´ë¦„ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ë³´ë„ˆìŠ¤ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ì´ë¦„ì˜ ì² ìžê°€ 3ê¸€ìžì´ë©´ ë³´ë„ˆìŠ¤ë¥¼ 7000ì„ ì¶œë ¥í•˜ê³ , ì´ë¦„ì˜ ì² ìžê°€ 2ê¸€ìžì´ë©´ ë³´ë„ˆìŠ¤ë¥¼ 5000ì„ ì¶œë ¥
+ì´ë¦„ì˜ ì² ìžê°€ 4ê¸€ìžì´ë©´ ë³´ë„ˆìŠ¤ë¥¼ 4000ì„ ì¶œë ¥!        
 
 select ename,case when length(ename)=4 then 4000
                  when length(ename)=3 then 7000
                   when length(ename)=2 then 5000
-                                    end as º¸³Ê½º
+                                    end as ë³´ë„ˆìŠ¤
 from emp12;
 
-¡á Q-109.ÀÌ¸§ ¼¼±ÛÀÚ·Î¸¸ ÀÌ¸§ÀÇ °¡¿îµ¥ ±ÛÀÚ¸¦ * ·Î Ãâ·ÂÇÏ½Ã¿À 
-a)ÀÌ¸§ÀÇ Ã¶ÀÚÀÇ °¹¼ö°¡ 3±ÛÀÚ¿Í 2±ÛÀÚ´Â ¾Æ·¡ÀÇ SQL·Î ¼öÇà
+â–  Q-109.ì´ë¦„ ì„¸ê¸€ìžë¡œë§Œ ì´ë¦„ì˜ ê°€ìš´ë° ê¸€ìžë¥¼ * ë¡œ ì¶œë ¥í•˜ì‹œì˜¤ 
+a)ì´ë¦„ì˜ ì² ìžì˜ ê°¯ìˆ˜ê°€ 3ê¸€ìžì™€ 2ê¸€ìžëŠ” ì•„ëž˜ì˜ SQLë¡œ ìˆ˜í–‰
 
 select ename,replace(ename,substr(ename,2,1),'*')
 from emp12;
-b)ÀÌ¸§ÀÇ Ã¶ÀÚÀÇ °¹¼ö°¡ 4±ÛÀÚÀÌ¸é
+b)ì´ë¦„ì˜ ì² ìžì˜ ê°¯ìˆ˜ê°€ 4ê¸€ìžì´ë©´
 select replace(ename,substr(ename,-2,1),'*')
 from emp12;
 
-¡á Q-110.¿ì¸®¹Ý Å×ÀÌºíÀÇ ÀÌ¸§ÀÇ Ã¶ÀÚÀÇ °¹¼ö¿Í °ü°è¾øÀÌ ÀÏ°ýÀûÀ¸·Î ÀÌ¸§ÀÌ *ÀÌ ¾Æ·¡¿Í °°ÀÌ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À ! 
+â–  Q-110.ìš°ë¦¬ë°˜ í…Œì´ë¸”ì˜ ì´ë¦„ì˜ ì² ìžì˜ ê°¯ìˆ˜ì™€ ê´€ê³„ì—†ì´ ì¼ê´„ì ìœ¼ë¡œ ì´ë¦„ì´ *ì´ ì•„ëž˜ì™€ ê°™ì´ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤ ! 
 
 select ename,case when length(ename)=4 then replace(substr(ename,-2,1),'*')
                    when length(ename)=3 then replace(substr(ename,-2,1),'*')
                    when length(ename)=2 then replace(substr(ename,-1,1),'*') 
-                                    end as Àü±¤ÆÇ 
+                                    end as ì „ê´‘íŒ 
 from emp12;
 
-¡á Q-111. emp(»ç¿ø)Å×ÀÌºí¿¡¼­ ÀÌ¸§À» Ãâ·ÂÇÏ°í ÀÔ»çÇÑ ¿äÀÏÀ» Ãâ·ÂÇÏ´Âµ¥
-             ÀÔ»çÇÑ ¿äÀÏÀÌ ¿ùÈ­¼ö¸ñ±ÝÅäÀÏ ¼øÀ¸·Î Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-111. emp(ì‚¬ì›)í…Œì´ë¸”ì—ì„œ ì´ë¦„ì„ ì¶œë ¥í•˜ê³  ìž…ì‚¬í•œ ìš”ì¼ì„ ì¶œë ¥í•˜ëŠ”ë°
+             ìž…ì‚¬í•œ ìš”ì¼ì´ ì›”í™”ìˆ˜ëª©ê¸ˆí† ì¼ ìˆœìœ¼ë¡œ ì¶œë ¥í•˜ì‹œì˜¤! 
 
-¡á Q-112.Á÷¾÷ÀÌ SALESMANÀÎ »ç¿øµéÀÇ ÃÖ´ë ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À ! 
+â–  Q-112.ì§ì—…ì´ SALESMANì¸ ì‚¬ì›ë“¤ì˜ ìµœëŒ€ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ ! 
 
 select max(sal)
 from emp
 where job='SALESMAN';
 
-¡á Q-113.¿ì¸®¹Ý¿¡¼­ ÃÖ¼Ò ³ªÀÌÀÎ ÇÐ»ýÀÇ ³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À.
+â–  Q-113.ìš°ë¦¬ë°˜ì—ì„œ ìµœì†Œ ë‚˜ì´ì¸ í•™ìƒì˜ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
 
 select min(age)
 from emp12;
 
-¡á Q-114.Åë½Å»ç°¡ skÀÎ ÇÐ»ýµé Áß¿¡¼­ ÃÖ´ë ³ªÀÌÀÎ ÇÐ»ýÀÇ ³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-114.í†µì‹ ì‚¬ê°€ skì¸ í•™ìƒë“¤ ì¤‘ì—ì„œ ìµœëŒ€ ë‚˜ì´ì¸ í•™ìƒì˜ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select max(age)
 from emp12
 where telecom like '%sk%';
 
-¡á Q-115.30 ¹ø ºÎ¼­¹øÈ£ÀÇ ÃÖ´ë¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-115.30 ë²ˆ ë¶€ì„œë²ˆí˜¸ì˜ ìµœëŒ€ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤! 
 
 select max(sal)
 from emp
 where deptno=30;
 
-¡á Q-116.(¿À´ÃÀÇ ¸¶Áö¸· ¹®Á¦) Á÷¾÷,Á÷¾÷º° ÃÖ´ë¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ Á÷¾÷ÀÌ SALESMAN ¸¸ Ãâ·ÂÇÏ½Ã¿À ! 
+â–  Q-116.(ì˜¤ëŠ˜ì˜ ë§ˆì§€ë§‰ ë¬¸ì œ) ì§ì—…,ì§ì—…ë³„ ìµœëŒ€ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ì§ì—…ì´ SALESMAN ë§Œ ì¶œë ¥í•˜ì‹œì˜¤ ! 
 
 select job,max(sal)
 from emp
