@@ -1,82 +1,82 @@
 
-¡á Q-160.  ÀÌ¸§, ÀÔ»çÀÏ,  ¼øÀ§¸¦ Ãâ·ÂÇÏ´Âµ¥ ¼øÀ§°¡
-¸ÕÀú ÀÔ»çÇÑ »ç¿ø¼øÀ¸·Î ¼øÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À ~
+â–  Q-160.  ì´ë¦„, ìž…ì‚¬ì¼,  ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ìˆœìœ„ê°€
+ë¨¼ì € ìž…ì‚¬í•œ ì‚¬ì›ìˆœìœ¼ë¡œ ìˆœìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤ ~
 
 select  ename, hiredate,  
-         rank()  over  ( order  by  hiredate  asc )  ¼øÀ§
+         rank()  over  ( order  by  hiredate  asc )  ìˆœìœ„
    from   emp;
 
-¡á Q-161. Á÷¾÷, ÀÌ¸§, ÀÔ»çÀÏ, ¼øÀ§¸¦ Ãâ·ÂÇÏ´Âµ¥ ¼øÀ§°¡
- Á÷¾÷º°·Î °¢°¢ ¸ÕÀú ÀÔ»çÇÑ »ç¿ø¼øÀ¸·Î ¼øÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À
+â–  Q-161. ì§ì—…, ì´ë¦„, ìž…ì‚¬ì¼, ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ìˆœìœ„ê°€
+ ì§ì—…ë³„ë¡œ ê°ê° ë¨¼ì € ìž…ì‚¬í•œ ì‚¬ì›ìˆœìœ¼ë¡œ ìˆœìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤
 
 select  job, ename, hiredate,  
          rank()  over  ( partition  by  job
-                            order  by  hiredate  asc )  ¼øÀ§
+                            order  by  hiredate  asc )  ìˆœìœ„
    from   emp;
 
-¡á Q-162.  ÀÌ¸§, ¿ù±Þ, ¼øÀ§¸¦ Ãâ·ÂÇÏ´Âµ¥ ¼øÀ§°¡ ¿ù±ÞÀÌ ³ôÀº ¼ø¼­
- µ¥·Î ¼øÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À !
+â–  Q-162.  ì´ë¦„, ì›”ê¸‰, ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ìˆœìœ„ê°€ ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œ
+ ë°ë¡œ ìˆœìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤ !
 
- select  ename, sal, dense_rank()  over ( order  by sal  desc )  ¼øÀ§
+ select  ename, sal, dense_rank()  over ( order  by sal  desc )  ìˆœìœ„
     from  emp;
 
-¡á Q-163.  ¿ù±ÞÀÌ 2975´Â ¼øÀ§°¡ ¸îÀ§ÀÎ°¡ ?  
+â–  Q-163.  ì›”ê¸‰ì´ 2975ëŠ” ìˆœìœ„ê°€ ëª‡ìœ„ì¸ê°€ ?  
 
-select   dense_rank(2975)  within  group ( order  by sal desc ) ¼øÀ§
+select   dense_rank(2975)  within  group ( order  by sal desc ) ìˆœìœ„
    from   emp;
 
-¼³¸í:  within ~ÀÌ³»¿¡ 
-        ¿ù±ÞÀÌ ³ôÀº¼ø¼­µ¥·Î Á¤·ÄÇÑ ±×·ì ¾È¿¡¼­ 2975°¡ ¸îÀ§ÀÇ ¼øÀ§
-       ÀÎ°¡ ?
+ì„¤ëª…:  within ~ì´ë‚´ì— 
+        ì›”ê¸‰ì´ ë†’ì€ìˆœì„œë°ë¡œ ì •ë ¬í•œ ê·¸ë£¹ ì•ˆì—ì„œ 2975ê°€ ëª‡ìœ„ì˜ ìˆœìœ„
+       ì¸ê°€ ?
 
-¡á Q-164.  ¿ì¸®¹Ý¿¡¼­ 34 ³ªÀÌÀÇ ¼øÀ§¸¦ Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-164.  ìš°ë¦¬ë°˜ì—ì„œ 34 ë‚˜ì´ì˜ ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ !
 
- select   dense_rank(34)  within  group ( order  by age desc ) ¼øÀ§
+ select   dense_rank(34)  within  group ( order  by age desc ) ìˆœìœ„
    from  emp12;
 
-¡á Q-165. 81³â 11¿ù 17ÀÏ¿¡ ÀÔ»çÇÑ »ç¿øÀº »ç¿ø Å×ÀÌºí¿¡¼­ ¸î¹øÂ°·Î
- ÀÔ»çÇÑ »ç¿øÀÎ°¡ ?
+â–  Q-165. 81ë…„ 11ì›” 17ì¼ì— ìž…ì‚¬í•œ ì‚¬ì›ì€ ì‚¬ì› í…Œì´ë¸”ì—ì„œ ëª‡ë²ˆì§¸ë¡œ
+ ìž…ì‚¬í•œ ì‚¬ì›ì¸ê°€ ?
 
  select   
    dense_rank(to_date('81/11/17','RR/MM/DD')) 
-                            within group (order by hiredate asc) ¼øÀ§
+                            within group (order by hiredate asc) ìˆœìœ„
    from emp;
 
 
-¡á Q-166.  ÀÌ¸§, ³ªÀÌ, µî±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ µî±ÞÀ» 7µî±ÞÀ¸·Î ³ª´²¼­
-Ãâ·ÂÇÏ½Ã¿À (³ªÀÌ°¡ ³ôÀº ¼ø¼­µ¥·Î µî±ÞÀ» ³ª´©½Ã¿À)
+â–  Q-166.  ì´ë¦„, ë‚˜ì´, ë“±ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ë“±ê¸‰ì„ 7ë“±ê¸‰ìœ¼ë¡œ ë‚˜ëˆ ì„œ
+ì¶œë ¥í•˜ì‹œì˜¤ (ë‚˜ì´ê°€ ë†’ì€ ìˆœì„œë°ë¡œ ë“±ê¸‰ì„ ë‚˜ëˆ„ì‹œì˜¤)
 
- select  ename, age,  ntile(7)  over  ( order  by  age  desc) µî±Þ
+ select  ename, age,  ntile(7)  over  ( order  by  age  desc) ë“±ê¸‰
     from   emp12;
 
-¡á Q-167.  Á÷¾÷, ÀÌ¸§, ¿ù±Þ, µî±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ Á÷¾÷º° °¢°¢
- µî±ÞÀÌ 3µî±ÞÀ¸·Î ³ª´²Áö°Ô ÇÏ½Ã¿À !
-              (µî±ÞÀº ¿ù±ÞÀÌ ³ôÀº ¼ø¼­µ¥·ÎÀÇ µî±ÞÀÔ´Ï´Ù.)
+â–  Q-167.  ì§ì—…, ì´ë¦„, ì›”ê¸‰, ë“±ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ì§ì—…ë³„ ê°ê°
+ ë“±ê¸‰ì´ 3ë“±ê¸‰ìœ¼ë¡œ ë‚˜ëˆ ì§€ê²Œ í•˜ì‹œì˜¤ !
+              (ë“±ê¸‰ì€ ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œë°ë¡œì˜ ë“±ê¸‰ìž…ë‹ˆë‹¤.)
 
 select  job, ename, sal,  ntile(3)  over ( partition by job 
-                                                   order  by  sal  desc ) µî±Þ
+                                                   order  by  sal  desc ) ë“±ê¸‰
     from  emp;
 
-¡á Q-168.  À§ÀÇ °á°ú¿¡¼­ ¼Ò¼öÁ¡ ¼¼¹øÂ°±îÁö¸¸ Ãâ·ÂµÇ°Ú±Ý 
-¹Ý¿Ã¸²ÇÏ½Ã¿À
+â–  Q-168.  ìœ„ì˜ ê²°ê³¼ì—ì„œ ì†Œìˆ˜ì  ì„¸ë²ˆì§¸ê¹Œì§€ë§Œ ì¶œë ¥ë˜ê² ê¸ˆ 
+ë°˜ì˜¬ë¦¼í•˜ì‹œì˜¤
 
 KING	5000	0.071
 SCOTT	3000	0.214
   :            :             : 
 
 select  ename, sal,  
-        round( cume_dist()  over ( order  by  sal  desc ),3 ) as  ºñÀ²
+        round( cume_dist()  over ( order  by  sal  desc ),3 ) as  ë¹„ìœ¨
          from  emp;
 
-¡á Q-169. Á÷¾÷, Á÷¾÷º°·Î ÇØ´çÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§À» °¡·Î·Î Ãâ·ÂÇÏ½Ã¿À
+â–  Q-169. ì§ì—…, ì§ì—…ë³„ë¡œ í•´ë‹¹í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ì„ ê°€ë¡œë¡œ ì¶œë ¥í•˜ì‹œì˜¤
 
 select  job,  
-     listagg(ename, ',')  within  group ( order  by  ename asc) ÀÌ¸§
+     listagg(ename, ',')  within  group ( order  by  ename asc) ì´ë¦„
   from  emp
   group  by job; 
 
 
-¡á Q-170.  ¾Æ·¡¿Í °°ÀÌ °á°ú¸¦ Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-170.  ì•„ëž˜ì™€ ê°™ì´ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ !
 
 ANALYST    	FORD(3000), SCOTT(3000)
 CLERK	             ADAMS(1100), JAMES(950), MILLER, SMITH
@@ -85,21 +85,19 @@ PRESIDENT	KING
 SALESMAN	ALLEN, MARTIN, TURNER, WARD
 
 select job,  
- listagg(ename || '(' || sal || ')' , ',') within group (order by ename asc) ÀÌ¸§ 
+ listagg(ename || '(' || sal || ')' , ',') within group (order by ename asc) ì´ë¦„ 
    from emp 
    group by job;  
 
-¡á Q-171. ³ªÀÌ, ³ªÀÌº°·Î ÇØ´çÇÏ´Â ÇÐ»ýµéÀÇ ÀÌ¸§À» °¡·Î·Î 
- Ãâ·ÂÇÏ½Ã¿À
-
- 45ºÐ±îÁö ½¬¼¼¿ä ~~
+â–  Q-171. ë‚˜ì´, ë‚˜ì´ë³„ë¡œ í•´ë‹¹í•˜ëŠ” í•™ìƒë“¤ì˜ ì´ë¦„ì„ ê°€ë¡œë¡œ 
+ ì¶œë ¥í•˜ì‹œì˜¤
 
 select  age, 
- listagg(ename,',') within group ( order  by  ename  asc )  ÀÌ¸§
+ listagg(ename,',') within group ( order  by  ename  asc )  ì´ë¦„
   from   emp12
   group by age;
 
-¡á Q-172-1. * Á¡½É½Ã°£ ¹®Á¦ Ç®±â Àü¿¡ Åë½Å»ç skt ¿Í SK ¸¦  sk ·Î º¯°æÇÏ¼¼¿ä.
+â–  Q-172-1. * ì ì‹¬ì‹œê°„ ë¬¸ì œ í’€ê¸° ì „ì— í†µì‹ ì‚¬ skt ì™€ SK ë¥¼  sk ë¡œ ë³€ê²½í•˜ì„¸ìš”.
              
 update   emp12
   set  telecom ='sk'
@@ -109,26 +107,25 @@ commit;
 
 select  telecom  from  emp12;
 
-¡á Q-172-2. (Á¡½É½Ã°£ ¹®Á¦)  ´ä±Û·Î ´Þ°í ¶óÀÎ °Ë»ç ÀÔ´Ï´Ù. 
- Åë½Å»ç¸¦ Ãâ·ÂÇÏ°í Åë½Å»çº°·Î ÇØ´ç ÇÏ´Â ÇÐ»ýµéÀÇ ÀÌ¸§À» Ãâ·Â
- ÇÏ´Âµ¥ ÀÌ¸§ ¿·¿¡ ³ªÀÌµµ °°ÀÌ Ãâ·ÂµÇ°Ô ÇÏ°í ³ªÀÌ°¡ ³ôÀº ÇÐ»ý¼øÀ¸
- ·Î Ãâ·ÂµÇ°ÔÇÏ½Ã¿À !
+â–  Q-172-2. (ì ì‹¬ì‹œê°„ ë¬¸ì œ)  ë‹µê¸€ë¡œ ë‹¬ê³  ë¼ì¸ ê²€ì‚¬ ìž…ë‹ˆë‹¤. 
+ í†µì‹ ì‚¬ë¥¼ ì¶œë ¥í•˜ê³  í†µì‹ ì‚¬ë³„ë¡œ í•´ë‹¹ í•˜ëŠ” í•™ìƒë“¤ì˜ ì´ë¦„ì„ ì¶œë ¥
+ í•˜ëŠ”ë° ì´ë¦„ ì˜†ì— ë‚˜ì´ë„ ê°™ì´ ì¶œë ¥ë˜ê²Œ í•˜ê³  ë‚˜ì´ê°€ ë†’ì€ í•™ìƒìˆœìœ¼
+ ë¡œ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ !
 
-kt    ÇÑ°á(31), ±è¼Ò¶ó(29), ..............
-lg    ±èÁÖ¿ø(44), ±èÁ¤¹Î(28), ...........
-sk    ±Ç¼¼¿ø(36), ÇöÁö¿¬(35), ..............
+kt    í•œê²°(31), ê¹€ì†Œë¼(29), ..............
+lg    ê¹€ì£¼ì›(44), ê¹€ì •ë¯¼(28), ...........
+sk    ê¶Œì„¸ì›(36), í˜„ì§€ì—°(35), ..............
 
-¡á Q-173.  ÀÌ¸§, ÀÔ»çÀÏ, ¹Ù·Î Àü¿¡ ÀÔ»çÇÑ »ç¿øÀÇ ÀÔ»çÀÏ,
- ¹Ù·Î ´ÙÀ½¿¡ ÀÔ»çÇÑ »ç¿øÀÇ ÀÔ»çÀÏÀ»  
- Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-173.  ì´ë¦„, ìž…ì‚¬ì¼, ë°”ë¡œ ì „ì— ìž…ì‚¬í•œ ì‚¬ì›ì˜ ìž…ì‚¬ì¼,
+ ë°”ë¡œ ë‹¤ìŒì— ìž…ì‚¬í•œ ì‚¬ì›ì˜ ìž…ì‚¬ì¼ì„  
+ ì¶œë ¥í•˜ì‹œì˜¤ !
 
 select  ename, hiredate,  
-  lag(hiredate,1) over ( order by hiredate asc)   ÀüÇà,
-       lead(hiredate,1) over ( order  by hiredate  asc ) ´ÙÀ½Çà
+  lag(hiredate,1) over ( order by hiredate asc)   ì „í–‰,
+       lead(hiredate,1) over ( order  by hiredate  asc ) ë‹¤ìŒí–‰
            from  emp;
 
-
-¡á Q-174.   Åë½Å»ç, Åë½Å»çº° ÅäÅ»³ªÀÌ¸¦ Ãâ·ÂÇÏ½Ã¿À (¼¼·ÎÃâ·Â)
+â–  Q-174.   í†µì‹ ì‚¬, í†µì‹ ì‚¬ë³„ í† íƒˆë‚˜ì´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ (ì„¸ë¡œì¶œë ¥)
 
 select  telecom,  sum(age)
   from  emp
@@ -138,7 +135,7 @@ select  telecom,  sum(age)
   lg   126
   kt   411 
 
-¡á Q-175. ÀÌ¹ø¿¡´Â ¾Æ·¡¿Í °°ÀÌ °¡·Î·Î Ãâ·ÂÇÏ½Ã¿À ! 
+â–  Q-175. ì´ë²ˆì—ëŠ” ì•„ëž˜ì™€ ê°™ì´ ê°€ë¡œë¡œ ì¶œë ¥í•˜ì‹œì˜¤ ! 
 
    sk     lg    kt
   322   126  411 
@@ -148,9 +145,9 @@ select  sum( decode( telecom, 'sk', age, 0  )  )  as  "sk",
          sum( decode( telecom, 'kt', age, 0  )  )  as  "kt"
    from   emp12;
 
-¡á Q-176. ¾Æ·¡ÀÇ SQL µÎ°³´Â °á°ú°¡ °°À»±î?
+â–  Q-176. ì•„ëž˜ì˜ SQL ë‘ê°œëŠ” ê²°ê³¼ê°€ ê°™ì„ê¹Œ?
 
- " ±×·ìÇÔ¼ö´Â null °ªÀ» ¹«½ÃÇÑ´Ù "
+ " ê·¸ë£¹í•¨ìˆ˜ëŠ” null ê°’ì„ ë¬´ì‹œí•œë‹¤ "
 
  select   sum(comm)  from  emp; 
   2200
@@ -158,19 +155,19 @@ select  sum( decode( telecom, 'sk', age, 0  )  )  as  "sk",
  select   sum( nvl(comm,0) ) from  emp; --> 
   2200                                          
 
-¼³¸í: À§ÀÇ SQL ÀÌ ´õ ¼º´ÉÀÌ ÁÁ´Ù.  ¿Ö³Ä¸é null °ªÀº sum ¿¬»ê¿¡ Æ÷ÇÔµÇÁö
-       ¾Ê±â ¶§¹®ÀÌ´Ù. 
+ì„¤ëª…: ìœ„ì˜ SQL ì´ ë” ì„±ëŠ¥ì´ ì¢‹ë‹¤.  ì™œëƒë©´ null ê°’ì€ sum ì—°ì‚°ì— í¬í•¨ë˜ì§€
+       ì•Šê¸° ë•Œë¬¸ì´ë‹¤. 
 
-¡á Q-177. ¾Æ·¡ÀÇ SQL À» Æ©´×ÇÏ½Ã¿À !  ¿ù1200 ¸¸¿ø ~  2400 ¸¸¿ø
-Æ©´×Àü
+â–  Q-177. ì•„ëž˜ì˜ SQL ì„ íŠœë‹í•˜ì‹œì˜¤ !  ì›”1200 ë§Œì› ~  2400 ë§Œì›
+íŠœë‹ì „
 select  sum( decode( telecom, 'sk', age, 0  )  )  as  "sk",
          sum( decode( telecom, 'lg', age, 0  )  )  as  "lg",
          sum( decode( telecom, 'kt', age, 0  )  )  as  "kt"
    from   emp12;
 
-               ¡é
+               â†“
 
-Æ©´×ÈÄ
+íŠœë‹í›„
 select  sum( decode( telecom, 'sk', age )  )  as  "sk",
          sum( decode( telecom, 'lg', age,  null  )  )  as  "lg",
          sum( decode( telecom, 'kt', age,  null )  )  as  "kt"
@@ -179,13 +176,13 @@ select  sum( decode( telecom, 'sk', age )  )  as  "sk",
  select  decode( telecom, 'sk', age,  null  ) 
    from  emp;
 
-¡á Q-178.   Á÷¾÷,  Á÷¾÷º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À ( ¼¼·Î·Î Ãâ·Â) 
+â–  Q-178.   ì§ì—…,  ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ ( ì„¸ë¡œë¡œ ì¶œë ¥) 
 
 select  job,  sum(sal)
   from  emp
   group  by  job;
 
-¡á Q-179.  Á÷¾÷, Á÷¾÷º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À (°¡·Î·Î Ãâ·Â)
+â–  Q-179.  ì§ì—…, ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ (ê°€ë¡œë¡œ ì¶œë ¥)
 
  select   sum(decode( job, 'ANALYST', sal, null)) as  "ANALYST",
            sum(decode( job, 'CLERK', sal, null))  as  "CLERK",
@@ -195,19 +192,19 @@ select  job,  sum(sal)
  from  emp; 
 
 
-¡á Q-180.  Åë½Å»ç, Åë½Å»çº° ÅäÅ»³ªÀÌ¸¦ °¡·Î·Î Ãâ·ÂÇÏ½Ã¿À ( pivot¹®À¸·Î)
+â–  Q-180.  í†µì‹ ì‚¬, í†µì‹ ì‚¬ë³„ í† íƒˆë‚˜ì´ë¥¼ ê°€ë¡œë¡œ ì¶œë ¥í•˜ì‹œì˜¤ ( pivotë¬¸ìœ¼ë¡œ)
 
    sk     lg    kt
   322   126  411 
 
 select   *
-  from  ( select   telecom,  age  from   emp12 )  ¿©±â´Â ±×·ìÇÔ¼ö¸¦ ¾²Áö ¾Ê´Â´Ù.
+  from  ( select   telecom,  age  from   emp12 )  ì—¬ê¸°ëŠ” ê·¸ë£¹í•¨ìˆ˜ë¥¼ ì“°ì§€ ì•ŠëŠ”ë‹¤.
   pivot  ( sum(age)  for  telecom  in ('sk' as  "sk", 
                                                 'lg' as  "lg",
                                                 'kt' as  "kt" )  ) ; 
 
 
-¡á Q-181. À§ÀÇ °á°ú¸¦ ÅäÅ»³ªÀÌ°¡ ¾Æ´Ï¶ó Æò±Õ³ªÀÌ·Î ³ª¿À°Ô ÇÏ½Ã¿À !
+â–  Q-181. ìœ„ì˜ ê²°ê³¼ë¥¼ í† íƒˆë‚˜ì´ê°€ ì•„ë‹ˆë¼ í‰ê· ë‚˜ì´ë¡œ ë‚˜ì˜¤ê²Œ í•˜ì‹œì˜¤ !
 
 select   *
   from  ( select   telecom,  age  from   emp12 )  
@@ -215,41 +212,40 @@ select   *
                                                 'lg' as  "lg",
                                                 'kt' as  "kt" )  ) ; 
 
+â–  Q-182. ì´ë¦„, ë‚˜ì´, ë‚˜ì´ì˜ ëˆ„ì ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ 
 
-¡á Q-182. ÀÌ¸§, ³ªÀÌ, ³ªÀÌÀÇ ´©ÀûÄ¡¸¦ Ãâ·ÂÇÏ½Ã¿À 
-
-select  ename, age,  sum(age)  over ( order  by  ename  asc ) ´©ÀûÄ¡
+select  ename, age,  sum(age)  over ( order  by  ename  asc ) ëˆ„ì ì¹˜
    from   emp12;
 
-¡á Q-183.  Á÷¾÷, ÀÌ¸§, ¿ù±Þ, ¿ù±ÞÀÇ ´©ÀûÄ¡¸¦ Ãâ·ÂÇÏ´Âµ¥ Á÷¾÷º°·Î °¢°¢ 
-             ¿ù±ÞÀÇ ´©ÀûÄ¡°¡ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À !
+â–  Q-183.  ì§ì—…, ì´ë¦„, ì›”ê¸‰, ì›”ê¸‰ì˜ ëˆ„ì ì¹˜ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ì§ì—…ë³„ë¡œ ê°ê° 
+             ì›”ê¸‰ì˜ ëˆ„ì ì¹˜ê°€ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ !
 
 select  job,  ename, sal,  sum(sal)  over  (  partition  by  job 
-                                                       order  by  sal  asc  )  ´©ÀûÄ¡
+                                                       order  by  sal  asc  )  ëˆ„ì ì¹˜
    from   emp;
 
-¡á Q-184.  Åë½Å»ç, ÀÌ¸§, ³ªÀÌ,  ³ªÀÌÀÇ ´©ÀûÄ¡¸¦ Ãâ·ÂÇÏ´Âµ¥  ³ªÀÌÀÇ ´©ÀûÄ¡°¡
-Åë½Å»çº°·Î °¢°¢ ´©ÀûµÇ¾î¼­ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À !
+â–  Q-184.  í†µì‹ ì‚¬, ì´ë¦„, ë‚˜ì´,  ë‚˜ì´ì˜ ëˆ„ì ì¹˜ë¥¼ ì¶œë ¥í•˜ëŠ”ë°  ë‚˜ì´ì˜ ëˆ„ì ì¹˜ê°€
+í†µì‹ ì‚¬ë³„ë¡œ ê°ê° ëˆ„ì ë˜ì–´ì„œ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ !
 
 select  telecom,  ename,  age,  sum(age)  over ( partition  by  telecom
-                                                               order  by  age  asc ) ´©ÀûÄ¡
+                                                               order  by  age  asc ) ëˆ„ì ì¹˜
     from  emp12;
 
 
-¡á Q-185.  Åë½Å»ç, Åë½Å»çº° ÅäÅ»³ªÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ ¸ÇÀ§¿¡ ÀüÃ¼ ÅäÅ»³ªÀÌ°¡ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À
+â–  Q-185.  í†µì‹ ì‚¬, í†µì‹ ì‚¬ë³„ í† íƒˆë‚˜ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë§¨ìœ„ì— ì „ì²´ í† íƒˆë‚˜ì´ê°€ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤
 
  select   telecom,  sum(age)
    from  emp12
    group  by  cube(telecom) ;
 
-¡á Q-186.  ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®), ÀÔ»çÇÑ ³âµµº° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ ¸Ç À§¿¡ ÀüÃ¼ÅäÅ»¿ù±ÞÀ»
-Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-186.  ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬), ìž…ì‚¬í•œ ë…„ë„ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ë§¨ ìœ„ì— ì „ì²´í† íƒˆì›”ê¸‰ì„
+ì¶œë ¥í•˜ì‹œì˜¤ !
 
   
 
-¡á Q-187.(¿À´ÃÀÇ ¸¶Áö¸· ¹®Á¦) ´ä±Û·Î ¿Ã¸®¼¼¿ä ~  
+â–  Q-187.(ì˜¤ëŠ˜ì˜ ë§ˆì§€ë§‰ ë¬¸ì œ) ë‹µê¸€ë¡œ ì˜¬ë¦¬ì„¸ìš” ~  
 
-  ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®), ÀÔ»çÇÑ ³âµµº° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À ! 
+  ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬), ìž…ì‚¬í•œ ë…„ë„ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ ! 
 
- 1. ¼¼·Î Ãâ·Â
- 2. °¡·Î Ãâ·Â( sum + decode »ç¿ë) 
+ 1. ì„¸ë¡œ ì¶œë ¥
+ 2. ê°€ë¡œ ì¶œë ¥( sum + decode ì‚¬ìš©) 
