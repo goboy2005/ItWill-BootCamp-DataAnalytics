@@ -173,13 +173,13 @@ select  sum( decode( telecom, 'sk', age )  )  as  "sk",
  select  decode( telecom, 'sk', age,  null  ) 
    from  emp;
 
-■ Q-178.   직업,  직업별 토탈월급을 출력하시오 ( 세로로 출력) 
+■ Q-178.직업,  직업별 토탈월급을 출력하시오 ( 세로로 출력) 
 
 select  job,  sum(sal)
   from  emp
   group  by  job;
 
-■ Q-179.  직업, 직업별 토탈월급을 출력하시오 (가로로 출력)
+■ Q-179. 직업, 직업별 토탈월급을 출력하시오 (가로로 출력)
 
  select   sum(decode( job, 'ANALYST', sal, null)) as  "ANALYST",
            sum(decode( job, 'CLERK', sal, null))  as  "CLERK",
@@ -188,7 +188,7 @@ select  job,  sum(sal)
            sum(decode( job, 'SALESMAN', sal, null))  as  "SALESMAN"
  from  emp; 
 
-■ Q-180.  통신사, 통신사별 토탈나이를 가로로 출력하시오 ( pivot문으로)
+■ Q-180. 통신사, 통신사별 토탈나이를 가로로 출력하시오 ( pivot문으로)
 
    sk     lg    kt
   322   126  411 
@@ -212,14 +212,14 @@ select   *
 select  ename, age,  sum(age)  over ( order  by  ename  asc ) 누적치
    from   emp12;
 
-■ Q-183.  직업, 이름, 월급, 월급의 누적치를 출력하는데 직업별로 각각 
+■ Q-183. 직업, 이름, 월급, 월급의 누적치를 출력하는데 직업별로 각각 
              월급의 누적치가 출력되게하시오 !
 
 select  job,  ename, sal,  sum(sal)  over  (  partition  by  job 
                                                        order  by  sal  asc  )  누적치
    from   emp;
 
-■ Q-184.  통신사, 이름, 나이,  나이의 누적치를 출력하는데  나이의 누적치가
+■ Q-184. 통신사, 이름, 나이,  나이의 누적치를 출력하는데  나이의 누적치가
 통신사별로 각각 누적되어서 출력되게하시오 !
 
 select  telecom,  ename,  age,  sum(age)  over ( partition  by  telecom
@@ -227,13 +227,13 @@ select  telecom,  ename,  age,  sum(age)  over ( partition  by  telecom
     from  emp12;
 
 
-■ Q-185.  통신사, 통신사별 토탈나이를 출력하는데 맨위에 전체 토탈나이가 출력되게하시오
+■ Q-185. 통신사, 통신사별 토탈나이를 출력하는데 맨위에 전체 토탈나이가 출력되게하시오
 
  select   telecom,  sum(age)
    from  emp12
    group  by  cube(telecom) ;
 
-■ Q-186.  입사한 년도(4자리), 입사한 년도별 토탈월급을 출력하는데 맨 위에 전체토탈월급을
+■ Q-186. 입사한 년도(4자리), 입사한 년도별 토탈월급을 출력하는데 맨 위에 전체토탈월급을
 출력하시오 !
 
   
