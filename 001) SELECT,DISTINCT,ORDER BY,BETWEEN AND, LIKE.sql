@@ -112,9 +112,7 @@ select ename as 이름, sal*12 as 연봉
 select ename as 이름, sal*12 as 연봉
   from emp
   order by 2 desc;
-  코딩순서 : select ---from---order by
-  실행순서 : from---select---order by
- 
+
  ■ Q-25. 커미션이 150 이상인 사원들의 이름과 커미션을 출력하시오 
 
 select ename,sal
