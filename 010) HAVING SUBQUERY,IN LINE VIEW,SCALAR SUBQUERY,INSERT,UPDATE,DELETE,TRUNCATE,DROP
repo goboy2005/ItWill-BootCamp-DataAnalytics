@@ -81,8 +81,7 @@ select  *
 ■ Q-289.   사원이름, 월급, 사원 테이블의 최대월급, 사원 테이블의 최소월급을
 출력하시오 !
 
- select  ename, sal,  (  select  max(sal), min(sal)
-                                                            from  emp  )   
+ select  ename, sal, ( select  max(sal), min(sal) from  emp )   
   from   emp;
 
 중요설명:  select 절의 서브쿼리인 스칼라 서브쿼리의 특징 ?
@@ -255,7 +254,7 @@ update  emp
   from  emp
   group  by  job; 
 
-■ Q-305.  (오늘의 마지막 문제)  위의 결과에서 집계결과를 아래와 같이 
+■ Q-305. 위의 결과에서 집계결과를 아래와 같이 
 출력하시오 !   답글로 검사받으세요 
 
 select job, sum(decode(deptno, 10,sal)) as "10",
