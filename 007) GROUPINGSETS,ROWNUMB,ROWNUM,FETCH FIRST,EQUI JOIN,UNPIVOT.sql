@@ -1,19 +1,20 @@
+Day 7 Problems 
 
-¡á Q-188.   Á÷¾÷, Á÷¾÷º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-188.   ì§ì—…, ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select  job,  sum(sal)
        from  emp
        group  by  job;
 
-¡á Q-189.  ±×·¯¸é À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ¸Ç ¾Æ·¡¿¡ ÀüÃ¼ ÅäÅ»¿ù±ÞÀÌ
- Ãâ·ÂµÇ°ÔÇÏ½Ã¿À 
+â–  Q-189.  ê·¸ëŸ¬ë©´ ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ë§¨ ì•„ëž˜ì— ì „ì²´ í† íƒˆì›”ê¸‰ì´
+ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ 
 
  select  job, sum(sal)
    from  emp
    group by rollup(job);
 
-¡á Q-190. ¾Æ·¡¿¡ job ¸Ç¾Æ¿¡ null ·Î ³ª¿À´Â ºÎºÐ¿¡ ÅäÅ»°ª: ÀÌ¶ó°í ÇÑ±Û·Î
- null ´ë½Å¿¡ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À 
+â–  Q-190. ì•„ëž˜ì— job ë§¨ì•„ì— null ë¡œ ë‚˜ì˜¤ëŠ” ë¶€ë¶„ì— í† íƒˆê°’: ì´ë¼ê³  í•œê¸€ë¡œ
+ null ëŒ€ì‹ ì— ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ 
 
 JOB                  SUM(SAL)
 ------------------ ----------
@@ -22,14 +23,14 @@ CLERK                    4150
 MANAGER              8275
 PRESIDENT             5000
 SALESMAN             5600
-ÅäÅ»°ª:                 29025
+í† íƒˆê°’:                 29025
 
-select  nvl( job, 'ÅäÅ»°ª') , sum(sal)
+select  nvl( job, 'í† íƒˆê°’') , sum(sal)
         from  emp
            group  by  rollup(job);
 
-¡á Q-191. À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ÄÃ·³¸íÀÌ ¾Æ·¡¿Í °°ÀÌ Ãâ·ÂµÇ°Ô
- ÇÏ½Ã¿À 
+â–  Q-191. ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì»¬ëŸ¼ëª…ì´ ì•„ëž˜ì™€ ê°™ì´ ì¶œë ¥ë˜ê²Œ
+ í•˜ì‹œì˜¤ 
 
  JOB                SUM(SAL)
 ------------------ ----------
@@ -38,14 +39,14 @@ CLERK                     4150
 MANAGER               8275
 PRESIDENT              5000
 SALESMAN              5600
-ÅäÅ»°ª                   29025
+í† íƒˆê°’                   29025
 
-select  nvl( job, 'ÅäÅ»°ª') as job, sum(sal)
+select  nvl( job, 'í† íƒˆê°’') as job, sum(sal)
        from  emp
             group  by  rollup(job);
 
-¡á Q-192.  À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ¾Æ·¡¿Í °°ÀÌ ÅäÅ»¿ù±Þ ºÎºÐ¿¡
- Ãµ´ÜÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À 
+â–  Q-192.  ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì•„ëž˜ì™€ ê°™ì´ í† íƒˆì›”ê¸‰ ë¶€ë¶„ì—
+ ì²œë‹¨ìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤ 
 
  JOB                SUM(SAL)
 ------------------ ----------            
@@ -54,49 +55,49 @@ CLERK                     4,150
 MANAGER               8,275
 PRESIDENT              5,000
 SALESMAN              5,600
-ÅäÅ»°ª                   29,025
+í† íƒˆê°’                   29,025
 
-select  nvl( job, 'ÅäÅ»°ª') as job, to_char(sum(sal),'999,999')
+select  nvl( job, 'í† íƒˆê°’') as job, to_char(sum(sal),'999,999')
        from  emp
             group  by  rollup(job);
 
-¡á Q-193. Á÷¾÷, Á÷¾÷º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ ¸Ç ¾Æ·¡¿¡ ÀüÃ¼ ÅäÅ»¿ù±ÞÀÌ
- Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À ! (grouping sets ¸¦ ÀÌ¿ëÇØ¼­ ¼öÇà
+â–  Q-193. ì§ì—…, ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ë§¨ ì•„ëž˜ì— ì „ì²´ í† íƒˆì›”ê¸‰ì´
+ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤ ! (grouping sets ë¥¼ ì´ìš©í•´ì„œ ìˆ˜í–‰
 
 select  job,  sum(sal)
   from  emp
   group  by  grouping  sets(  job, () ); 
 
-¡á Q-194.  ºÎ¼­¹øÈ£¿Í Á÷¾÷À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ºÎ¼­¹øÈ£º° Á÷¾÷º° 
- ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-194.  ë¶€ì„œë²ˆí˜¸ì™€ ì§ì—…ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ë¶€ì„œë²ˆí˜¸ë³„ ì§ì—…ë³„ 
+ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
  select  deptno,  job,  sum(sal)
    from  emp
    group  by  deptno, job; 
 
-¡á Q-195. ºÎ¼­¹øÈ£¿Í Á÷¾÷À» Ãâ·ÂÇÏ°í ±× ¿·¿¡ ºÎ¼­¹øÈ£º° Á÷¾÷º° ÅäÅ»¿ù±Þ
- À» Ãâ·ÂÇÏ°í µ¿½Ã¿¡ ºÎ¼­¹øÈ£º° ÅäÅ»¿ù±Þµµ Áß°£Áß°£ Ãâ·ÂµÇ°Ô
- ÇÏ½Ã¿À 
+â–  Q-195. ë¶€ì„œë²ˆí˜¸ì™€ ì§ì—…ì„ ì¶œë ¥í•˜ê³  ê·¸ ì˜†ì— ë¶€ì„œë²ˆí˜¸ë³„ ì§ì—…ë³„ í† íƒˆì›”ê¸‰
+ ì„ ì¶œë ¥í•˜ê³  ë™ì‹œì— ë¶€ì„œë²ˆí˜¸ë³„ í† íƒˆì›”ê¸‰ë„ ì¤‘ê°„ì¤‘ê°„ ì¶œë ¥ë˜ê²Œ
+ í•˜ì‹œì˜¤ 
 
 select   deptno,  job, sum(sal)
    from  emp
    group   by   grouping  sets (  (deptno, job), (deptno) );  
 
-¡á Q-196.  À§ÀÇ °á°úÀÇ ¸Ç ¾Æ·¡¿¡ ÀüÃ¼ ÅäÅ»¿ù±ÞÀÌ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À
+â–  Q-196.  ìœ„ì˜ ê²°ê³¼ì˜ ë§¨ ì•„ëž˜ì— ì „ì²´ í† íƒˆì›”ê¸‰ì´ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤
 
 select   deptno,  job, sum(sal)
    from  emp
    group   by   grouping  sets (  (deptno, job), (deptno), () );  
 
-¡á Q-197. »ç¿ø¹øÈ£,  »ç¿ø ÀÌ¸§, ¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥  ¸Ç ¾Æ·¡¿¡ ÀüÃ¼ÅäÅ»¿ù±Þ
- À» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-197. ì‚¬ì›ë²ˆí˜¸,  ì‚¬ì› ì´ë¦„, ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë°  ë§¨ ì•„ëž˜ì— ì „ì²´í† íƒˆì›”ê¸‰
+ ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
  select  empno, ename, sum(sal)
    from   emp
  group  by grouping sets((empno,ename),());
 
-¡á Q-198.  ¿ì¸®¹Ý Å×ÀÌºí¿¡¼­ Åë½Å»ç, ÀÌ¸§, ³ªÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ 
-Áß°£Áß°£ Åë½Å»çº° ÅäÅ»³ªÀÌ°¡ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À 
+â–  Q-198.  ìš°ë¦¬ë°˜ í…Œì´ë¸”ì—ì„œ í†µì‹ ì‚¬, ì´ë¦„, ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° 
+ì¤‘ê°„ì¤‘ê°„ í†µì‹ ì‚¬ë³„ í† íƒˆë‚˜ì´ê°€ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ 
 
  select telecom, ename, sum(age)
   from emp12
@@ -106,8 +107,8 @@ select   deptno,  job, sum(sal)
   from emp12
   group  by  grouping sets( (telecom, ename), (telecom), () );
 
-¡á Q-199.  ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®),  ÀÔ»çÇÑ ³âµµº° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥
-ÀüÃ¼ ÅäÅ»¿ù±ÞÀÌ ¸Ç ¾Æ·¡¿¡ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À 
+â–  Q-199.  ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬),  ìž…ì‚¬í•œ ë…„ë„ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë°
+ì „ì²´ í† íƒˆì›”ê¸‰ì´ ë§¨ ì•„ëž˜ì— ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ 
 
 1. rollup 
 
@@ -121,7 +122,7 @@ select to_char(hiredate, 'RRRR'), sum(sal)
  from emp
  group by grouping sets ( to_char(hiredate, 'RRRR'), () );
 
-¡á Q-200.  À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ¾Æ·¡¿Í °°ÀÌ Ãµ´ÜÀ§¸¦ ºÎ¿©ÇØ¼­ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-200.  ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì•„ëž˜ì™€ ê°™ì´ ì²œë‹¨ìœ„ë¥¼ ë¶€ì—¬í•´ì„œ ì¶œë ¥í•˜ì‹œì˜¤
 
 TO_CHAR(   SUM(SAL)
 --------     ------------
@@ -135,33 +136,33 @@ select to_char(hiredate, 'RRRR'), to_char( sum(sal), '999,999')
  from emp
  group by grouping sets ( to_char(hiredate, 'RRRR'), () );
 
-¡á Q-201.  ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®), ºÎ¼­¹øÈ£, ÀÔ»çÇÑ ³âµµº° ºÎ¼­¹øÈ£º° 
-ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-201.  ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬), ë¶€ì„œë²ˆí˜¸, ìž…ì‚¬í•œ ë…„ë„ë³„ ë¶€ì„œë²ˆí˜¸ë³„ 
+í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select   to_char(hiredate,'RRRR'), deptno, sum(sal)
   from  emp
   group  by  to_char(hiredate,'RRRR'), deptno; 
 
-¡á Q-202. ( Á¡½É½Ã°£ ¹®Á¦ )  zoom À¸·Î µè´Â ÇÐ»ýµéÀº Ä«Æä¿¡ ¿Ã¸®°í
- offline µµ Ä«Æä¿¡ ¿Ã¸®°í ½Ä»çÇÏ·¯ °¡¼¼¿ä ~~
- ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®), ºÎ¼­¹øÈ£, ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®)º° ºÎ¼­¹øÈ£º° ÅäÅ»¿ù±Þ
- À» Ãâ·ÂÇÏ´Âµ¥ Áß°£Áß°£ ÀÔ»çÇÑ ³âµµ(4ÀÚ¸®)º° ÅäÅ»¿ù±ÞÀÌ Ãâ·ÂµÇ°ÔÇÏ°í
- ¸Ç ¾Æ·¡¿¡ ÀüÃ¼ ÅäÅ»¿ù±ÞÀÌ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À! 
+â–  Q-202. ( ì ì‹¬ì‹œê°„ ë¬¸ì œ )  zoom ìœ¼ë¡œ ë“£ëŠ” í•™ìƒë“¤ì€ ì¹´íŽ˜ì— ì˜¬ë¦¬ê³ 
+ offline ë„ ì¹´íŽ˜ì— ì˜¬ë¦¬ê³  ì‹ì‚¬í•˜ëŸ¬ ê°€ì„¸ìš” ~~
+ ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬), ë¶€ì„œë²ˆí˜¸, ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬)ë³„ ë¶€ì„œë²ˆí˜¸ë³„ í† íƒˆì›”ê¸‰
+ ì„ ì¶œë ¥í•˜ëŠ”ë° ì¤‘ê°„ì¤‘ê°„ ìž…ì‚¬í•œ ë…„ë„(4ìžë¦¬)ë³„ í† íƒˆì›”ê¸‰ì´ ì¶œë ¥ë˜ê²Œí•˜ê³ 
+ ë§¨ ì•„ëž˜ì— ì „ì²´ í† íƒˆì›”ê¸‰ì´ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤! 
 
 
-¡á Q-203. Á÷¾÷ÀÌ SALESMAN ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú Á÷¾÷À» Ãâ·ÂÇÏ´Âµ¥
- row_number ÇÔ¼ö¸¦ »ç¿ëÇØ¼­ ¸Ç ¾Õ¿¡  ¹øÈ£ Â÷·Êµ¥·Î ºÎ¿©µÇ°ÔÇÏ½Ã¿À !
+â–  Q-203. ì§ì—…ì´ SALESMAN ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ëŠ”ë°
+ row_number í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•´ì„œ ë§¨ ì•žì—  ë²ˆí˜¸ ì°¨ë¡€ë°ë¡œ ë¶€ì—¬ë˜ê²Œí•˜ì‹œì˜¤ !
 
-select   row_number()  over  ( order  by  empno asc ) ¹øÈ£,
+select   row_number()  over  ( order  by  empno asc ) ë²ˆí˜¸,
           ename,  job
    from   emp
    where  job='SALESMAN'; 
 
-¡á Q-204.  Á÷¾÷ÀÌ SALESMAN ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú Á÷¾÷À» Ãâ·ÂÇÏ´Âµ¥
-  ¸Ç ¾Õ¿¡ row_number() ÇÔ¼ö¸¦ ½á¼­ ¹øÈ£°¡ ºÎ¿©µÇ°ÔÇÏ½Ã¿À
-  (¿ù±ÞÀÌ ³ôÀº¼ø¼­µ¥·Î Ãâ·ÂµÇ¸é¼­ ¹øÈ£°¡ ºÎ¿©µÇ°ÔÇÏ½Ã¿À) 
+â–  Q-204.  ì§ì—…ì´ SALESMAN ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…ì„ ì¶œë ¥í•˜ëŠ”ë°
+  ë§¨ ì•žì— row_number() í•¨ìˆ˜ë¥¼ ì¨ì„œ ë²ˆí˜¸ê°€ ë¶€ì—¬ë˜ê²Œí•˜ì‹œì˜¤
+  (ì›”ê¸‰ì´ ë†’ì€ìˆœì„œë°ë¡œ ì¶œë ¥ë˜ë©´ì„œ ë²ˆí˜¸ê°€ ë¶€ì—¬ë˜ê²Œí•˜ì‹œì˜¤) 
 
-select  row_number()  over  (order by sal desc) ¹øÈ£,
+select  row_number()  over  (order by sal desc) ë²ˆí˜¸,
          ename, sal, job
   from  emp
   where  job='SALESMAN'; 
@@ -170,20 +171,20 @@ select  row_number()  over  (order by sal desc) ¹øÈ£,
   from  emp 
   where  rownum <= 10;  
 
-¡á Q-205.  Á÷¾÷ÀÌ SALESMAN ÀÎ »ç¿øµéÀÇ µ¥ÀÌÅÍÁß 2°³¸¸ Ãâ·ÂÇÏ½Ã¿À !
- ( »ç¿øÀÌ¸§, Á÷¾÷°ú ¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À)
+â–  Q-205.  ì§ì—…ì´ SALESMAN ì¸ ì‚¬ì›ë“¤ì˜ ë°ì´í„°ì¤‘ 2ê°œë§Œ ì¶œë ¥í•˜ì‹œì˜¤ !
+ ( ì‚¬ì›ì´ë¦„, ì§ì—…ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤)
 
 select  rownum, ename, job, sal
   from   emp
   where  job='SALESMAN'  and  rownum <= 2;
 
-¡á Q-206.  À§ÀÇ °á°ú¿¡¼­ ÇÑ°Ç¸¸ Ãâ·ÂµÇ°ÔÇÏ½Ã¿À !
+â–  Q-206.  ìœ„ì˜ ê²°ê³¼ì—ì„œ í•œê±´ë§Œ ì¶œë ¥ë˜ê²Œí•˜ì‹œì˜¤ !
 
  select  rownum, ename, job, sal
    from   emp
    where  job='SALESMAN'  and  rownum = 1;
 
-¾Æ·¡ÀÇ SQLÀÇ °á°ú´Â ¾ø½À´Ï´Ù. 
+ì•„ëž˜ì˜ SQLì˜ ê²°ê³¼ëŠ” ì—†ìŠµë‹ˆë‹¤. 
  select  rownum, ename, job, sal
    from   emp
    where  job='SALESMAN'  and  rownum = 2;
@@ -192,23 +193,23 @@ select  rownum, ename, job, sal
    from   emp                                  
    where  rownum between  2 and 5;
 
-¡á Q-207.  ¿ì¸®¹Ý Å×ÀÌºíÀÇ µ¥ÀÌÅÍ¸¦ °¡Á®¿À´Âµ¥ À§ÀÇ 3°Ç¸¸ °¡Á®¿Í¼­ Ãâ·ÂÇÏ½Ã¿À!
- ( ¸ðµç ÄÃ·³À» ´Ù °¡Á®¿À¼¼¿ä ~ )
+â–  Q-207.  ìš°ë¦¬ë°˜ í…Œì´ë¸”ì˜ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¤ëŠ”ë° ìœ„ì˜ 3ê±´ë§Œ ê°€ì ¸ì™€ì„œ ì¶œë ¥í•˜ì‹œì˜¤!
+ ( ëª¨ë“  ì»¬ëŸ¼ì„ ë‹¤ ê°€ì ¸ì˜¤ì„¸ìš” ~ )
 
 select  *
   from  emp12
   where  rownum <= 3; 
 
-¡á Q-208. ¿ì¸®¹Ý¿¡ ³ªÀÌ°¡ °¡Àå ¸¹Àº ÇÐ»ýµéÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ Ãâ·ÂÇÏ´Âµ¥ ÇÑ 5¸í¸¸
-Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-208. ìš°ë¦¬ë°˜ì— ë‚˜ì´ê°€ ê°€ìž¥ ë§Žì€ í•™ìƒë“¤ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ì¶œë ¥í•˜ëŠ”ë° í•œ 5ëª…ë§Œ
+ì¶œë ¥í•˜ì‹œì˜¤ 
 
  select   ename,  age
    from   emp12
    order  by  age  desc
    fetch  first  5 rows  only; 
 
-¡á Q-209.  Á÷¾÷, Á÷¾÷º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥  Á÷¾÷º° ÅäÅ»¿ù±ÞÀÌ ³ôÀº°ÍºÎÅÍ Ãâ·ÂÇÏ°í
- À§ÂÊ¿¡ 2°³ÀÇ Çà¸¸ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-209.  ì§ì—…, ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë°  ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì´ ë†’ì€ê²ƒë¶€í„° ì¶œë ¥í•˜ê³ 
+ ìœ„ìª½ì— 2ê°œì˜ í–‰ë§Œ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select  job,  sum(sal)
   from   emp
@@ -216,62 +217,62 @@ select  job,  sum(sal)
   order  by  sum(sal)  desc
   fetch  first   2  rows  only;  
 
-¡á Q-210.  Á÷¾÷ÀÌ SALESMAN ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú Á÷¾÷°ú ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ½Ã¿À!
+â–  Q-210.  ì§ì—…ì´ SALESMAN ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤!
 
  select  ename, sal, job, loc
   from   emp,  dept 
   where emp.deptno = dept.deptno                  and  job='SALESMAN' ; 
-              ¡é                                                                     ¡é                          
-         Á¶ÀÎÁ¶°Ç ( µÎ°³ÀÇ Å×ÀÌºíÀÌ ¼­·Î ¿¬°üÀÌ ÀÖ´Ù¶ó´Â Á¶°Ç )   °Ë»öÁ¶°Ç 
+              â†“                                                                     â†“                          
+         ì¡°ì¸ì¡°ê±´ ( ë‘ê°œì˜ í…Œì´ë¸”ì´ ì„œë¡œ ì—°ê´€ì´ ìžˆë‹¤ë¼ëŠ” ì¡°ê±´ )   ê²€ìƒ‰ì¡°ê±´ 
 
-¡á Q-211.  ¿ù±ÞÀÌ 2000 ÀÌ»óÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-211.  ì›”ê¸‰ì´ 2000 ì´ìƒì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ !
 
 select   ename, sal, loc
    from   emp,   dept  
   where   emp.deptno = dept.deptno  and  sal >= 2000; 
 
-¡á Q-212. À§ÀÇ °á°ú¿¡¼­ ÀÌ¸§, ¿ù±Þ, ºÎ¼­À§Ä¡ ¿·¿¡ ºÎ¼­¹øÈ£µµ °°ÀÌ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-212. ìœ„ì˜ ê²°ê³¼ì—ì„œ ì´ë¦„, ì›”ê¸‰, ë¶€ì„œìœ„ì¹˜ ì˜†ì— ë¶€ì„œë²ˆí˜¸ë„ ê°™ì´ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select   emp.ename, emp.sal, dept.loc, emp.deptno 
    from   emp,   dept  
   where   emp.deptno = dept.deptno  and  sal >= 2000; 
 
-¡á Q-213.  ¿ù±ÞÀÌ 1000 ¿¡¼­ 3000 »çÀÌÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Þ°ú ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ½Ã¿À !
+â–  Q-213.  ì›”ê¸‰ì´ 1000 ì—ì„œ 3000 ì‚¬ì´ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ !
 
 select  e.ename,  e.sal,  d.loc
  from  emp  e,  dept  d
  where   e.deptno = d.deptno  and  e.sal  between  1000 and 3000;
 
-¡á Q-214.  »ç¿ø¹øÈ£°¡ 7788, 7902, 7369¹øÀÎ »ç¿øÀÇ »ç¿ø¹øÈ£¿Í ÀÌ¸§°ú ¿ù±Þ°ú ºÎ¼­À§Ä¡¸¦
- Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-214.  ì‚¬ì›ë²ˆí˜¸ê°€ 7788, 7902, 7369ë²ˆì¸ ì‚¬ì›ì˜ ì‚¬ì›ë²ˆí˜¸ì™€ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼
+ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select  e.ename, e.sal, d.loc
   from   emp   e,   dept   d
   where   e.deptno = d.deptno  and   e.empno  in  ( 7788, 7902, 7369 );
 
-¡á Q-215.  ÀÌ¸§ÀÇ Ã¹¹øÂ° Ã¶ÀÚ°¡ S ·Î ½ÃÀÛÇÏ´Â »ç¿øÀÇ ÀÌ¸§°ú ¿ù±Þ°ú ºÎ¼­À§Ä¡¸¦
-Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-215.  ì´ë¦„ì˜ ì²«ë²ˆì§¸ ì² ìžê°€ S ë¡œ ì‹œìž‘í•˜ëŠ” ì‚¬ì›ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼
+ì¶œë ¥í•˜ì‹œì˜¤ 
 
  select  e.ename, e.sal, d.loc
   from  emp  e,  dept   d
   where  e.deptno = d.deptno  and  e.ename  like  'S%';
 
-¡á Q-216. DALLAS ¿¡¼­ ±Ù¹«ÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§°ú Á÷¾÷°ú ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-216. DALLAS ì—ì„œ ê·¼ë¬´í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì§ì—…ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ 
 
  select   e.ename,  e.job,  d.loc
    from   emp  e,  dept   d
    where   e.deptno = d.deptno  and  d.loc='DALLAS';
 
-¡á Q-217.   ºÎ¼­À§Ä¡,  ºÎ¼­À§Ä¡º° ÅäÅ»¿ù±ÞÀ» Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-217.   ë¶€ì„œìœ„ì¹˜,  ë¶€ì„œìœ„ì¹˜ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤ 
 
   select  d.loc,  sum(e.sal)
      from   emp  e,  dept   d
      where  e.deptno = d.deptno  
      group  by  d.loc; 
 
-¡á Q-218. (¿À´ÃÀÇ ¸¶Áö¸· ¹®Á¦)  ´ä±Û·Î °Ë»ç ¹ÞÀ¸¼¼¿ä ~~
+â–  Q-218. (ì˜¤ëŠ˜ì˜ ë§ˆì§€ë§‰ ë¬¸ì œ)  ë‹µê¸€ë¡œ ê²€ì‚¬ ë°›ìœ¼ì„¸ìš” ~~
 
- ºÎ¼­À§Ä¡, ºÎ¼­À§Ä¡º° Æò±Õ¿ù±ÞÀ» Ãâ·ÂÇÏ´Âµ¥ ¼Ò¼öÁ¡ ÀÌÇÏ´Â ¾È³ª¿À°Ô ¹Ý¿Ã¸²À» ÇÏ°í
- ºÎ¼­À§Ä¡º° Æò±Õ¿ù±ÞÀÌ ³ôÀº°ÍºÎÅÍ Ãâ·ÂÇÏ°í ºÎ¼­À§Ä¡º° Æò±Õ¿ù±ÞÀÌ Ãâ·ÂµÉ¶§¿¡
- Ãµ´ÜÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À ~
- NOTEBOOK Àº ¾çÂÊ¿¡ ½Ì±Û ÄõÅ×ÀÌ¼Ç ¸¶Å©¸¦ µÑ·¯ÁÖÁö ¾Ê¾Æµµ µË´Ï´Ù. 
+ ë¶€ì„œìœ„ì¹˜, ë¶€ì„œìœ„ì¹˜ë³„ í‰ê· ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ì†Œìˆ˜ì  ì´í•˜ëŠ” ì•ˆë‚˜ì˜¤ê²Œ ë°˜ì˜¬ë¦¼ì„ í•˜ê³ 
+ ë¶€ì„œìœ„ì¹˜ë³„ í‰ê· ì›”ê¸‰ì´ ë†’ì€ê²ƒë¶€í„° ì¶œë ¥í•˜ê³  ë¶€ì„œìœ„ì¹˜ë³„ í‰ê· ì›”ê¸‰ì´ ì¶œë ¥ë ë•Œì—
+ ì²œë‹¨ìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤ ~
+ NOTEBOOK ì€ ì–‘ìª½ì— ì‹±ê¸€ ì¿¼í…Œì´ì…˜ ë§ˆí¬ë¥¼ ë‘˜ëŸ¬ì£¼ì§€ ì•Šì•„ë„ ë©ë‹ˆë‹¤. 
