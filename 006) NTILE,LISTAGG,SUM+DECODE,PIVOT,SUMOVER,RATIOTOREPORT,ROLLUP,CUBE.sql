@@ -78,7 +78,7 @@ CLERK	ADAMS(1100), JAMES(950), MILLER, SMITH
 select job,  
  listagg(ename || '(' || sal || ')' , ',') within group (order by ename asc) 이름 
    from emp 
-   group by job;  
+      group by job;  
 
 ■ Q-171. 나이, 나이별로 해당하는 학생들의 이름을 가로로 
  출력하시오
@@ -96,8 +96,7 @@ lg    김주원(44), 김정민(28), ...........
 sk    권세원(36), 현지연(35), ..............
 
                           
-                          
-                          
+                                           
 ■ Q-173.  이름, 입사일, 바로 전에 입사한 사원의 입사일,
 바로 다음에 입사한 사원의 입사일을  
 출력하시오 !
@@ -128,32 +127,35 @@ select  sum( decode( telecom, 'sk', age, 0  )  )  as  "sk",
 
  " 그룹함수는 null 값을 무시한다 "
 
- select   sum(comm)  from  emp; 
-  2200
+select  sum(comm)  
+from  emp; 
+  
+         2200
 
- select   sum( nvl(comm,0) ) from  emp; --> 
-  2200                                          
+select  sum( nvl(comm,0) ) 
+from  emp; 
+        
+        2200                                          
 
-설명: 위의 SQL 이 더 성능이 좋다.  왜냐면 null 값은 sum 연산에 포함되지
-       않기 때문이다. 
+설명: 위의 SQL 이 더 성능이 좋다  
+왜냐면 null 값은 sum 연산에 포함되지 않기 때문이다. 
 
 ■ Q-177. 아래의 SQL 을 튜닝하시오 !  월1200 만원 ~  2400 만원
+
 튜닝전
 select  sum( decode( telecom, 'sk', age, 0  )  )  as  "sk",
          sum( decode( telecom, 'lg', age, 0  )  )  as  "lg",
          sum( decode( telecom, 'kt', age, 0  )  )  as  "kt"
-   from   emp12;
+              from   emp12;
 
                ↓
 
 튜닝후
-select  sum( decode( telecom, 'sk', age )  )  as  "sk",
+select  sum( decode( telecom, 'sk', age ), null  ) ) as  "sk",
          sum( decode( telecom, 'lg', age,  null  )  )  as  "lg",
          sum( decode( telecom, 'kt', age,  null )  )  as  "kt"
-   from   emp12;
+    from   emp12;
 
- select  decode( telecom, 'sk', age,  null  ) 
-   from  emp;
 
 ■ Q-178.직업, 직업별 토탈월급을 출력하시오 (세로)
 
@@ -191,15 +193,15 @@ select   *
                       
 ■ Q-182. 이름, 나이, 나이의 누적치를 출력하시오 
 
-select  ename, age,  sum(age)  over ( order  by  ename  asc ) 누적치
+select  ename, age, sum(age)  over ( order  by  ename  asc ) 누적치
    from   emp12;
 
 ■ Q-183. 직업, 이름, 월급, 월급의 누적치를 출력하는데 직업별로 각각 
-             월급의 누적치가 출력되게하시오 !
+월급의 누적치가 출력되게하시오 !
 
-select  job,  ename, sal,  sum(sal)  over  (  partition  by  job 
-                                                       order  by  sal  asc  )  누적치
-   from   emp;
+select job, ename, sal, sum(sal) over 
+(partition  by  job  order  by  sal  asc ) 누적치
+     from   emp;
 
 ■ Q-184. 통신사, 이름, 나이,  나이의 누적치를 출력하는데  나이의 누적치가
 통신사별로 각각 누적되어서 출력되게하시오 !
@@ -207,7 +209,6 @@ select  job,  ename, sal,  sum(sal)  over  (  partition  by  job
 select  telecom,  ename, age, sum(age) over 
 (partition  by  telecom  order  by  age  asc ) 누적치
   from  emp12;
-
 
 ■ Q-185. 통신사, 통신사별 토탈나이를 출력하는데 맨위에 전체 토탈나이가 출력되게하시오
 
