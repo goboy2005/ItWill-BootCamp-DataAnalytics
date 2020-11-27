@@ -7,7 +7,7 @@ select ename,lower(substr(ename,-1,1))
 
 ■ Q-71.사원 테이블에서 이름 월급을 출력하는데, 월급을 출력할때 숫자 0을 *로 출력하시오 
 
-                          select ename,replace(sal,0,'*')
+select ename,replace(sal,0,'*')
    from emp;
 
 ■ Q-72.우리반 테이블에서 이름을 출력하고 그옆에 이름에 두번째 철자를 출력하시오! 
