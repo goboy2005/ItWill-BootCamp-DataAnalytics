@@ -1,39 +1,38 @@
 
-■ Algorithm Problems 1  
+■ Algorithm Q-1  
 Sum of 1 to 10 
 
 select sum(level)
-From dual
-??? ???Connect by level <= 100;
-?
-■ Algorithm Problems 2  
-1부터 10까지 숫자중  짝수만 출력 ! 
+  From dual
+     Connect by level <= 100;
+
+■ Algorithm Q-2  
+1부터 10까지 숫자중 짝수만 출력 ! 
 
 select level
-??? From dual
-??? where mod(level,2) = 0
-??? connect by level <= 10;
-?
-■ Algorithm Problems 3 
+  From dual
+  where mod(level,2) = 0
+     connect by level <= 10;
 
-
+■ Algorithm Q-3 
 
 select exp(sum(ln(level)))
 from dual
 connect by level <=10;
 
-■ Algorithm Problems 4  
+■ Algorithm Q-4  
 계층형 질의문을 이용해서 삼각형을 출력하시오! 
 
-Select lpad('★',level,'★')                           -- 설명:   ★ 을 출력하는데 level 수만큼 자리를 잡고 
-                                                                       ★을 출력하고 나머지 자리에 ★을 채워넣어라 
+Select lpad('★',level,'★')                          
+                                                                   
 From dual                                                
 Connect by level <=10;
 
 
 
-■ Algorithm Problems 5  ?
-점심시간?문제?답글로?올리고?식사하러가세요.!
+
+■ Algorithm Q-5 
+
 아래와?같이?결과를?출력하시오?(?힌트:?union?all?사용하세요)
 ★???????????????
 ★★????????????
@@ -52,7 +51,8 @@ select?lpad('*',5-level,'*')
 ?from?dual
 ?connect?by?level<=4;
 
-■ Algorithm Problems 6 
+
+■ Algorithm Q-6  
 동전을 10만번 던졌을때 
 동전이 앞면이 나올 확률은 얼마인가? (0.5의 근사 값이나와야한다)
 From 절의 서브쿼리를 사용하면 쉽게 구할수 있다.
@@ -63,7 +63,7 @@ from (select round(dbms_random.value(0,1),0) as a
               connect by level<=10000)
               where a=1;
 
-■ Algorithm Problems  7
+■ Algorithm Q-7 
 (SQL 알고리즘 문제8번) 구구단 전체를 출력하시오!
 
 2 X 1 = 1
@@ -79,7 +79,7 @@ from (select level as num1
          from dual
          connect by level <=9) b;
 
-■ Algorithm Problems 8  
+■ Algorithm Q-8 
 주사위를 10만번 던져서 주사의위 눈이 6이 나올 확률은 어떻게  되는가….
     
 select count(*)/10000 as  "주사위의 눈이 6이 나올 확률"
@@ -88,7 +88,7 @@ from (select round(dbms_random.value(0.5,6.5) ) as 주사위
                 connect by level<=100000)
                 where 주사위 =6;
 
-■ Algorithm Problems 9 
+■ Algorithm Q-9
 (SQL 알고리즘 10번) 두개의 주사위를 던져서 두개의 주사위의 눈의 합이 10이 되는 확률을 구하시오! 
            
 select count(*)/ (6*6) as "주사위의 눈의 합이 10이 되는 확률"
@@ -100,7 +100,8 @@ select count(*)/ (6*6) as "주사위의 눈의 합이 10이 되는 확률"
                connect by level <= 6 ) b 
        where a.num1 + b.num2 = 10;
 
-■ Algorithm Problems 10
+
+■ Algorithm Q-10 
 10사이의 숫자중 하나가 없다 그 수는 ?? emp705 를 쿼리해서??한번에 알아내시오 !
 
 select?*
@@ -110,7 +111,7 @@ select?*
 ?where g.뺐을때!=0
 ?fetch?first?1?rows?only;
 
-■ Algorithm Problems 11 
+■ Algorithm Q-11 
 두개의 주사위를 동시에 던져서 주사위의 눈의 합이 짝수가 되는 확률이 어떻게 되는가
 
 두개의 주사위를 동시에 던져서 주사위의 눈의 합이 짝수가 되는 확률이 어떻게 되는가
@@ -128,7 +129,8 @@ where mod(주사위1+주사위2,2)=0;
 1~1.5 ----1
 1.5~2 ----2
 
-■ Algorithm Problems 12 
+
+■ Algorithm Q-12  
 주사위 하나와 동전 한개를 동시에 던져서 주사위의 눈은 
 5가 나오고 동전은 앞면이 나올 확률은 어찌되느냐 ? 동전앞 0 동전뒤 1 
 
@@ -139,7 +141,7 @@ from?(select?round(dbms_random.value(0.5,6.5),0)?as?주사위5,
 ???????????connect?by?level?<=?100000)
 ???????????where?주사위5=5?and?동전앞=0;
 
-■ Algorithm Problems 13
+■ Algorithm Q-13
 Factorioal  을 SQL로 구현하시오! 
 
 undefine 숫자를_입력하세요
@@ -147,7 +149,8 @@ select &&숫자를_입력하세요 || ' 팩토리얼은 ' || round(exp(sum(ln(le
 from?dual
 connect by level <= &숫자를_입력하세요 ;
 
-■ Algorithm Problems 14  
+
+■ Algorithm Q-14 
 Temp 써서 해결하기! 
 
 
@@ -163,7 +166,7 @@ with temp_table as (select level as num1
 select lpad('@',num1,'@')
 from temp_table;
 
-■ Algorithm Problems 15  
+■ Algorithm Q-15    
 이번에는?삼각형이?출력되게하시오?!
 
 Undefine 숫자
@@ -175,16 +178,15 @@ Select lpad(' ',&숫자-num1,' ')||'☆'||lpad('☆',num1-1,'☆')
 From table1;
 
 
-■ Algorithm Problems 16  
-아래와 같이 숫자를 물어보게하고 숫자를 입력하면 마름모가 출력되게하시오?
 
-?숫자를?입력하세요??~??5?
+■ Algorithm Q-16
+아래와 같이 숫자를 물어보게하고 숫자를 입력하면 마름모가 출력되게하시오?
 
 ???????????????????★
 ??????????????????★★
 ?????????????????★★★
 ????????????????★★★★
-???????????????★★★★★???????<----------?5개?
+???????????????★★★★★ 
 ????????????????★★★★
 ?????????????????★★★
 ??????????????????★★
@@ -203,7 +205,7 @@ union all
 Select lpad(' ',num1-1,' ')||' '||lpad('☆',&숫자-num1,'☆')
 From table1;
 
-■ Algorithm Problems 17 
+■ Algorithm Q-17 
 아래와 같이 두 숫자를 각각 입력받아 사각형을 출력하시오!
 
 가로의 숫자를 입력하세요~5
@@ -227,8 +229,7 @@ select empno,ename,sal
 from emp
 where empno=&p_num1;
 
-
-■ Algorithm Problems 18 
+■ Algorithm Q-18 
 오늘의 마지막 문제. SQL로 최대공약수를  구현하시오 !
                                              
 
@@ -238,12 +239,13 @@ where empno=&p_num1;
 undefine?숫자
 accept?p_num1?prompt?'첫번째?숫자를?입력하세요?~'
 accept?p_num2?prompt?'두번째?숫자를?입력하세요?~'
-?????
-??select??'최대?공약수는?'?||max(level)||'입니다'
-?????from?dual
-????? where?mod(&p_num1,level)=0?and?mod(&p_num2,level)=0
-?????   connect?by?level?<=&p_num1;
 
+'최대?공약수는?'?||max(level)||'입니다'
+from dual
+where?mod(&p_num1,level)=0?and?mod(&p_num2,level)=0
+connect?by?level?<=&p_num1;
+
+                                                    
 undefine숫자
 accept p_num 1 prompt '첫번째 숫자를 입력하세요~'
 accept p_num 2 promp '두번째 숫자를 입력하세요~' 
@@ -260,7 +262,9 @@ where mod(&p_num1,level)=0 and mod(&p_num2,level)=0
 connecty by level<=&p_num1;
 
 
-■ Algorithm Problems 19 Pythagoras
+■ Algorithm Q-19 
+Pythagoras
+
 밑변의 제곱 더하기 높이 제곱이 빗변의 제곱과 같다면 그 삼각형은 직각 삼각형입니다. 
 
 밑변을 입력하세요~3
@@ -286,7 +290,7 @@ select case when power(&p_num1,2)+power(&p_num2,2)=power(&p_num3,2) then
 from dual;
 
 
-■ Algorithm Problems 20 (몬테카를로 알고리즘)
+■ Algorithm Q-20  (몬테카를로 알고리즘)
 몬테카를로 알고리즘은 수많은 노가다를 통해 정답을 알아내는것을 말한다.
 몬테카를로 알고리즘으로 원주율을 알아내세요~~
 
@@ -299,12 +303,13 @@ select count(*)/10000*4
  where power(x,2)+power(y,2)<=1;
    
 
-■ Algorithm Problems 21 자연상수의 근사값을 SQL로 구현하세요
+
+■ Algorithm Q-21   자연상수의 근사값을 SQL로 구현하세요
 
 
 
 
-■ Algorithm Problems 22 구글 입사 문제 
+■ Algorithm Q-22   
 1부터 10000까지의 숫자중에서 숫자 8이 총 몇번나오는가?
 8이 포함되어있는 숫자의 갯수를 카운팅하는게 아니라 8이라는 숫자를 모두 카운팅 해야 합니다. 
 (예를들어 8808 은 3이고, 8888은 4로 카운팅 해야함) 
@@ -316,8 +321,7 @@ from?dual?
 connect?by?level?<=?10000;
 
 
-
-■ Algorithm Problems 23 
+■ Algorithm Q-23  
 ?1과?10사이의?숫자?중에서?소수만?출력하시오?!?
 ??????????????????????????↓
 소수는?1과?자기?자신의?수로만?나눌?수?있는?수?
@@ -333,5 +337,4 @@ from ( select level as prime1
         where mod(a.prime1,b.prime2)=0
         group by a.prime1
         having count(*)=2;
-
 
