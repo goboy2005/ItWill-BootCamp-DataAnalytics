@@ -238,7 +238,7 @@ select  e.ename, e.sal, d.loc, e.job
     on  (e.deptno = d.deptno )
          where   d.loc='DALLAS'; 
   
-■Q-245. emp 테이블과 salgrade 테이블을 서로 조인해서 이름, 월급, 급여등급(grade)
+■ Q-245. emp 테이블과 salgrade 테이블을 서로 조인해서 이름, 월급, 급여등급(grade)
   를 출력하는데  2등급만 출력되게하고   on 절을 사용한 조인문법으로 
   수행하시오 !
 
@@ -247,13 +247,13 @@ select  e.ename,  e.sal,  s.grade
     on  (  e.sal  between  s.losal  and  s.hisal )
        where   s.grade = 2; 
    
-■Q-247. 위의 결과를 1999 ansi 문법으로 구현하시오 !
+■ Q-247. 위의 결과를 1999 ansi 문법으로 구현하시오 !
 
   select   e.ename,  d.loc
       from   emp  e   left  outer  join  dept   d
          on ( e.deptno = d.deptno ); 
 
-■Q-248. 우리반 테이블과 telecom_price 와 조인을 해서  이름이 김정민 학생의
+■ Q-248. 우리반 테이블과 telecom_price 와 조인을 해서  이름이 김정민 학생의
  이름과 나이와 통신사와 통신요금(price) 을 출력하시오 !  (ANSI ON 절 사용) 
 
 select  e.ename,  e.age,  e.telecom, t.price
@@ -261,7 +261,7 @@ select  e.ename,  e.age,  e.telecom, t.price
      on  ( e.telecom = t.telecom )
           where e.ename='김정민'; 
 
-■Q-249. 나이가 28 이상인 학생들의 이름과 나이와 통신사와 통신요금(price) 를
+■ Q-249. 나이가 28 이상인 학생들의 이름과 나이와 통신사와 통신요금(price) 를
  출력하시오 !
 
 select e.ename,e.telecom,s.price
@@ -269,7 +269,7 @@ select e.ename,e.telecom,s.price
      where e.telecom=s.telecom
            and e.age >= 28; 
 
-■Q-250. 부서위치, 부서위치별 토탈월급 가로로 
+■ Q-250. 부서위치, 부서위치별 토탈월급 가로로 
 출력하시오!
 NEW  YORK       DALLAS      CHICAGO  <--- 컬럼명
 8750        10875          9400     <--- 데이터 
