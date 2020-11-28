@@ -36,8 +36,6 @@ Select  rpad('  ',level*2) ||  ename as employee, level,sal
     Start with ename='KING'
       Connect by prior empno = mgr 
           Order by sal desc;
-    
-
 
 ■ Q-334.위의 결과를 다시 서열로 정렬된 결과를 유지하면서 월급이 높은 순서데로 정렬되서 출력되게 하시오!   (SIBLINGS) 
 
@@ -77,8 +75,6 @@ select rpad(' ',level*2)|| e.ename,level,e.sal,s.grade
        connect by prior empno=mgr;
 
 
-
-
 ■ Q-338.위의 결과를 다시 출력하는데 서열의 정렬을 유지하면서 
 월급이 급여등급이 높은 사원부터 출력되게 하시오! 
 
@@ -98,11 +94,11 @@ select rpad(' ',level*2)|| e.ename as 직원서열도,level,d.loc
     start with ename='KING'
        connect by prior empno=mgr;
 
-(Creating a table is just structuring the table 
-itsef it does not imput data)
-343.emp 500테이블에 아래의 데이터를 입력하시오!
-(1111 scott 3000
-2222 smith 2900)
+(Creating a table is just structuring the table itsef does not imput data)
+
+■ Q-343.emp 500테이블에 아래의 데이터를 입력하시오!
+(1111 scott 3000)
+(2222 smith 2900)
 
 insert into emp 500(empno,ename,sal)
 values(1111,'SCOTT',3000);
@@ -111,7 +107,6 @@ Insert into emp500(empno,ename,sal)
 values(2222,'SMITH',2900);
 
 ■ Q-344.아래의 테이블을 생성하는 이름을 500로 해서 생성하시오
-
 Empno
 Ename
 Sal
@@ -123,10 +118,8 @@ Values(2222,'SMITH',2900);
 
 
 ■ Q-345.아래의 emp501 테이블에 데이터를 2건 입력하시오!
-Create table emp501 
 
-사원번호 7839 , 이름 KING, SAL 5000, Hiredate : 81/11/17, deptno 10 
-           
+          
 Inset into emp501(empno,ename,sal,hiredate,deptno)
  Values(7839,'KING',5000,to_date('81/11/17','RR/MM/DD'),10);
 
@@ -155,39 +148,37 @@ create table winter_kingdom
 ■ Q-347.영화 겨울왕국 대본에는 elsa 가 많이 나오는가?, anna가 많이 나오는가? 
 
 select sum(regexp_count(lower(win_text),'elsa') ) as cnt
-from winter_kingdom;
+   from winter_kingdom;
 
 *정규식 함수인 regexp_count 를 이용하면 쉽게 구혈할 수 있습니다. 
 
-설명: win_text 를 전부소문자로 변경하고 regexp_count 를 이용해서 스크립트 한행 한행을 다 살펴봐서 elsa라는 단어가 포함되어져 있으면 카운트 한다.  그리고 카운트된 숫자들을 다 sum함수를 이용해서 다 더한다. 
-
+설명: win_text 를 전부소문자로 변경하고 regexp_count 를 이용해서 스크립트 한행 한행을 다 살펴봐서 elsa라는 단어가 포함되어져 있으면 카운트 한다.
+     그리고 카운트된 숫자들을 다 sum함수를 이용해서 다 더한다. 
 
 ■ Q-349.긍정단어를 저장하기 위한 테이블을 Positive 라는 이름으로 아래와 같이 생성하시오
 
 Create table Positive 
-(p_text varchar2(2000));
+ (p_text varchar2(2000));
 
 ■ Q-350.부정단어를 저장하기 위한 테이블을 negative 라는 이름으로 아래와 같이 생성하시오
 
 Create table negative
-( n_text varchar2(2000));
+ ( n_text varchar2(2000));
 
 ■ Q-351.긍정단어는 Positive 테이블에 넣고, 부정단어는 Negative 단어장에 넣어라
 옆에 테이블창들어가서 데이터 임포트로 노트장을 넣으샘~~  
 (헤더 체크 해제하고// 구분자 탭// 오른쪽 왼쪽  둘러싸기 없음) 으로 하고 
 
 select count(*)
-from positive;
+ from positive;
 
- 
 select count(*)
-from negative;
-
+ from negative;
 
 ■ Q-352.엑셀 데이터를 오라클의 테이블의 데이터로 입력하시오! 
  (전국 대학교 등록금 현황 데이터를 저장할 테이블을 먼저 아래와 같이 생성하시오) 
 
-카페에 가서 데이터 게시판에 가서 UNIV data 스크립트 붙혀용~~
+카페에 가서 데이터 게시판에 가서 UNIV data 스크립트 붙혀요! 
 
 create table univ
 (division      varchar2 (20),
@@ -199,57 +190,45 @@ create table univ
  supporting_fee number( 20),
  tuition       number(20 ) ) ;
 
-이것을 만들고 이제 엑셀 데이터를 만든다!! 
+(Make this structure first then import the exel ( external data) )
 
 ■ Q-354.우리나라에서 대학등록금이 가장 비싼학교가 어디인가
 
 select university,tuition,rank() over (order by tuition desc)
-from univ;
-
+  from univ;
 
 ■ Q-335.데이터 게시판에 범죄 발생 지역 데이터를 내려받아
 테이블을 생성하고 데이터를 입력하시오! 
 
-create  table  crime_loc
-( CRIME_TYPE     varchar2(50),                ←  범죄유형
-  C_LOC             varchar2(50),                        ←  범죄장소
-  CNT              number(10) );                         ←  범죄건수
+create  table     crime_loc
+( CRIME_TYPE      varchar2(50),                ←  범죄유형
+  C_LOC            varchar2(50),                        ←  범죄장소
+  CNT             number(10) );                         ←  범죄건수
 
 ■ Q-336.범죄유형을 출력하는데 중복제거해서 출력하시오
 
 select distinct crime_type 
-from crime_loc;
-
+  from crime_loc;
 
 ■ Q-357.살인이 가장 많이 일어나는 장소가 어디입니까.
 
 select *
-         from crime_loc 
-         where crime_type = '살인'                 
-         order by cnt desc 
+   from crime_loc 
+      where crime_type = '살인'                 
+       order by cnt desc 
          fetch first 1 rows only; 
-
 
 ■ Q-358.절도가 가장 많이 일어나는 장소가 어디인지 1위부터 3위까지 출력하시오 
 
 select *
-from crime_loc
-where crime_type = '절도'
-order by cnt desc
-fetch first 3 rows only;
-
+ from crime_loc
+   where crime_type = '절도'
+    order by cnt desc
+      fetch first 3 rows only;
 
 ■ Q-360.살인을 일으키는 가장 큰 원인은 무엇인가 ? 
 
-데이터 ----컬럼 : Pivot 문
-컬럼   ---- 데이터 : Unpivot 문 
-
-위의 질문에 대한 답을 구하려면 컬럼을 데이터로 넣어야 가능하다.
-아래의 SQL은 as다음에 나오는 쿼리문의 결과를 Crime_Cause2로 들어가서 
-
-그것을 쉽게 만들기위해 
-
-Select * from crime_cause2
-Where crime_type = '살인'
-Order by cnt desc
-Fetch first 1 rows only;
+select * from crime_cause2
+  where crime_type = '살인'
+    order by cnt desc
+      fetch first 1 rows only;
