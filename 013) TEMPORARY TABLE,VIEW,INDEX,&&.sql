@@ -56,13 +56,12 @@ where num1=4;
 
 ■ Q-374.직업,직업별 토탈월급을 출력하시오(세로 출력) 
 select ename,sum(sal)
-from emp
-group by job;
+  from emp
+    group by job;
 
 ■ Q-375.위의 결과를 출력하는 VIEW를 생성하시오! (VIEW 이름은 emp403) 
 
-create view emp403
-as
+create view emp403 as
 select job,sum(sal) as Total
 from emp
 group by job;
@@ -89,8 +88,8 @@ select e.ename,e.sal,e.deptno,v.평균
 ■ Q-378.이름,월급,부서번호,부서평균월급을 출력하는데 월급이 부서 평균보다 더 큰 사원들만 출력하시오
 
 select e.ename,e.sal,e.deptno,v.부서평균월급
-from emp e, deptno_avg v
-where e.deptno=v.deptno and e.sal > v.부서평균월급
+ from emp e, deptno_avg v
+   where e.deptno=v.deptno and e.sal > v.부서평균월급
 
 ■ Q-379.emp 테이블에서 퇴사할것 같은 사원들을 예측하기 위해 자기의 월급이 자기가 속한 직업의
 평균 월급보다 더작은 사원들의 이름과 월급과 직업평균을 출력하시오! 
@@ -98,9 +97,9 @@ where e.deptno=v.deptno and e.sal > v.부서평균월급
 (First make a view table) 
 
 create view job_avg as
-select job,avg(sal) as 직업평균
-from emp
-group by job;
+ select job,avg(sal) as 직업평균
+  from emp
+    group by job;
 
 select*from job_avg;               → check whether the table is made 
 
