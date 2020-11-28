@@ -1,7 +1,6 @@
 SQL Day 12 Problems 
-
    
-¡á Q-330.Emp Å×ÀÌºí¿¡ ¼­¿­À» SQL·Î ½Ã°¢È­ ÇÏ½Ã¿À! 
+â–  Q-330.Emp í…Œì´ë¸”ì— ì„œì—´ì„ SQLë¡œ ì‹œê°í™” í•˜ì‹œì˜¤! 
 
 Select  rpad(' ',level*2) || ename as employee, level
  from emp
@@ -9,12 +8,11 @@ Start with ename='KING'
 Connect by prior empno = mgr;
 
 
+ì„¤ëª… : rpad(' ',level2) ì€ ê³µë°±(' ') ì„ level*2 ìˆ«ìžë§Œí¼ ì±„ì›Œë†“ê² ë‹¤.
+Levelì´ í´ìˆ˜ë¡ ê³µë°±ì´ ë†’ì•„ì§€ê² ì§€â€¦? ê·¸ëž˜ì„œ ì„œì—´ì„ ëˆˆì— ë„ê²Œ ë”± ë³¼ìˆ˜ìžˆë”°.
 
-¼³¸í : rpad(' ',level2) Àº °ø¹é(' ') À» level*2 ¼ýÀÚ¸¸Å­ Ã¤¿ö³õ°Ú´Ù.
-LevelÀÌ Å¬¼ö·Ï °ø¹éÀÌ ³ô¾ÆÁö°ÚÁö¡¦? ±×·¡¼­ ¼­¿­À» ´«¿¡ ¶ç°Ô µü º¼¼öÀÖµû.
-Rpad´Â °ø¹éÀ» Ã¤¿ö³Ö°Ú´Ù..ÀÌ·±°Å´Ù¡¦.
 
-¡á Q-331.À§ÀÇ °á°ú¿¡¼­ Blake ´Â Á¦¿ÜÇÏ°í Ãâ·ÂÇÏ½Ã¿À. 
+â–  Q-331.ìœ„ì˜ ê²°ê³¼ì—ì„œ Blake ëŠ” ì œì™¸í•˜ê³  ì¶œë ¥í•˜ì‹œì˜¤. 
 
 Select  rpad('  ',level*2) ||  ename as employee, level
 from emp
@@ -23,12 +21,10 @@ Start with ename='KING'
 Connect by prior empno = mgr;
 
 
-
-Blake ÀÇ ÆÀ¿øµé¸¸ ³²¾Ò°í..Blake ´Â ¾ø¾îÁ³´Ù..ÀÌ°Ô  BlaekÀÇ ¾Æ·¡¿¡ ÀÖ´Â Á÷¿øµéÀº ¿©ÀüÈ÷ ³ª¿À°íÀÖ´Ù
-
+Blake ì˜ íŒ€ì›ë“¤ë§Œ ë‚¨ì•˜ê³ ..Blake ëŠ” ì—†ì–´ì¡Œë‹¤..ì´ê²Œ  Blaekì˜ ì•„ëž˜ì— ìžˆëŠ” ì§ì›ë“¤ì€ ì—¬ì „ížˆ ë‚˜ì˜¤ê³ ìžˆë‹¤
 
 
-¡á Q-332.À§ÀÇ °á°ú¿¡¼­ BLAKE »Ó¸¸ ¾Æ´Ï¶ó BLAKEÀÇ ÆÀ¿øµé±îÁö ÀüºÎ Á¦¿ÜÇÏ½Ã¿À. 
+â–  Q-332.ìœ„ì˜ ê²°ê³¼ì—ì„œ BLAKE ë¿ë§Œ ì•„ë‹ˆë¼ BLAKEì˜ íŒ€ì›ë“¤ê¹Œì§€ ì „ë¶€ ì œì™¸í•˜ì‹œì˜¤. 
 
 Select  rpad('  ',level*2) ||  ename as employee, level
  from emp
@@ -37,14 +33,14 @@ Connect by prior empno = mgr and ename !='BLAKE'
 
 
 
-@¼³¸í: ÇÏÀ§³ëµåÀÇ ¸ðµç µ¥ÀÌÅÍ¸¦ Ãâ·ÂµÇÁö ¾Ê°Ô ÇÏ·Á¸é where ÀýÀÌ ¾Æ´Ï¶ó Connect by Àý¿¡ Á¶°ÇÀ» ÁÖ¸é µË´Ï´Ù. 
-Connect by ÀýÀÇ ³ëµå¸¦ Á¦°ÅÇÏ°Ú´Ù¶ó´Â ¶æÀÌ´Ù..Áö±Ý ÀÌ³ëµå´Â 
-Å·°ú °¡±î¿î »óÀ§ ³ëµåÀÌ°í ÀÌ³ëµå µéÀº ÇÏÀ§ ³ëµåÀÌ´Ù.! 
-ÇÏÀ§ ³ëµåÀÎµ¥ »óÀ§ ³ëµå¸¦ Á¦°ÅÇÔÀ¸·Î½á ÇÏÀ§ ³ëµå°¡ ÀüÃ¼°¡ ¾È³ª¿À°Ô ÇÏ´Â°ÍÀÌ´Ù.
-Æ¯Á¤ÇÑ Àý¸¸ ¾È³ª¿À°Ô ÇÏ°í ½ÍÀ¸¸é where ÀýÀ» »ç¿ëÇÏ¸é µÇ´Âµ¥ ³ëµå¸¦ Á¦°¡ÇÏ·Á¸ç
-Connect by  Àý¿¡´Ù °¡ ±â¼úÇØÁÖ¸éµÈ´Ù. 
+@ì„¤ëª…: í•˜ìœ„ë…¸ë“œì˜ ëª¨ë“  ë°ì´í„°ë¥¼ ì¶œë ¥ë˜ì§€ ì•Šê²Œ í•˜ë ¤ë©´ where ì ˆì´ ì•„ë‹ˆë¼ Connect by ì ˆì— ì¡°ê±´ì„ ì£¼ë©´ ë©ë‹ˆë‹¤. 
+Connect by ì ˆì˜ ë…¸ë“œë¥¼ ì œê±°í•˜ê² ë‹¤ë¼ëŠ” ëœ»ì´ë‹¤..ì§€ê¸ˆ ì´ë…¸ë“œëŠ” 
+í‚¹ê³¼ ê°€ê¹Œìš´ ìƒìœ„ ë…¸ë“œì´ê³  ì´ë…¸ë“œ ë“¤ì€ í•˜ìœ„ ë…¸ë“œì´ë‹¤.! 
+í•˜ìœ„ ë…¸ë“œì¸ë° ìƒìœ„ ë…¸ë“œë¥¼ ì œê±°í•¨ìœ¼ë¡œì¨ í•˜ìœ„ ë…¸ë“œê°€ ì „ì²´ê°€ ì•ˆë‚˜ì˜¤ê²Œ í•˜ëŠ”ê²ƒì´ë‹¤.
+íŠ¹ì •í•œ ì ˆë§Œ ì•ˆë‚˜ì˜¤ê²Œ í•˜ê³  ì‹¶ìœ¼ë©´ where ì ˆì„ ì‚¬ìš©í•˜ë©´ ë˜ëŠ”ë° ë…¸ë“œë¥¼ ì œê°€í•˜ë ¤ë©°
+Connect by  ì ˆì—ë‹¤ ê°€ ê¸°ìˆ í•´ì£¼ë©´ëœë‹¤. 
 
-¡á Q-333. ´Ù½Ã BLAKE ¿Í BLAKEÀÇ ÆÀ¿øµéÀ» Æ÷ÇÔ½ÃÅ² ¼­¿­À» Ãâ·ÂÇÏ´Â SQLÀ» ¾Æ·¡¿Í °°ÀÌ ½ÇÇàÇÏ´Âµ¥ ¿ù±ÞÀÌ ³ôÀº ¼ø¼­µ¥·Î Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-333. ë‹¤ì‹œ BLAKE ì™€ BLAKEì˜ íŒ€ì›ë“¤ì„ í¬í•¨ì‹œí‚¨ ì„œì—´ì„ ì¶œë ¥í•˜ëŠ” SQLì„ ì•„ëž˜ì™€ ê°™ì´ ì‹¤í–‰í•˜ëŠ”ë° ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œë°ë¡œ ì¶œë ¥í•˜ì‹œì˜¤! 
  
 Select  rpad('  ',level*2) ||  ename as employee, level,sal
  from emp
@@ -54,12 +50,12 @@ Order by sal desc;
     
 
 
-@Áö±Ý order by sal ¼ø¼­´ë·Î ½áÁÖ¸é¼­ empno °ü·Ã ¼­¿­ÀÌ ´Ù±úÁ®¹ö¸².
-À§ÀÇ °á´Â ¿ù±ÞÀÌ ³ôÀº ¼ø¼­´ë·Î Á¤·ÄÀÌ µÇ¸é¼­ ¼­¿­·Î Á¤·ÄµÈ °á°ú°¡ »ç¶óÁ®¹ö·È´Ù.@
+@ì§€ê¸ˆ order by sal ìˆœì„œëŒ€ë¡œ ì¨ì£¼ë©´ì„œ empno ê´€ë ¨ ì„œì—´ì´ ë‹¤ê¹¨ì ¸ë²„ë¦¼.
+ìœ„ì˜ ê²°ëŠ” ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œëŒ€ë¡œ ì •ë ¬ì´ ë˜ë©´ì„œ ì„œì—´ë¡œ ì •ë ¬ëœ ê²°ê³¼ê°€ ì‚¬ë¼ì ¸ë²„ë ¸ë‹¤.@
 
-¿ø·¡´Â ¼­¿­·Î Á¤·ÄÇÏ±â À§ÇØ¼­ ¼­¿­·Î Á¤·ÄµÈ °á°ú°¡ »ç¶óÁ®¹ö¸°°Í.. 
+ì›ëž˜ëŠ” ì„œì—´ë¡œ ì •ë ¬í•˜ê¸° ìœ„í•´ì„œ ì„œì—´ë¡œ ì •ë ¬ëœ ê²°ê³¼ê°€ ì‚¬ë¼ì ¸ë²„ë¦°ê²ƒ.. 
 
-¡á Q-334.À§ÀÇ °á°ú¸¦ ´Ù½Ã ¼­¿­·Î Á¤·ÄµÈ °á°ú¸¦ À¯ÁöÇÏ¸é¼­ ¿ù±ÞÀÌ ³ôÀº ¼ø¼­µ¥·Î Á¤·ÄµÇ¼­ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À!   (SIBLINGS) 
+â–  Q-334.ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì„œì—´ë¡œ ì •ë ¬ëœ ê²°ê³¼ë¥¼ ìœ ì§€í•˜ë©´ì„œ ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œë°ë¡œ ì •ë ¬ë˜ì„œ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤!   (SIBLINGS) 
  Select  rpad('  ',level*2) ||  ename as employee, sal
  from emp
     Start with ename='KING'
@@ -68,9 +64,9 @@ Connect by prior empno = mgr
 order siblings by sal desc;
 
 
-¼³¸í: °á°ú¸¦ º¸¸é °°Àº ¼­¿­³»¿¡¼­ ¿ù±ÞÀÌ ³ôÀº ¼ø¼­µ¥·Î Á¤·ÄÀÌ µÇ°í ÀÖ½À´Ï´Ù.  °èÃþÇü ÁúÀÇ¹®À» »ç¿ëÇÒ¶§,  order by ÀýÀ» ¾µ¶§´Â Siblings ¶ó´Â Å°¿öµå¸¦ Â¦²áÀ¸·Î »ç¿ëÇØ¾ß ÇÕ´Ï´Ù. 
+ì„¤ëª…: ê²°ê³¼ë¥¼ ë³´ë©´ ê°™ì€ ì„œì—´ë‚´ì—ì„œ ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œë°ë¡œ ì •ë ¬ì´ ë˜ê³  ìžˆìŠµë‹ˆë‹¤.  ê³„ì¸µí˜• ì§ˆì˜ë¬¸ì„ ì‚¬ìš©í• ë•Œ,  order by ì ˆì„ ì“¸ë•ŒëŠ” Siblings ë¼ëŠ” í‚¤ì›Œë“œë¥¼ ì§ê¿ìœ¼ë¡œ ì‚¬ìš©í•´ì•¼ í•©ë‹ˆë‹¤. 
 
-¡á Q-335.ÀÌ¸§°ú ÀÔ»çÀÏ°ú ¼­¿­ ¼øÀ§¸¦ Ãâ·ÂÇÏ´Âµ¥ ¸ÕÀú ÀÔ»çÇÑ ¼­¿­ ¼øÀ§¸¦ À¯ÁöÇÏ¸é¼­ ¼­¿­¼øÀ§ÀÇ Á¤·Ä »óÅÂ¸¦ À¯ÁöÇÏ¸é¼­ ¸ÕÀú ÀÔ»çÇÑ »ç¿ø¼ö·Î Á¤·ÄÀÌ µÇ¾î¼­ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À!  (KINGÀÌ 1ºü·Î ÀÔ»çÇß´Ù °¡Á¤ÇÔ) 
+â–  Q-335.ì´ë¦„ê³¼ ìž…ì‚¬ì¼ê³¼ ì„œì—´ ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ë¨¼ì € ìž…ì‚¬í•œ ì„œì—´ ìˆœìœ„ë¥¼ ìœ ì§€í•˜ë©´ì„œ ì„œì—´ìˆœìœ„ì˜ ì •ë ¬ ìƒíƒœë¥¼ ìœ ì§€í•˜ë©´ì„œ ë¨¼ì € ìž…ì‚¬í•œ ì‚¬ì›ìˆ˜ë¡œ ì •ë ¬ì´ ë˜ì–´ì„œ ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤!  (KINGì´ 1ë¹ ë¡œ ìž…ì‚¬í–ˆë‹¤ ê°€ì •í•¨) 
 
 select rpad(' ',level*2) || ename,hiredate,level
 from emp
@@ -82,7 +78,7 @@ order siblings by hiredate asc;
 
  
 
-¡á Q-336. À§ÀÇ °á°ú¿¡¼­ ¾ÕÀÇ / ¸¦ ¾Æ·¡¿Í °°ÀÌ Àß¶ó¹ö¸®½Ã¿À
+â–  Q-336. ìœ„ì˜ ê²°ê³¼ì—ì„œ ì•žì˜ / ë¥¼ ì•„ëž˜ì™€ ê°™ì´ ìž˜ë¼ë²„ë¦¬ì‹œì˜¤
 
 KING        KING
 JONES      KING/JONES 
@@ -93,8 +89,8 @@ Start with ename='KING'
 Connect by prior empno=mgr; 
 
 
-¡á Q-337.ÀÌ¸§,¼­¿­,¿ù±Þ,±Þ¿©µî±Ý(grade)À» Ãâ·ÂÇÏ½Ã¿À! 
-     (*emp¿Í salgrade¸¦ Á¶ÀÎÇÏ½Ã¿À) 
+â–  Q-337.ì´ë¦„,ì„œì—´,ì›”ê¸‰,ê¸‰ì—¬ë“±ê¸ˆ(grade)ì„ ì¶œë ¥í•˜ì‹œì˜¤! 
+     (*empì™€ salgradeë¥¼ ì¡°ì¸í•˜ì‹œì˜¤) 
 
 select rpad(' ',level*2)|| e.ename,level,e.sal,s.grade
 from emp e, salgrade s
@@ -105,10 +101,10 @@ connect by prior empno=mgr;
 
 
 
-¡á Q-338.À§ÀÇ °á°ú¸¦ ´Ù½Ã Ãâ·ÂÇÏ´Âµ¥ ¼­¿­ÀÇ Á¤·ÄÀ» À¯ÁöÇÏ¸é¼­ 
-¿ù±ÞÀÌ ±Þ¿©µî±ÞÀÌ ³ôÀº »ç¿øºÎÅÍ Ãâ·ÂµÇ°Ô ÇÏ½Ã¿À! 
+â–  Q-338.ìœ„ì˜ ê²°ê³¼ë¥¼ ë‹¤ì‹œ ì¶œë ¥í•˜ëŠ”ë° ì„œì—´ì˜ ì •ë ¬ì„ ìœ ì§€í•˜ë©´ì„œ 
+ì›”ê¸‰ì´ ê¸‰ì—¬ë“±ê¸‰ì´ ë†’ì€ ì‚¬ì›ë¶€í„° ì¶œë ¥ë˜ê²Œ í•˜ì‹œì˜¤! 
 
-select rpad(' ',level*2)|| e.ename as ¼­¿­µµ,level,e.sal,s.grade
+select rpad(' ',level*2)|| e.ename as ì„œì—´ë„,level,e.sal,s.grade
 from emp e, salgrade s
 where e.sal between s.losal and s.hisal
 start with ename='KING'
@@ -117,20 +113,20 @@ order siblings by sal desc;
 
 
 
-¡á Q-339.DALLAS¿¡¼­ ±Ù¹«ÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§,¼­¿­,ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ½Ã¿À! (¼­¿­Àº ÀüÃ¼ »ç¿øÀ» ±âÁØÀ¸·Î ¼­¿­À» ºÎ¿©ÇÏ½Ã¿À!) 
+â–  Q-339.DALLASì—ì„œ ê·¼ë¬´í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„,ì„œì—´,ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤! (ì„œì—´ì€ ì „ì²´ ì‚¬ì›ì„ ê¸°ì¤€ìœ¼ë¡œ ì„œì—´ì„ ë¶€ì—¬í•˜ì‹œì˜¤!) 
 
-select rpad(' ',level*2)|| e.ename as Á÷¿ø¼­¿­µµ,level,d.loc
+select rpad(' ',level*2)|| e.ename as ì§ì›ì„œì—´ë„,level,d.loc
 from emp e, dept d 
 where e.deptno=d.deptno and d.loc='DALLAS'
 start with ename='KING'
 connect by prior empno=mgr;
 
 
-Create tableÀÇ Å×ÀÌºíÀÇ µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ´Â °ÍÀº ¾Æ´Ï°í, 
-±¸Á¶¿Í µ¥ÀÌÅÍ Å¸ÀÔµîÀ» ÁöÁ¤ÇØÁÖ´Â°ÍÀÌ´Ù. 
+Create tableì˜ í…Œì´ë¸”ì˜ ë°ì´í„°ë¥¼ ìž…ë ¥í•˜ëŠ” ê²ƒì€ ì•„ë‹ˆê³ , 
+êµ¬ì¡°ì™€ ë°ì´í„° íƒ€ìž…ë“±ì„ ì§€ì •í•´ì£¼ëŠ”ê²ƒì´ë‹¤. 
 
 	
-343.emp 500Å×ÀÌºí¿¡ ¾Æ·¡ÀÇ µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ½Ã¿À!
+343.emp 500í…Œì´ë¸”ì— ì•„ëž˜ì˜ ë°ì´í„°ë¥¼ ìž…ë ¥í•˜ì‹œì˜¤!
 (1111 scott 3000
 2222 smith 2900)
 
@@ -140,7 +136,7 @@ values(1111,'SCOTT',3000);
 Insert into emp500(empno,ename,sal)
 values(2222,'SMITH',2900);
 
-344.¾Æ·¡ÀÇ Å×ÀÌºíÀ» »ý¼ºÇÏ´Â ÀÌ¸§À» 500·Î ÇØ¼­ »ý¼ºÇÏ½Ã¿À
+344.ì•„ëž˜ì˜ í…Œì´ë¸”ì„ ìƒì„±í•˜ëŠ” ì´ë¦„ì„ 500ë¡œ í•´ì„œ ìƒì„±í•˜ì‹œì˜¤
 
 Empno
 Ename
@@ -152,10 +148,10 @@ Insert into emp500(empno,ename,sal)
 Values(2222,'SMITH',2900);
 
 
-345.¾Æ·¡ÀÇ emp501 Å×ÀÌºí¿¡ µ¥ÀÌÅÍ¸¦ 2°Ç ÀÔ·ÂÇÏ½Ã¿À!
+345.ì•„ëž˜ì˜ emp501 í…Œì´ë¸”ì— ë°ì´í„°ë¥¼ 2ê±´ ìž…ë ¥í•˜ì‹œì˜¤!
 Create table emp501 
 
-»ç¿ø¹øÈ£ 7839 , ÀÌ¸§ KING, SAL 5000, Hiredate : 81/11/17, deptno 10 
+ì‚¬ì›ë²ˆí˜¸ 7839 , ì´ë¦„ KING, SAL 5000, Hiredate : 81/11/17, deptno 10 
            
 Inset into emp501(empno,ename,sal,hiredate,deptno)
  Values(7839,'KING',5000,to_date('81/11/17','RR/MM/DD'),10);
@@ -163,48 +159,48 @@ Inset into emp501(empno,ename,sal,hiredate,deptno)
 Insert into emp501(empno,ename,sal,hiredate,deptno)
 Values(7968,'BLAKE',2850,to_date('81/05/01','RR/MM/DD'),30);
 
-¿¹Á¦)
-"Long µ¥ÀÌÅÍ Å¸ÀÔÀ» »ç¿ëÇÏ´Â ¹æ¹ý Å×½ºÆ®"
-'Long µ¥ÀÌÅÍ Å¸ÀÔÀº ¾ÆÁÖ ±ä ÅØ½ºÆ® µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÒ¶§ »ç¿ëÇÏ´Â µ¥ÀÌÅÍ À¯ÇüÀÔ´Ï´Ù'
+ì˜ˆì œ)
+"Long ë°ì´í„° íƒ€ìž…ì„ ì‚¬ìš©í•˜ëŠ” ë°©ë²• í…ŒìŠ¤íŠ¸"
+'Long ë°ì´í„° íƒ€ìž…ì€ ì•„ì£¼ ê¸´ í…ìŠ¤íŠ¸ ë°ì´í„°ë¥¼ ìž…ë ¥í• ë•Œ ì‚¬ìš©í•˜ëŠ” ë°ì´í„° ìœ í˜•ìž…ë‹ˆë‹¤'
 
 Create table profile2 
 (ename varchar(20),
       self_intro long); 
 
 insert into profile2 (ename,self_intro)
-values('±èÀÎÈ£','¾î·ÈÀ»¶§ ºÎÅÍ ¿ì¸®ÁýÀº °¡³­Çß¾ú½À´Ï´Ù.
-                ±×¸®°í ¾î¸Ó´Ï´Â Â¥Àå¸éÀÌ ½È´Ù°í ÇÏ¼Ì½À´Ï´Ù. ¾ßÈ÷ ¾ßÈ÷¾ß');
+values('ê¹€ì¸í˜¸','ì–´ë ¸ì„ë•Œ ë¶€í„° ìš°ë¦¬ì§‘ì€ ê°€ë‚œí–ˆì—ˆìŠµë‹ˆë‹¤.
+                ê·¸ë¦¬ê³  ì–´ë¨¸ë‹ˆëŠ” ì§œìž¥ë©´ì´ ì‹«ë‹¤ê³  í•˜ì…¨ìŠµë‹ˆë‹¤. ì•¼ížˆ ì•¼ížˆì•¼');
         
 
-¡á Q-346. °Ü¿ï¿Õ±¹ ´ëº»À» ÀÔ·ÂÇÏ±â À§ÇÑ Å×ÀÌºíÀ» winter_kingdom ÀÌ¶ó´Â ÀÌ¸§À¸·Î »ý¼ºÇÏ½Ã¿À! 
+â–  Q-346. ê²¨ìš¸ì™•êµ­ ëŒ€ë³¸ì„ ìž…ë ¥í•˜ê¸° ìœ„í•œ í…Œì´ë¸”ì„ winter_kingdom ì´ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ìƒì„±í•˜ì‹œì˜¤! 
 
 create table winter_kingdom
 (win_text varchar2(4000));
 
 
-¡á Q-347.¿µÈ­ °Ü¿ï¿Õ±¹ ´ëº»¿¡´Â elsa °¡ ¸¹ÀÌ ³ª¿À´Â°¡?, anna°¡ ¸¹ÀÌ ³ª¿À´Â°¡? 
+â–  Q-347.ì˜í™” ê²¨ìš¸ì™•êµ­ ëŒ€ë³¸ì—ëŠ” elsa ê°€ ë§Žì´ ë‚˜ì˜¤ëŠ”ê°€?, annaê°€ ë§Žì´ ë‚˜ì˜¤ëŠ”ê°€? 
 
 select sum(regexp_count(lower(win_text),'elsa') ) as cnt
 from winter_kingdom;
 
-*Á¤±Ô½Ä ÇÔ¼öÀÎ regexp_count ¸¦ ÀÌ¿ëÇÏ¸é ½±°Ô ±¸Ç÷ÇÒ ¼ö ÀÖ½À´Ï´Ù. 
+*ì •ê·œì‹ í•¨ìˆ˜ì¸ regexp_count ë¥¼ ì´ìš©í•˜ë©´ ì‰½ê²Œ êµ¬í˜ˆí•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. 
 
-¼³¸í: win_text ¸¦ ÀüºÎ¼Ò¹®ÀÚ·Î º¯°æÇÏ°í regexp_count ¸¦ ÀÌ¿ëÇØ¼­ ½ºÅ©¸³Æ® ÇÑÇà ÇÑÇàÀ» ´Ù »ìÆìºÁ¼­ elsa¶ó´Â ´Ü¾î°¡ Æ÷ÇÔµÇ¾îÁ® ÀÖÀ¸¸é Ä«¿îÆ® ÇÑ´Ù.  ±×¸®°í Ä«¿îÆ®µÈ ¼ýÀÚµéÀ» ´Ù sumÇÔ¼ö¸¦ ÀÌ¿ëÇØ¼­ ´Ù ´õÇÑ´Ù. 
+ì„¤ëª…: win_text ë¥¼ ì „ë¶€ì†Œë¬¸ìžë¡œ ë³€ê²½í•˜ê³  regexp_count ë¥¼ ì´ìš©í•´ì„œ ìŠ¤í¬ë¦½íŠ¸ í•œí–‰ í•œí–‰ì„ ë‹¤ ì‚´íŽ´ë´ì„œ elsaë¼ëŠ” ë‹¨ì–´ê°€ í¬í•¨ë˜ì–´ì ¸ ìžˆìœ¼ë©´ ì¹´ìš´íŠ¸ í•œë‹¤.  ê·¸ë¦¬ê³  ì¹´ìš´íŠ¸ëœ ìˆ«ìžë“¤ì„ ë‹¤ sumí•¨ìˆ˜ë¥¼ ì´ìš©í•´ì„œ ë‹¤ ë”í•œë‹¤. 
 
 
-¡á Q-349.±àÁ¤´Ü¾î¸¦ ÀúÀåÇÏ±â À§ÇÑ Å×ÀÌºíÀ» Positive ¶ó´Â ÀÌ¸§À¸·Î ¾Æ·¡¿Í °°ÀÌ »ý¼ºÇÏ½Ã¿À
+â–  Q-349.ê¸ì •ë‹¨ì–´ë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•œ í…Œì´ë¸”ì„ Positive ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ì•„ëž˜ì™€ ê°™ì´ ìƒì„±í•˜ì‹œì˜¤
 
 Create table Positive 
 (p_text varchar2(2000));
 
-¡á Q-350.ºÎÁ¤´Ü¾î¸¦ ÀúÀåÇÏ±â À§ÇÑ Å×ÀÌºíÀ» negative ¶ó´Â ÀÌ¸§À¸·Î ¾Æ·¡¿Í °°ÀÌ »ý¼ºÇÏ½Ã¿À
+â–  Q-350.ë¶€ì •ë‹¨ì–´ë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•œ í…Œì´ë¸”ì„ negative ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ì•„ëž˜ì™€ ê°™ì´ ìƒì„±í•˜ì‹œì˜¤
 
 Create table negative
 ( n_text varchar2(2000));
 
-¡á Q-351.±àÁ¤´Ü¾î´Â Positive Å×ÀÌºí¿¡ ³Ö°í, ºÎÁ¤´Ü¾î´Â Negative ´Ü¾îÀå¿¡ ³Ö¾î¶ó
-¿·¿¡ Å×ÀÌºíÃ¢µé¾î°¡¼­ µ¥ÀÌÅÍ ÀÓÆ÷Æ®·Î ³ëÆ®ÀåÀ» ³ÖÀ¸»ù~~  
-(Çì´õ Ã¼Å© ÇØÁ¦ÇÏ°í// ±¸ºÐÀÚ ÅÇ// ¿À¸¥ÂÊ ¿ÞÂÊ  µÑ·¯½Î±â ¾øÀ½) À¸·Î ÇÏ°í 
+â–  Q-351.ê¸ì •ë‹¨ì–´ëŠ” Positive í…Œì´ë¸”ì— ë„£ê³ , ë¶€ì •ë‹¨ì–´ëŠ” Negative ë‹¨ì–´ìž¥ì— ë„£ì–´ë¼
+ì˜†ì— í…Œì´ë¸”ì°½ë“¤ì–´ê°€ì„œ ë°ì´í„° ìž„í¬íŠ¸ë¡œ ë…¸íŠ¸ìž¥ì„ ë„£ìœ¼ìƒ˜~~  
+(í—¤ë” ì²´í¬ í•´ì œí•˜ê³ // êµ¬ë¶„ìž íƒ­// ì˜¤ë¥¸ìª½ ì™¼ìª½  ë‘˜ëŸ¬ì‹¸ê¸° ì—†ìŒ) ìœ¼ë¡œ í•˜ê³  
 
 select count(*)
 from positive;
@@ -214,10 +210,10 @@ select count(*)
 from negative;
 
 
-¡á Q-352.¿¢¼¿ µ¥ÀÌÅÍ¸¦ ¿À¶óÅ¬ÀÇ Å×ÀÌºíÀÇ µ¥ÀÌÅÍ·Î ÀÔ·ÂÇÏ½Ã¿À! 
- (Àü±¹ ´ëÇÐ±³ µî·Ï±Ý ÇöÈ² µ¥ÀÌÅÍ¸¦ ÀúÀåÇÒ Å×ÀÌºíÀ» ¸ÕÀú ¾Æ·¡¿Í °°ÀÌ »ý¼ºÇÏ½Ã¿À) 
+â–  Q-352.ì—‘ì…€ ë°ì´í„°ë¥¼ ì˜¤ë¼í´ì˜ í…Œì´ë¸”ì˜ ë°ì´í„°ë¡œ ìž…ë ¥í•˜ì‹œì˜¤! 
+ (ì „êµ­ ëŒ€í•™êµ ë“±ë¡ê¸ˆ í˜„í™© ë°ì´í„°ë¥¼ ì €ìž¥í•  í…Œì´ë¸”ì„ ë¨¼ì € ì•„ëž˜ì™€ ê°™ì´ ìƒì„±í•˜ì‹œì˜¤) 
 
-Ä«Æä¿¡ °¡¼­ µ¥ÀÌÅÍ °Ô½ÃÆÇ¿¡ °¡¼­ UNIV data ½ºÅ©¸³Æ® ºÙÇô¿ë~~
+ì¹´íŽ˜ì— ê°€ì„œ ë°ì´í„° ê²Œì‹œíŒì— ê°€ì„œ UNIV data ìŠ¤í¬ë¦½íŠ¸ ë¶™í˜€ìš©~~
 
 create table univ
 (division      varchar2 (20),
@@ -229,61 +225,57 @@ create table univ
  supporting_fee number( 20),
  tuition       number(20 ) ) ;
 
-ÀÌ°ÍÀ» ¸¸µé°í ÀÌÁ¦ ¿¢¼¿ µ¥ÀÌÅÍ¸¦ ¸¸µç´Ù!! 
+ì´ê²ƒì„ ë§Œë“¤ê³  ì´ì œ ì—‘ì…€ ë°ì´í„°ë¥¼ ë§Œë“ ë‹¤!! 
 
-¡á Q-354.¿ì¸®³ª¶ó¿¡¼­ ´ëÇÐµî·Ï±ÝÀÌ °¡Àå ºñ½ÑÇÐ±³°¡ ¾îµðÀÎ°¡
+â–  Q-354.ìš°ë¦¬ë‚˜ë¼ì—ì„œ ëŒ€í•™ë“±ë¡ê¸ˆì´ ê°€ìž¥ ë¹„ì‹¼í•™êµê°€ ì–´ë””ì¸ê°€
 
 select university,tuition,rank() over (order by tuition desc)
 from univ;
 
 
-¡á Q-335.µ¥ÀÌÅÍ °Ô½ÃÆÇ¿¡ ¹üÁË ¹ß»ý Áö¿ª µ¥ÀÌÅÍ¸¦ ³»·Á¹Þ¾Æ
-Å×ÀÌºíÀ» »ý¼ºÇÏ°í µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ½Ã¿À! 
+â–  Q-335.ë°ì´í„° ê²Œì‹œíŒì— ë²”ì£„ ë°œìƒ ì§€ì—­ ë°ì´í„°ë¥¼ ë‚´ë ¤ë°›ì•„
+í…Œì´ë¸”ì„ ìƒì„±í•˜ê³  ë°ì´í„°ë¥¼ ìž…ë ¥í•˜ì‹œì˜¤! 
 
 create  table  crime_loc
-( CRIME_TYPE     varchar2(50),                ¡ç  ¹üÁËÀ¯Çü
-  C_LOC             varchar2(50),                        ¡ç  ¹üÁËÀå¼Ò
-  CNT              number(10) );                         ¡ç  ¹üÁË°Ç¼ö
+( CRIME_TYPE     varchar2(50),                â†  ë²”ì£„ìœ í˜•
+  C_LOC             varchar2(50),                        â†  ë²”ì£„ìž¥ì†Œ
+  CNT              number(10) );                         â†  ë²”ì£„ê±´ìˆ˜
 
-¡á Q-336.¹üÁËÀ¯ÇüÀ» Ãâ·ÂÇÏ´Âµ¥ Áßº¹Á¦°ÅÇØ¼­ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-336.ë²”ì£„ìœ í˜•ì„ ì¶œë ¥í•˜ëŠ”ë° ì¤‘ë³µì œê±°í•´ì„œ ì¶œë ¥í•˜ì‹œì˜¤
 
 select distinct crime_type 
 from crime_loc;
 
 
-
-¡á Q-357.»ìÀÎÀÌ °¡Àå ¸¹ÀÌ ÀÏ¾î³ª´Â Àå¼Ò°¡ ¾îµðÀÔ´Ï±î.
+â–  Q-357.ì‚´ì¸ì´ ê°€ìž¥ ë§Žì´ ì¼ì–´ë‚˜ëŠ” ìž¥ì†Œê°€ ì–´ë””ìž…ë‹ˆê¹Œ.
 
 select *
          from crime_loc 
-         where crime_type = '»ìÀÎ'                 
+         where crime_type = 'ì‚´ì¸'                 
          order by cnt desc 
          fetch first 1 rows only; 
 
 
-
-¡á Q-358.Àýµµ°¡ °¡Àå ¸¹ÀÌ ÀÏ¾î³ª´Â Àå¼Ò°¡ ¾îµðÀÎÁö 1À§ºÎÅÍ 3À§±îÁö Ãâ·ÂÇÏ½Ã¿À 
+â–  Q-358.ì ˆë„ê°€ ê°€ìž¥ ë§Žì´ ì¼ì–´ë‚˜ëŠ” ìž¥ì†Œê°€ ì–´ë””ì¸ì§€ 1ìœ„ë¶€í„° 3ìœ„ê¹Œì§€ ì¶œë ¥í•˜ì‹œì˜¤ 
 
 select *
 from crime_loc
-where crime_type = 'Àýµµ'
+where crime_type = 'ì ˆë„'
 order by cnt desc
 fetch first 3 rows only;
 
 
+â–  Q-360.ì‚´ì¸ì„ ì¼ìœ¼í‚¤ëŠ” ê°€ìž¥ í° ì›ì¸ì€ ë¬´ì—‡ì¸ê°€ ? 
 
+ë°ì´í„° ----ì»¬ëŸ¼ : Pivot ë¬¸
+ì»¬ëŸ¼   ---- ë°ì´í„° : Unpivot ë¬¸ 
 
-¡á Q-360.»ìÀÎÀ» ÀÏÀ¸Å°´Â °¡Àå Å« ¿øÀÎÀº ¹«¾ùÀÎ°¡ ? 
+ìœ„ì˜ ì§ˆë¬¸ì— ëŒ€í•œ ë‹µì„ êµ¬í•˜ë ¤ë©´ ì»¬ëŸ¼ì„ ë°ì´í„°ë¡œ ë„£ì–´ì•¼ ê°€ëŠ¥í•˜ë‹¤.
+ì•„ëž˜ì˜ SQLì€ asë‹¤ìŒì— ë‚˜ì˜¤ëŠ” ì¿¼ë¦¬ë¬¸ì˜ ê²°ê³¼ë¥¼ Crime_Cause2ë¡œ ë“¤ì–´ê°€ì„œ 
 
-µ¥ÀÌÅÍ ----ÄÃ·³ : Pivot ¹®
-ÄÃ·³   ---- µ¥ÀÌÅÍ : Unpivot ¹® 
-
-À§ÀÇ Áú¹®¿¡ ´ëÇÑ ´äÀ» ±¸ÇÏ·Á¸é ÄÃ·³À» µ¥ÀÌÅÍ·Î ³Ö¾î¾ß °¡´ÉÇÏ´Ù.
-¾Æ·¡ÀÇ SQLÀº as´ÙÀ½¿¡ ³ª¿À´Â Äõ¸®¹®ÀÇ °á°ú¸¦ Crime_Cause2·Î µé¾î°¡¼­ 
-
-±×°ÍÀ» ½±°Ô ¸¸µé±âÀ§ÇØ 
+ê·¸ê²ƒì„ ì‰½ê²Œ ë§Œë“¤ê¸°ìœ„í•´ 
 
 Select * from crime_cause2
-Where crime_type = '»ìÀÎ'
+Where crime_type = 'ì‚´ì¸'
 Order by cnt desc
 Fetch first 1 rows only;
