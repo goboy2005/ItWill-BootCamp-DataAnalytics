@@ -1,6 +1,6 @@
+SQL Day 13 Problems 
 
-
-¡á Q-366.±¸±¸´Ü ¹®Á¦¸¦ Ç®±âÀ§ÇÑ from ÀıÀÇ ¼­ºêÄõ¸®¹®ÀÇ °á°ú¸¦ ÀÓ½ÃÅ×ÀÌºí·Î °¢°¢ »ı¼ºÇÏ½Ã¿À! 
+â–  Q-366.êµ¬êµ¬ë‹¨ ë¬¸ì œë¥¼ í’€ê¸°ìœ„í•œ from ì ˆì˜ ì„œë¸Œì¿¼ë¦¬ë¬¸ì˜ ê²°ê³¼ë¥¼ ì„ì‹œí…Œì´ë¸”ë¡œ ê°ê° ìƒì„±í•˜ì‹œì˜¤! 
 
 create global temporary table num1_9
 (num1 nubmer(10))
@@ -29,173 +29,154 @@ select a.num1,b.num2
 from num1_9 a , num2_9 b
 
 
-emp Å×ÀÌºí°ú´Â º°°³ÀÇ ¶Ç ´Ù¸¥ Å×ÀÌºíÀÌ´Ù.. 
-*emp·Î ½ÃÀÛÇÏ´Â ³»°¡ ¸¸µç Å×ÀÌºíµéÀÌ ¹¹°¡ÀÖ´ÂÁö È®ÀÎÇÏ´Â ¹æ¹ı, ¿ÀÁ÷ emp·Î¸¸ ¸¸µé¾îÁø°Í¸¸.. ¹æ±İ¸¸µç 70
-Select table_name
-from user_tables
-where table_name like 'EMP%';
-
-
-
-
-¡á Q-369.Dalls ¿¡¼­ ±Ù¹«ÇÏ´Â »ç¿øµéÀÇ ÀÌ¸§°ú ºÎ¼­À§Ä¡¸¦  Ãâ·ÂÇÏ½Ã¿À! (Á¶ÀÎ)
+â–  Q-369.Dalls ì—ì„œ ê·¼ë¬´í•˜ëŠ” ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼  ì¶œë ¥í•˜ì‹œì˜¤! (ì¡°ì¸)
 
 select e.ename,d.loc
-from ename e, dept d
-where e.detpno=e.depno and d.loc='DALLAS';
+  from ename e, dept d
+    where e.detpno=e.depno and d.loc='DALLAS';
 
-¡á Q-370.À§ÀÇ °á°ú µ¥ÀÌÅÍ¸¦ ´ã´Â Å×ÀÌºí emp710 À» »ı¼ºÇÏ½Ã¿À! 
-create table emp710
-as                                                     
-select e.ename,d.loc 
-from ename e, dept d
-where e.detpno=e.depno and d.loc='DALLAS';
+â–  Q-370.ìœ„ì˜ ê²°ê³¼ ë°ì´í„°ë¥¼ ë‹´ëŠ” í…Œì´ë¸” emp710 ì„ ìƒì„±í•˜ì‹œì˜¤! 
 
-¡á Q-371.¼ıÀÚ1¹øºÎÅÍ 10¹ø±îÁöÀÇ ¼ıÀÚ¸¦ ´ã´Â Å×ÀÌºíÀ» emp705·Î »ı¼ºÇÏ½Ã¿À! 
-create table emp705
-as
-select level as num1
-from dual
-connect by level<=10;
+create table emp710 as                                                     
+ select e.ename,d.loc 
+  from ename e, dept d
+    where e.detpno=e.depno and d.loc='DALLAS';
 
-¡á Q-372.emp705ÀÇ  ¼ıÀÚ µ¥ÀÌÅÍÁß¿¡ ÀÓÀÇ·Î ¾Æ¹«°Å³ª ÇÏ³ª¸¦ Áö¿ì½Ã¿À.
+â–  Q-371.ìˆ«ì1ë²ˆë¶€í„° 10ë²ˆê¹Œì§€ì˜ ìˆ«ìë¥¼ ë‹´ëŠ” í…Œì´ë¸”ì„ emp705ë¡œ ìƒì„±í•˜ì‹œì˜¤! 
+
+create table emp705 as
+ select level as num1
+   from dual
+     connect by level<=10;
+
+â–  Q-372.emp705ì˜ ìˆ«ì ë°ì´í„°ì¤‘ì— ì„ì˜ë¡œ ì•„ë¬´ê±°ë‚˜ í•˜ë‚˜ë¥¼ ì§€ìš°ì‹œì˜¤.
 
 delete from emp705
 where num1=4;
 
-
-¡á Q-374.Á÷¾÷,Á÷¾÷º° ÅäÅ»¿ù±ŞÀ» Ãâ·ÂÇÏ½Ã¿À(¼¼·Î Ãâ·Â) 
+â–  Q-374.ì§ì—…,ì§ì—…ë³„ í† íƒˆì›”ê¸‰ì„ ì¶œë ¥í•˜ì‹œì˜¤(ì„¸ë¡œ ì¶œë ¥) 
 select ename,sum(sal)
 from emp
 group by job;
 
-¡á Q-375.À§ÀÇ °á°ú¸¦ Ãâ·ÂÇÏ´Â VIEW¸¦ »ı¼ºÇÏ½Ã¿À! (VIEW ÀÌ¸§Àº emp403) 
+â–  Q-375.ìœ„ì˜ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” VIEWë¥¼ ìƒì„±í•˜ì‹œì˜¤! (VIEW ì´ë¦„ì€ emp403) 
 
 create view emp403
 as
-select job,sum(sal)                                                  as ±ÃºÎÀÌ                      ----- ÀÌ·¡¾ß »ı¼º 
+select job,sum(sal) as Total
 from emp
 group by job;
 
+(in order to make a view table with group you must make a name for it)
 
+â–  Q-376.ë¶€ì„œë²ˆí˜¸, (ë¶€ì„œë²ˆí˜¸ë³„ í‰ê· ì›”ê¸‰)ì„ ì¶œë ¥í•˜ëŠ” VIEWë¥¼ deptno_avgë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ìƒì„±í•˜ì‹œì˜¤! 
 
-¼³¸í: view »ı¼ºÇÒ¶§ ±×·ìÇÔ¼ö¸¦ »ç¿ëÇÏ°Ô µÇ¸é ÄÃ·³º°ÄªÀ» Áà¾ßÇÕ´Ï´Ù.!! 
+create view deptno_avg as
+select deptno,avg(sal) as í‰ê· 
+ from emp 
+    group by deptno;
 
-¡á Q-376.ºÎ¼­¹øÈ£, (ºÎ¼­¹øÈ£º° Æò±Õ¿ù±Ş)À» Ãâ·ÂÇÏ´Â VIEW¸¦ deptno_avg¶ó´Â ÀÌ¸§À¸·Î »ı¼ºÇÏ½Ã¿À! 
+â–  Q-377.empì™€ ì§€ê¸ˆ ë§Œë“  deptno_avg view ì™€ ì¡°ì¸í•´ì„œ 
+ì´ë¦„,ì›”ê¸‰,ë¶€ì„œë²ˆí˜¸,ë¶€ì„œì›”ê¸‰ í‰ê·  
 
-create view deptno_avg
-as
-select deptno,avg(sal) as Æò±Õ
-from emp
-group by deptno;
+select e.ename,e.sal,e.deptno,v.í‰ê· 
+ from emp e, deptno_avg v
+    where e.deptno=v.deptno;
 
-¡á Q-377.emp¿Í Áö±İ ¸¸µç deptno_avg view ¿Í Á¶ÀÎÇØ¼­ 
-ÀÌ¸§,¿ù±Ş,ºÎ¼­¹øÈ£,ºÎ¼­¿ù±Ş Æò±Õ 
-
-select e.ename,e.sal,e.deptno,v.Æò±Õ
-from emp e, deptno_avg v
-where e.deptno=v.deptno;
-
-*ºäÀÇ ÀåÁ¡? 1 .¹Î°¨ÇÑ ÄÃ·³À» °¨Ãç¼­ µ¥ÀÌÅÍ¸¦ Á¦°øÇÒ ¼ö ÀÖ´Ù.
-                2. º¹ÀâÇÑ Äõ¸®¹®À» ´Ü¼øÇÏ°Ô ¸¸µé ¼ö ÀÖ´Ù. 
+*Benefit of the view table 1 .ë¯¼ê°í•œ ì»¬ëŸ¼ì„ ê°ì¶°ì„œ ë°ì´í„°ë¥¼ ì œê³µí•  ìˆ˜ ìˆë‹¤.
+                           2. ë³µì¡í•œ ì¿¼ë¦¬ë¬¸ì„ ë‹¨ìˆœí•˜ê²Œ ë§Œë“¤ ìˆ˜ ìˆë‹¤. 
                 
-¡á Q-378.ÀÌ¸§,¿ù±Ş,ºÎ¼­¹øÈ£,ºÎ¼­Æò±Õ¿ù±ŞÀ» Ãâ·ÂÇÏ´Âµ¥ ¿ù±ŞÀÌ ºÎ¼­ Æò±Õº¸´Ù ´õ Å« »ç¿øµé¸¸ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-378.ì´ë¦„,ì›”ê¸‰,ë¶€ì„œë²ˆí˜¸,ë¶€ì„œí‰ê· ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ì›”ê¸‰ì´ ë¶€ì„œ í‰ê· ë³´ë‹¤ ë” í° ì‚¬ì›ë“¤ë§Œ ì¶œë ¥í•˜ì‹œì˜¤
 
-select e.ename,e.sal,e.deptno,v.ºÎ¼­Æò±Õ¿ù±Ş
+select e.ename,e.sal,e.deptno,v.ë¶€ì„œí‰ê· ì›”ê¸‰
 from emp e, deptno_avg v
-where e.deptno=v.deptno and e.sal > v.ºÎ¼­Æò±Õ¿ù±Ş
+where e.deptno=v.deptno and e.sal > v.ë¶€ì„œí‰ê· ì›”ê¸‰
 
-¡á Q-379.emp Å×ÀÌºí¿¡¼­ Åğ»çÇÒ°Í °°Àº »ç¿øµéÀ» ¿¹ÃøÇÏ±â À§ÇØ ÀÚ±âÀÇ ¿ù±ŞÀÌ ÀÚ±â°¡ ¼ÓÇÑ Á÷¾÷ÀÇ
-Æò±Õ ¿ù±Şº¸´Ù ´õÀÛÀº »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±Ş°ú Á÷¾÷Æò±ÕÀ» Ãâ·ÂÇÏ½Ã¿À! 
+â–  Q-379.emp í…Œì´ë¸”ì—ì„œ í‡´ì‚¬í• ê²ƒ ê°™ì€ ì‚¬ì›ë“¤ì„ ì˜ˆì¸¡í•˜ê¸° ìœ„í•´ ìê¸°ì˜ ì›”ê¸‰ì´ ìê¸°ê°€ ì†í•œ ì§ì—…ì˜
+í‰ê·  ì›”ê¸‰ë³´ë‹¤ ë”ì‘ì€ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ê³¼ ì§ì—…í‰ê· ì„ ì¶œë ¥í•˜ì‹œì˜¤! 
 
-(view Å×ÀÌºí ¸¸µé°í) 
+(First make a view table) 
 
-create view job_avg
-as
-select job,avg(sal) as Á÷¾÷Æò±Õ
+create view job_avg as
+select job,avg(sal) as ì§ì—…í‰ê· 
 from emp
 group by job;
 
-select*from job_avg;               -È®ÀÎÇÏ°í-
+select*from job_avg;               â†’ check whether the table is made 
 
-select e.ename,e.sal,e.job,v.Á÷¾÷Æò±Õ
-from emp e, job_avg v 
-where e.job = v.job and e.sal < v.Á÷¾÷Æò±Õ ;
+select e.ename,e.sal,e.job,v.ì§ì—…í‰ê· 
+  from emp e, job_avg v 
+      where e.job = v.job and e.sal < v.ì§ì—…í‰ê·  ;
 
-¡á Q-380.Á÷¾÷,ÀÌ¸§,¿ù±Ş,¼øÀ§¸¦ Ãâ·ÂÇÏ´Âµ¥ ¼øÀ§°¡ Á÷¾÷º°·Î °¢°¢ ¿ù±ŞÀÌ ³ôÀº ¼ø¼­´ë·Î ¼øÀ§¸¦ ºÎ¿©ÇÏ½Ã¿À! 
+â–  Q-380.ì§ì—…,ì´ë¦„,ì›”ê¸‰,ìˆœìœ„ë¥¼ ì¶œë ¥í•˜ëŠ”ë° ìˆœìœ„ê°€ ì§ì—…ë³„ë¡œ ê°ê° ì›”ê¸‰ì´ ë†’ì€ ìˆœì„œëŒ€ë¡œ ìˆœìœ„ë¥¼ ë¶€ì—¬í•˜ì‹œì˜¤! 
 
 select ename,job,sal,dense_rank() over (partition by job order by sal desc) from emp;
 
-À§ÀÇ Äõ¸®ÀÇ °á°ú¸¦ view ·Î ¸¸µé°í view ¸¦ Äõ¸®ÇØ¼­ ¼øÀ§°¡ 1µîÀÎ »ç¿øµé¸¸ Ãâ·ÂÇÏ½Ã¿À
+ìœ„ì˜ ì¿¼ë¦¬ì˜ ê²°ê³¼ë¥¼ view ë¡œ ë§Œë“¤ê³  view ë¥¼ ì¿¼ë¦¬í•´ì„œ ìˆœìœ„ê°€ 1ë“±ì¸ ì‚¬ì›ë“¤ë§Œ ì¶œë ¥í•˜ì‹œì˜¤
 
-create view tabel WF 
-as
-select rank() over (partition by job order by sal desc) as ºÎ¼­º¯¿ù±Ş¼øÀ§ from emp;
+create view tabel as WF
+select rank() over (partition by job order by sal desc) as rank
+    from emp;
 
-select * ºÎ¼­º¯¿ù±Ş¼øÀ§ from WF;
+select * rank from WF;
 
+â–  Q-382.ì´ë¦„ê³¼ ë¶€ì„œìœ„ì¹˜ë¥¼ ì¶œë ¥í•˜ëŠ” VIEWë¥¼ ename_loc ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ìƒì„±í•˜ì‹œì˜¤
 
-¡á Q-382.ÀÌ¸§°ú ºÎ¼­À§Ä¡¸¦ Ãâ·ÂÇÏ´Â VIEW¸¦ ename_loc ¶ó´Â ÀÌ¸§À¸·Î »ı¼ºÇÏ½Ã¿À
-
-create view ename_loc
-as
+create view ename_loc as
 select e.ename,d.loc
-from ename e , dept d 
-where e.deptno=d.deptno;
+  from ename e , dept d 
+     where e.deptno=d.deptno;
 
-ÀÌ°Ç Å×ÀÌºíÀ» µÎ°³ »ç¿ëÇØ¼­ ¸¸µé¾úÀ¸´Ï º¹ÇÕ ºäÀÌ´Ù.!! 
+(This used two tables so it is a double view) 
 
 select * from ename_loc
 
-¡á Q-383.ename_loc ÀÇ µ¥ÀÌÅÍ Áß¿¡ SCOTT ÀÇ ºÎ¼­À§Ä¡¸¦ WASHINGTON  Ã¶ÀÚ·Î ¹Ù²Ù½Ã¿À.! 
+â–  Q-383.ename_loc ì˜ ë°ì´í„° ì¤‘ì— SCOTT ì˜ ë¶€ì„œìœ„ì¹˜ë¥¼ WASHINGTON  ì² ìë¡œ ë°”ê¾¸ì‹œì˜¤.! 
 
 update ename_loc
 set loc='washington'
 where ename='SCOTT'
-ÀÌ°Å ¾ÈµÈ´Ù¡¦ dept Å×ÀÌºí¿¡¼­ º¯°æÀÌ ¾ÈµÇÀ¯¡¦
 
+â€» An error occurs 
 
-(Å×ÀÌºí ±¸Á¶¿Í ¿øÄ¢»ó update ¾ÈµÇ°í ÇØ¼­´Â ¾ÈµÇ´Â °Íµé.)
+(í…Œì´ë¸” êµ¬ì¡°ì™€ ì›ì¹™ìƒ update ì•ˆë˜ê³  í•´ì„œëŠ” ì•ˆë˜ëŠ” ê²ƒë“¤.)
 
-¡á Q-384.¹®Á¦375¹ø¿¡¼­ ¸¸µç emp403 view¸¦ Äõ¸®ÇÏ°í °á°ú¸¦ º¸½Ã¿À
+â–  Q-384.ë¬¸ì œ375ë²ˆì—ì„œ ë§Œë“  emp403 viewë¥¼ ì¿¼ë¦¬í•˜ê³  ê²°ê³¼ë¥¼ ë³´ì‹œì˜¤
 
-create view emp403
-as
-select job,sum(sal) as ÅäÅ»
-from emp
-group by job;
+create view emp403 as
+select job,sum(sal) as í† íƒˆ
+  from emp
+     group by job;
 
-select * from emp403;
+select * from emp403 ;
 
 update emp403
-set ÅäÅ» =2000 
-where job='SALESMAN' 
+ set í† íƒˆ =2000 
+   where job='SALESMAN' 
 
 
-¡á Q-385.±×µ¿¾È ³»°¡ ¸¸µé viewµéÀÌ ¹¹°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÏ½Ã¿À!
+â–  Q-385.ê·¸ë™ì•ˆ ë‚´ê°€ ë§Œë“¤ viewë“¤ì´ ë­ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•˜ì‹œì˜¤!
 
 select view_name
    from user_views;
 
-select view_name,text
-from user_views;
-text ³Ö¾ú´Ù –P´Ù..ÀÌ°ÅÇÏ¸é ¸¸µç Select ¹®ÀåÀÌ ³ª¿À¸é¼­ ¸¸µç Å×ÀÌºíÀÌ ¹«¾ùÀÎÁö Å×ÀÌºí¸íµµ º¼¼ö ÀÖ´Ù¿ä¡¦
-À§¿Í°°ÀÌ Á¶È¸ÇÏ¸é view¸¦ ¸¸µé¾úÀ»¶§ »ç¿ëÇÑ Å×ÀÌºí¸íµµ º¼ ¼ö ÀÖ½À´Ï´Ù. ¿ÜºÎ¿¡¼­ ¿Â µ¥ÀÌÅÍ ºĞ¼®°¡µéÀº
-À§ÀÇ Äõ¸®¸¦ Á¶È¸ÇÒ¼ö ÀÖ´Â ±ÇÇÑÀ» Á¦ÇÑÇÏ´Â °æ¿ì°¡ ¸¹½À´Ï´Ù. 
+ &
 
+ select view_name,text
+    from user_views;
 
+(If you put text in you can see the original table that was used to make the view table
+By restricting the acesss of this, data analyst from outside can only see the admitted range of data.)
 
-¡á Q-385.»ç¿ø Å×ÀÌºí¿¡ ¿ù±Ş¿¡ ÀÎµ¦½º¸¦ °Å½Ã¿À!
+â–  Q-385.ì‚¬ì› í…Œì´ë¸”ì— ì›”ê¸‰ì— ì¸ë±ìŠ¤ë¥¼ ê±°ì‹œì˜¤!
 
-create index emp_sal -------ÀÎµ¦½º ÀÌ¸§ ³»¸¾´ë·Î ÀúÀå,,, ÀÇ¹ÌÀÖ°Ô      
+create index emp_sal -------make a name of an index    
   on emp(sal) ;   
 
-¡á Q-386.emp Å×ÀÌºíÀÇ salÀÇ ÀÎµ¦½ºÀÎ emp_salÀÇ ±¸Á¶¸¦ È®ÀÎÇÏ½Ã¿À
+â–  Q-386.emp í…Œì´ë¸”ì˜ salì˜ ì¸ë±ìŠ¤ì¸ emp_salì˜ êµ¬ì¡°ë¥¼ í™•ì¸í•˜ì‹œì˜¤
 
 select sal,rowid
  from emp
    where sal>0;
 
-
-
-ÀÎµ¦½º¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Ô±â ‹š¹®¿¡ order by ÀıÀ» »ç¿ë ¾ÈÇß´Âµ¥ ¿ù±ŞÀÌ Á¤·ÄÀÌ µÇ¾î¼­ Ãâ·ÂµÇ¾ú½À´Ï´Ù. 
+(Because it reads from the index, it automatically reads as order) 
