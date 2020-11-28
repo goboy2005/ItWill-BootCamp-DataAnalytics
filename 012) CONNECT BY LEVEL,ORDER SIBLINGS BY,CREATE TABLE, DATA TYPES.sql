@@ -4,22 +4,20 @@ SQL Day 12 Problems
 
 Select  rpad(' ',level*2) || ename as employee, level
  from emp
-Start with ename='KING'
-Connect by prior empno = mgr;
+   Start with ename='KING'
+     Connect by prior empno = mgr;
 
 
 설명 : rpad(' ',level2) 은 공백(' ') 을 level*2 숫자만큼 채워놓겠다.
 Level이 클수록 공백이 높아지겠지…? 그래서 서열을 눈에 띄게 딱 볼수있따.
 
-
 ■ Q-331.위의 결과에서 Blake 는 제외하고 출력하시오. 
 
 Select  rpad('  ',level*2) ||  ename as employee, level
-from emp
-where ename != 'BLAKE'
-Start with ename='KING'
-Connect by prior empno = mgr;
-
+ from emp
+  where ename != 'BLAKE'
+   Start with ename='KING'
+     Connect by prior empno = mgr;
 
 Blake 의 팀원들만 남았고..Blake 는 없어졌다..이게  Blaek의 아래에 있는 직원들은 여전히 나오고있다
 
@@ -29,39 +27,25 @@ Blake 의 팀원들만 남았고..Blake 는 없어졌다..이게  Blaek의 아�
 Select  rpad('  ',level*2) ||  ename as employee, level
  from emp
     Start with ename='KING'
-Connect by prior empno = mgr and ename !='BLAKE'
-
-
-
-@설명: 하위노드의 모든 데이터를 출력되지 않게 하려면 where 절이 아니라 Connect by 절에 조건을 주면 됩니다. 
-Connect by 절의 노드를 제거하겠다라는 뜻이다..지금 이노드는 
-킹과 가까운 상위 노드이고 이노드 들은 하위 노드이다.! 
-하위 노드인데 상위 노드를 제거함으로써 하위 노드가 전체가 안나오게 하는것이다.
-특정한 절만 안나오게 하고 싶으면 where 절을 사용하면 되는데 노드를 제가하려며
-Connect by  절에다 가 기술해주면된다. 
+        Connect by prior empno = mgr and ename !='BLAKE'
 
 ■ Q-333. 다시 BLAKE 와 BLAKE의 팀원들을 포함시킨 서열을 출력하는 SQL을 아래와 같이 실행하는데 월급이 높은 순서데로 출력하시오! 
  
 Select  rpad('  ',level*2) ||  ename as employee, level,sal
  from emp
     Start with ename='KING'
-Connect by prior empno = mgr 
-Order by sal desc;
+      Connect by prior empno = mgr 
+          Order by sal desc;
     
 
-
-@지금 order by sal 순서대로 써주면서 empno 관련 서열이 다깨져버림.
-위의 결는 월급이 높은 순서대로 정렬이 되면서 서열로 정렬된 결과가 사라져버렸다.@
-
-원래는 서열로 정렬하기 위해서 서열로 정렬된 결과가 사라져버린것.. 
 
 ■ Q-334.위의 결과를 다시 서열로 정렬된 결과를 유지하면서 월급이 높은 순서데로 정렬되서 출력되게 하시오!   (SIBLINGS) 
- Select  rpad('  ',level*2) ||  ename as employee, sal
+
+Select  rpad('  ',level*2) ||  ename as employee, sal
  from emp
     Start with ename='KING'
-Connect by prior empno = mgr 
-    
-order siblings by sal desc;
+     connect by prior empno = mgr 
+        order siblings by sal desc;
 
 
 설명: 결과를 보면 같은 서열내에서 월급이 높은 순서데로 정렬이 되고 있습니다.  계층형 질의문을 사용할때,  order by 절을 쓸때는 Siblings 라는 키워드를 짝꿍으로 사용해야 합니다. 
@@ -69,34 +53,28 @@ order siblings by sal desc;
 ■ Q-335.이름과 입사일과 서열 순위를 출력하는데 먼저 입사한 서열 순위를 유지하면서 서열순위의 정렬 상태를 유지하면서 먼저 입사한 사원수로 정렬이 되어서 출력되게 하시오!  (KING이 1빠로 입사했다 가정함) 
 
 select rpad(' ',level*2) || ename,hiredate,level
-from emp
-start with ename ='KING'
-connect by prior empno = mgr
-order siblings by hiredate asc;
-
-
-
- 
+ from emp
+   start with ename ='KING'
+     connect by prior empno = mgr
+      order siblings by hiredate asc;
 
 ■ Q-336. 위의 결과에서 앞의 / 를 아래와 같이 잘라버리시오
-
 KING        KING
 JONES      KING/JONES 
 
 select ename,ltrim(sys_connect_by_path (ename,'/'),'/') as path
-From emp
-Start with ename='KING'
-Connect by prior empno=mgr; 
-
+ from emp
+   start with ename='KING'
+     connect by prior empno=mgr; 
 
 ■ Q-337.이름,서열,월급,급여등금(grade)을 출력하시오! 
      (*emp와 salgrade를 조인하시오) 
 
 select rpad(' ',level*2)|| e.ename,level,e.sal,s.grade
-from emp e, salgrade s
-where e.sal between s.losal and s.hisal
-start with ename='KING'
-connect by prior empno=mgr;
+ from emp e, salgrade s
+  where e.sal between s.losal and s.hisal
+    start with ename='KING'
+       connect by prior empno=mgr;
 
 
 
@@ -105,27 +83,23 @@ connect by prior empno=mgr;
 월급이 급여등급이 높은 사원부터 출력되게 하시오! 
 
 select rpad(' ',level*2)|| e.ename as 서열도,level,e.sal,s.grade
-from emp e, salgrade s
-where e.sal between s.losal and s.hisal
-start with ename='KING'
-connect by prior empno=mgr
-order siblings by sal desc;
-
+ from emp e, salgrade s
+    where e.sal between s.losal and s.hisal
+      start with ename='KING'
+        connect by prior empno=mgr
+             order siblings by sal desc;
 
 
 ■ Q-339.DALLAS에서 근무하는 사원들의 이름,서열,부서위치를 출력하시오! (서열은 전체 사원을 기준으로 서열을 부여하시오!) 
 
 select rpad(' ',level*2)|| e.ename as 직원서열도,level,d.loc
-from emp e, dept d 
-where e.deptno=d.deptno and d.loc='DALLAS'
-start with ename='KING'
-connect by prior empno=mgr;
+ from emp e, dept d 
+  where e.deptno=d.deptno and d.loc='DALLAS'
+    start with ename='KING'
+       connect by prior empno=mgr;
 
-
-Create table의 테이블의 데이터를 입력하는 것은 아니고, 
-구조와 데이터 타입등을 지정해주는것이다. 
-
-	
+(Creating a table is just structuring the table 
+itsef it does not imput data)
 343.emp 500테이블에 아래의 데이터를 입력하시오!
 (1111 scott 3000
 2222 smith 2900)
@@ -136,7 +110,7 @@ values(1111,'SCOTT',3000);
 Insert into emp500(empno,ename,sal)
 values(2222,'SMITH',2900);
 
-344.아래의 테이블을 생성하는 이름을 500로 해서 생성하시오
+■ Q-344.아래의 테이블을 생성하는 이름을 500로 해서 생성하시오
 
 Empno
 Ename
@@ -148,7 +122,7 @@ Insert into emp500(empno,ename,sal)
 Values(2222,'SMITH',2900);
 
 
-345.아래의 emp501 테이블에 데이터를 2건 입력하시오!
+■ Q-345.아래의 emp501 테이블에 데이터를 2건 입력하시오!
 Create table emp501 
 
 사원번호 7839 , 이름 KING, SAL 5000, Hiredate : 81/11/17, deptno 10 
