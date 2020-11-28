@@ -60,12 +60,8 @@ select  *
 
 ■ Q-287.  price 테이블의 전체 건수가 어떻게 되는지 확인하시오 !
 
-  select  count(*) 
-    from price; 
-
- M_NAME :  마트 이름 또는 시장이름 
- A_NAME : 식료품 이름 
- A_PRICE : 식료품 가격 
+select  count(*) 
+   from price; 
 
 ■ Q-289.   사원이름, 월급, 사원 테이블의 최대월급, 사원 테이블의 최소월급을
 출력하시오 !
@@ -104,16 +100,16 @@ select *
 
 튜닝전
 select  ename, sal, ( select  max(sal) from  emp ) 최대월급,
-                      ( select  min(sal) from  emp ) 최소월급,
-                      ( select  avg(sal) from  emp ) 평균월급
+                     ( select  min(sal) from  emp ) 최소월급,
+                     ( select  avg(sal) from  emp ) 평균월급
                           from   emp; 
                                       
                            ↓ 
 튜닝후         
 select  ename, sal,  max(sal)  over   ()  최대월급,
-                          min(sal)  over   ()  최소월급,
-                          avg(sal)  over   ()  평균월급
-                             from   emp; 
+                      min(sal)  over   ()  최소월급,
+                      avg(sal)  over   ()  평균월급
+                          from   emp; 
 
 ■ Q-294.  우리반 테이블에서 이름, 나이, 우리반 나이의 최대나이,
 우리반 나이의 최소나이,
@@ -133,8 +129,8 @@ select  ename, age, max(age) over () 최대나이,
 
 ■ Q-295.  사원 테이블에 아래의 데이터를 입력하시오 !
 
-   사원번호: 2939
-   사원이름: jane
+  사원번호: 2939
+  사원이름: jane
   월급  :   4700
   입사일 :  오늘날짜
 
