@@ -1,7 +1,7 @@
 SQL Day14 Problems 
 
-389.»ç¿ø Å×ÀÌºí¿¡ ¿ù±Ş ÀÎµ¦½º¸¦ »ı¼ºÇÏ°í »ç¿ø Å×ÀÌºíÀ» °Ë»öÇÏ´Âµ¥ 
-¿ù±ŞÀÌ 3000ÀÎ »ç¿øµéÀÇ ÀÌ¸§°ú ¿ù±ŞÀ» °Ë»öÇÏ½Ã¿À
+â–  Q-389.ì‚¬ì› í…Œì´ë¸”ì— ì›”ê¸‰ ì¸ë±ìŠ¤ë¥¼ ìƒì„±í•˜ê³  ì‚¬ì› í…Œì´ë¸”ì„ ê²€ìƒ‰í•˜ëŠ”ë° 
+ì›”ê¸‰ì´ 3000ì¸ ì‚¬ì›ë“¤ì˜ ì´ë¦„ê³¼ ì›”ê¸‰ì„ ê²€ìƒ‰í•˜ì‹œì˜¤
 
 create index emp_sal
 on emp(sal);
@@ -10,7 +10,7 @@ select rowid,sal,ename
 from emp
 where sal=3000;
 
-390.À§ÀÇ SQLÀÇ ½ÇÇà °èÈ¹À» È®ÀÎÇÏ½Ã¿À! ----SQLÀº ½ÇÇàÇÏ±â À§ÇØ¼­ °èÈ¹À» ¼¼¿ì°í SQLÀ» ½ÇÇàÇÑ´Ù. 
+â–  Q-390.ìœ„ì˜ SQLì˜ ì‹¤í–‰ ê³„íšì„ í™•ì¸í•˜ì‹œì˜¤! ----SQLì€ ì‹¤í–‰í•˜ê¸° ìœ„í•´ì„œ ê³„íšì„ ì„¸ìš°ê³  SQLì„ ì‹¤í–‰í•œë‹¤. 
 
 explain plan for
 select ename,sal
@@ -19,9 +19,9 @@ where sal>3000;
 
 select* from table (dbms_xplan.display);
 
-(ÀÌ°Íµµ °¡´ÉÇÏÁö¸¸ F10´­·¯¼­ È®ÀÎµµ °¡´ÉÇÏ´Ù) 
+(ì´ê²ƒë„ ê°€ëŠ¥í•˜ì§€ë§Œ F10ëˆŒëŸ¬ì„œ í™•ì¸ë„ ê°€ëŠ¥í•˜ë‹¤) 
 
-391.À§ÀÇ SQLÀÌ emp_salÀÇ ÀÎµ¦½º¸¦ ÅëÇØ¼­ µ¥ÀÌÅÍ¸¦ °Ë»öÇÒ¼ö ÀÖµµ·Ï ÈùÆ®¸¦Áà¶ó.
+â–  Q-391.ìœ„ì˜ SQLì´ emp_salì˜ ì¸ë±ìŠ¤ë¥¼ í†µí•´ì„œ ë°ì´í„°ë¥¼ ê²€ìƒ‰í• ìˆ˜ ìˆë„ë¡ íŒíŠ¸ë¥¼ì¤˜ë¼.
 
 explain plan for
 select/*+ index(emp emp_sal)*/ ename sal
@@ -31,7 +31,7 @@ where sal=3000;
 select* from table(dbms_xplan.display);
 
 
-392.ÀÔ»çÀÏ¿¡ index ¸¦ »ı¼ºÇÏ°í 81³â 11¿ù17ÀÏ¿¡ ÀÔ»çÇÑ »ç¿øÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Á¶È¸ÇÏ½Ã¿À
+â–  Q-392.ì…ì‚¬ì¼ì— index ë¥¼ ìƒì„±í•˜ê³  81ë…„ 11ì›”17ì¼ì— ì…ì‚¬í•œ ì‚¬ì›ì˜ ì´ë¦„ê³¼ ì…ì‚¬ì¼ì„ ì¡°íšŒí•˜ì‹œì˜¤
 
 create index emp_hiredate
 on emp(hiredate);
@@ -40,14 +40,14 @@ select ename,hiredate
 from emp
 where hiredate='81/11/17';
 
-392.ÀÔ»çÀÏ¿¡ index ¸¦ »ı¼ºÇÏ°í 81³â 11¿ù17ÀÏ¿¡ ÀÔ»çÇÑ »ç¿øÀÇ ÀÌ¸§°ú ÀÔ»çÀÏÀ» Á¶È¸ÇÏ½Ã¿À
+â–  Q-392.ì…ì‚¬ì¼ì— index ë¥¼ ìƒì„±í•˜ê³  81ë…„ 11ì›”17ì¼ì— ì…ì‚¬í•œ ì‚¬ì›ì˜ ì´ë¦„ê³¼ ì…ì‚¬ì¼ì„ ì¡°íšŒí•˜ì‹œì˜¤
 
 explain plan for
 select hiredate
 from emp
 where hiredate='81/11/17';
 
-393.À§ÀÇ SQLÀÇ ½ÇÇà °èÈ¹ È®ÀÎÇÏ°í ÈùÆ® Áà¶ó
+â–  Q-393.ìœ„ì˜ SQLì˜ ì‹¤í–‰ ê³„íš í™•ì¸í•˜ê³  íŒíŠ¸ ì¤˜ë¼
 
 explain plan for
 select /*+ index(emp emp_hiredate)*/ hiredate
@@ -57,20 +57,20 @@ where hiredate='81/11/17';
 select*from table(dbms_xplan.display);
 
 
-394.ÀÌ¸§°ú ¿ù±ŞÀ» Ãâ·ÂÇÏ´Âµ¥ ¿ù±ŞÀÌ ³ôÀº »ç¿øºÎÅÍ Ãâ·ÂÇÏ½Ã¿À
+â–  Q-394.ì´ë¦„ê³¼ ì›”ê¸‰ì„ ì¶œë ¥í•˜ëŠ”ë° ì›”ê¸‰ì´ ë†’ì€ ì‚¬ì›ë¶€í„° ì¶œë ¥í•˜ì‹œì˜¤
 
 select /*+ index_desc(emp emp_sal)*/ename,sal
 from emp
 where sal >= 0;
-        ¡è
-INDEX ¿¡ Where ÀıÀº ÇÊ¼ö ÀÌ´Ù! 
+        â†‘
+INDEX ì— Where ì ˆì€ í•„ìˆ˜ ì´ë‹¤! 
 
-395.¾Æ·¡ÀÇ SQLÀ» Æ©´×ÇÏ½Ã¿À! 
-Æ©´×Àü : select ename,hiredate
+â–  Q-395.ì•„ë˜ì˜ SQLì„ íŠœë‹í•˜ì‹œì˜¤! 
+íŠœë‹ì „ : select ename,hiredate
             from emp
             order by hiredate desc;
 
-Æ©´×ÈÄ :
+íŠœë‹í›„ :
 create index emp_hiredate
 on emp(hiredate);
 
@@ -81,21 +81,21 @@ where hiredate >= to_date('9999/12/31,'RR/MM/DD');
 select*from ta
 
 
-396.»ç¿ø Å×ÀÌºí¿¡ Á÷¾÷¿¡ ÀÎµ¦½º¸¦ »ı¼ºÇÏ½Ã¿À!
+â–  Q-396.ì‚¬ì› í…Œì´ë¸”ì— ì§ì—…ì— ì¸ë±ìŠ¤ë¥¼ ìƒì„±í•˜ì‹œì˜¤!
 create index emp_job
 on emo(job);
 
-397.¾Æ·¡ÀÇ SQLÀ» Æ©´×ÇÏ½Ã¿À 
-Æ©´×Àü
+â–  Q-397.ì•„ë˜ì˜ SQLì„ íŠœë‹í•˜ì‹œì˜¤ 
+íŠœë‹ì „
 select ename,job   
  FROM emp  
 WHERE substr(job,1,5) ='SALES' 
-           ¡é
-Æ©´×ÈÄ
+           â†“
+íŠœë‹í›„
 select /* index(emp emp_job)*/ename,job
 
 
-400.³ª¸ÓÁö ÀÎµ¦½ºµéµµ ÀüºÎ drop ÇÏ½Ã¿À
+â–  Q-400.ë‚˜ë¨¸ì§€ ì¸ë±ìŠ¤ë“¤ë„ ì „ë¶€ drop í•˜ì‹œì˜¤
 	
 	drop index emp_job;
 	
@@ -103,9 +103,9 @@ select /* index(emp emp_job)*/ename,job
             
 
 
-401. ¹é¾÷¹ŞÀº emp_backup_2020111ÀÇ µ¥ÀÌÅÍ¸¦ empÅ×ÀÌºí¿¡ ÀÔ·ÂÇÏ½Ã¿À! 
+â–  Q-401. ë°±ì—…ë°›ì€ emp_backup_2020111ì˜ ë°ì´í„°ë¥¼ empí…Œì´ë¸”ì— ì…ë ¥í•˜ì‹œì˜¤! 
 
-¹é¾÷ÆÄÀÏÀ» ¸¸µé°í ´Ù½Ã ³Ö°í ...
+ë°±ì—…íŒŒì¼ì„ ë§Œë“¤ê³  ë‹¤ì‹œ ë„£ê³  ...
 
 create table emp_backup_20201111
 as
@@ -116,15 +116,15 @@ insert into emp
 select * 
 from emp_backup_20201111;
 
-402.¾Æ·¡¿Í °°ÀÌ salgrade Å×ÀÌºíÀ» ÀüºÎ delete ÇÏ°í commit ÇÑÈÄ¿¡ º¹±¸ÇÏ½Ã¿À!
+â–  Q-402.ì•„ë˜ì™€ ê°™ì´ salgrade í…Œì´ë¸”ì„ ì „ë¶€ delete í•˜ê³  commit í•œí›„ì— ë³µêµ¬í•˜ì‹œì˜¤!
 
 create table salgrade_backup_20201111
 as
-select * from salgrade;                                                                        ¹é¾÷ÆÄÀÏ ¸¸µé°í
+select * from salgrade;                                                                        ë°±ì—…íŒŒì¼ ë§Œë“¤ê³ 
 
 delete from salgrade;
-commit;                                                               »èÁ¦ÇÏ°í
+commit;                                                               ì‚­ì œí•˜ê³ 
 
 insert into salgrade
-select *                                                               ¹é¾÷ÆÄÀÏ·Î °ªÀÔ·ÂÇØÁÖ±â 
+select *                                                               ë°±ì—…íŒŒì¼ë¡œ ê°’ì…ë ¥í•´ì£¼ê¸° 
 from salgrade_backup_20201111;
