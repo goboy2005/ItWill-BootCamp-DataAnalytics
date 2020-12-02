@@ -40,13 +40,6 @@ select ename,hiredate
 from emp
 where hiredate='81/11/17';
 
-■ Q-392.입사일에 index 를 생성하고 81년 11월17일에 입사한 사원의 이름과 입사일을 조회하시오
-
-explain plan for
-select hiredate
-from emp
-where hiredate='81/11/17';
-
 ■ Q-393.위의 SQL의 실행 계획 확인하고 힌트 줘라
 
 explain plan for
@@ -78,8 +71,6 @@ select /* index_desc(emp_hiredate)*/ ename,hiredate
 from emp
 where hiredate >= to_date('9999/12/31,'RR/MM/DD');
 
-select*from ta
-
 
 ■ Q-396.사원 테이블에 직업에 인덱스를 생성하시오!
 create index emp_job
@@ -89,7 +80,7 @@ on emo(job);
 튜닝전
 select ename,job   
  FROM emp  
-WHERE substr(job,1,5) ='SALES' 
+   WHERE substr(job,1,5) ='SALES' 
            ↓
 튜닝후
 select /* index(emp emp_job)*/ename,job
@@ -102,7 +93,6 @@ select /* index(emp emp_job)*/ename,job
 	drop index emp_sal;
             
 
-
 ■ Q-401. 백업받은 emp_backup_2020111의 데이터를 emp테이블에 입력하시오! 
 
 백업파일을 만들고 다시 넣고 ...
@@ -110,7 +100,6 @@ select /* index(emp emp_job)*/ename,job
 create table emp_backup_20201111
 as
 select * from emp;
-
 
 insert into emp
 select * 
