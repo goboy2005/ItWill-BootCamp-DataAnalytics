@@ -11,7 +11,7 @@ insert into num1_9
   from dual 
      conncect by level <=9);
      
-     select * from num1_9;
+select * from num1_9;
 
 create global temporary table num2_9
 (num2 nubmer(10))
@@ -53,6 +53,7 @@ delete from emp705
 where num1=4;
 
 ■ Q-374.직업,직업별 토탈월급을 출력하시오(세로 출력) 
+
 select ename,sum(sal)
   from emp
     group by job;
@@ -61,8 +62,8 @@ select ename,sum(sal)
 
 create view emp403 as
 select job,sum(sal) as Total
-from emp
-group by job;
+ from emp
+   group by job;
 
 (in order to make a view table with group you must make a name for it)
 
