@@ -1,25 +1,25 @@
-SQL Day2 Problems
+SQL Day11 Problems
 
-¡á Q-314.  dept Å×ÀÌºíÀ»  ¹é¾÷ÇÏ½Ã¿À 
+â–  Q-314.  dept í…Œì´ë¸”ì„  ë°±ì—…í•˜ì‹œì˜¤ 
 
  create  table   dept_backup
  as
   select *
    from  dept; 
 
-¡á Q-315.  dept Å×ÀÌºíÀ» truncate ÇÏ½Ã¿À 
+â–  Q-315.  dept í…Œì´ë¸”ì„ truncate í•˜ì‹œì˜¤ 
 
  truncate   table  dept; 
 
-¡á Q-316.  dept Å×ÀÌºíÀ» dept_backup Å×ÀÌºíÀ» ÀÌ¿ëÇØ¼­ º¹±¸ÇÏ½Ã¿À 
+â–  Q-316.  dept í…Œì´ë¸”ì„ dept_backup í…Œì´ë¸”ì„ ì´ìš©í•´ì„œ ë³µêµ¬í•˜ì‹œì˜¤ 
 
 insert   into  dept
  select  *
    from  dept_backup;
 
 
-¡á Q-317.  ALLEN º¸´Ù ´õ ´Ê°Ô ÀÔ»çÇÑ »ç¿øµéÀÇ Ä¿¹Ì¼ÇÀ» 9000À¸·Î 
-¼öÁ¤ÇÏ½Ã¿À !
+â–  Q-317.  ALLEN ë³´ë‹¤ ë” ëŠ¦ê²Œ ì…ì‚¬í•œ ì‚¬ì›ë“¤ì˜ ì»¤ë¯¸ì…˜ì„ 9000ìœ¼ë¡œ 
+ìˆ˜ì •í•˜ì‹œì˜¤ !
 
 update emp
 set comm = 9000
@@ -27,8 +27,8 @@ where hiredate > (select hiredate
                          from emp
                          where ename ='ALLEN');
 
-¡á Q-318.  SMITH ¿Í °°Àº Á÷¾÷À» °®´Â »ç¿øµéÀÇ ¿ù±ŞÀ» 9800À¸·Î 
- º¯°æÇÏ½Ã¿À ! ±×·±µ¥ SMITH ´Â Á¦¿ÜÇÏ½Ã¿À !
+â–  Q-318.  SMITH ì™€ ê°™ì€ ì§ì—…ì„ ê°–ëŠ” ì‚¬ì›ë“¤ì˜ ì›”ê¸‰ì„ 9800ìœ¼ë¡œ 
+ ë³€ê²½í•˜ì‹œì˜¤ ! ê·¸ëŸ°ë° SMITH ëŠ” ì œì™¸í•˜ì‹œì˜¤ !
 
 update emp
 set sal = 9800
@@ -37,7 +37,7 @@ where job = (select job
 		where ename = 'SMITH') 
 and ename != 'SMITH';
 
-¡á Q-319.  ALLEN ÀÇ ¿ù±ŞÀ»  KING ÀÇ ¿ù±ŞÀ¸·Î º¯°æÇÏ½Ã¿À !
+â–  Q-319.  ALLEN ì˜ ì›”ê¸‰ì„  KING ì˜ ì›”ê¸‰ìœ¼ë¡œ ë³€ê²½í•˜ì‹œì˜¤ !
 
  update  emp
    set  sal  =  (  select   sal 
@@ -45,8 +45,8 @@ and ename != 'SMITH';
                         where  ename='KING' ) 
    where   ename='ALLEN';
 
-¡á Q-320.   JONES º¸´Ù ¿ù±ŞÀÌ ¸¹Àº »ç¿øµéÀÇ Á÷¾÷À» MARTIN ÀÇ 
- Á÷¾÷À¸·Î º¯°æÇÏ½Ã¿À !
+â–  Q-320.   JONES ë³´ë‹¤ ì›”ê¸‰ì´ ë§ì€ ì‚¬ì›ë“¤ì˜ ì§ì—…ì„ MARTIN ì˜ 
+ ì§ì—…ìœ¼ë¡œ ë³€ê²½í•˜ì‹œì˜¤ !
 
  update   emp
    set   job =  (select   job
@@ -57,7 +57,7 @@ and ename != 'SMITH';
                           where  ename='JONES' );
 
 
-¡á Q-321.  ALLEN º¸´Ù ´Ê°Ô ÀÔ»çÇÑ »ç¿øµéÀ» »èÁ¦ÇÏ½Ã¿À !
+â–  Q-321.  ALLEN ë³´ë‹¤ ëŠ¦ê²Œ ì…ì‚¬í•œ ì‚¬ì›ë“¤ì„ ì‚­ì œí•˜ì‹œì˜¤ !
 
  delete  from  emp
   where  hiredate > ( select   hiredate
@@ -65,18 +65,18 @@ and ename != 'SMITH';
                                where  ename='ALLEN' );
  rollback;
 
-¡á Q-322.  JONES ¿Í °°Àº ºÎ¼­¹øÈ£¿¡¼­ ÀÏÇÏ´Â »ç¿øµéÀ» »èÁ¦ÇÏ½Ã¿À !
- ±×·±µ¥ JONES ´Â Á¦¿Ü½ÃÅ°½Ã¿À 
+â–  Q-322.  JONES ì™€ ê°™ì€ ë¶€ì„œë²ˆí˜¸ì—ì„œ ì¼í•˜ëŠ” ì‚¬ì›ë“¤ì„ ì‚­ì œí•˜ì‹œì˜¤ !
+ ê·¸ëŸ°ë° JONES ëŠ” ì œì™¸ì‹œí‚¤ì‹œì˜¤ 
 
 
 
-¡á Q-323.  ºÎ¼­¹øÈ£, ºÎ¼­¹øÈ£º° ÀÎ¿ø¼ö¸¦ Ãâ·ÂÇÏ½Ã¿À !(¼¼·Î Ãâ·Â)
+â–  Q-323.  ë¶€ì„œë²ˆí˜¸, ë¶€ì„œë²ˆí˜¸ë³„ ì¸ì›ìˆ˜ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤ !(ì„¸ë¡œ ì¶œë ¥)
 
- select  deptno, count(*)  ÀÎ¿ø¼ö 
+ select  deptno, count(*)  ì¸ì›ìˆ˜ 
   from  emp
   group  by deptno; 
 
-¡á Q-324.  ºÎ¼­Å×ÀÌºí¿¡ cnt ¶ó´Â ÄÃ·³À» Ãß°¡ÇÏ½Ã¿À !
+â–  Q-324.  ë¶€ì„œí…Œì´ë¸”ì— cnt ë¼ëŠ” ì»¬ëŸ¼ì„ ì¶”ê°€í•˜ì‹œì˜¤ !
 
  alter   table  dept
    add   cnt    number(10);
@@ -84,19 +84,19 @@ and ename != 'SMITH';
  select   deptno, cnt
    from  dept; 
 
-¡á Q-325. Áö±İ dept Å×ÀÌºí¿¡ Ãß°¡ÇÑ cnt ÄÃ·³¿¡ ÇØ´ç ºÎ¼­¹øÈ£¿¡ ÀÎ¿ø¼ö·Î
-°ªÀ» °»½ÅÇÏ½Ã¿À ! 
+â–  Q-325. ì§€ê¸ˆ dept í…Œì´ë¸”ì— ì¶”ê°€í•œ cnt ì»¬ëŸ¼ì— í•´ë‹¹ ë¶€ì„œë²ˆí˜¸ì— ì¸ì›ìˆ˜ë¡œ
+ê°’ì„ ê°±ì‹ í•˜ì‹œì˜¤ ! 
 
 merge into dept d
-using ( select  deptno, count(*)  ÀÎ¿ø¼ö 
+using ( select  deptno, count(*)  ì¸ì›ìˆ˜ 
            from  emp
            group  by  deptno )  e
 on ( e.deptno = d.deptno )
 when matched then
-update set d.cnt = e.ÀÎ¿ø¼ö;
+update set d.cnt = e.ì¸ì›ìˆ˜;
 
 
 
 
-¼³¸í:  using Àı¿¡ »ç¿ëÇÑ ¼­ºêÄõ¸®¹®ÀÇ °á°ú°¡ ¸¶Ä¡ Å×ÀÌºíÃ³·³ ÀÌ merge
-        ¹®¿¡¼­ »ç¿ëµÇ°í ÀÖ´Ù. 
+ì„¤ëª…:  using ì ˆì— ì‚¬ìš©í•œ ì„œë¸Œì¿¼ë¦¬ë¬¸ì˜ ê²°ê³¼ê°€ ë§ˆì¹˜ í…Œì´ë¸”ì²˜ëŸ¼ ì´ merge
+        ë¬¸ì—ì„œ ì‚¬ìš©ë˜ê³  ìˆë‹¤. 
