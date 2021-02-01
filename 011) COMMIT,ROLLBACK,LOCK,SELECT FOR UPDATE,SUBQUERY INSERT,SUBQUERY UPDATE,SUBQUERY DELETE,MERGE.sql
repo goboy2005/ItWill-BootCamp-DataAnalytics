@@ -1,4 +1,4 @@
-SQL Day11 Problems
+SQL Day 11 Problems
 
 ■ Q-314.  dept 테이블을  백업하시오 
 
